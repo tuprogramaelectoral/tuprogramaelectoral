@@ -1,0 +1,37 @@
+default:
+  translation:
+    locale: es
+  suites:
+    dominio:
+      contexts: [ DominioContext ]
+      filters:
+        tags: @dominio
+    backend:
+      type: symfony_bundle
+      bundle: AppBundle
+      paths:    [ %paths.base%/features ]
+      contexts: [ BackendContext ]
+      filters:
+        tags: @backend
+      mink_session: backend_session
+    aceptacion:
+      contexts:
+        - AceptacionContext:
+          - %paths.base%/data
+      filters:
+        tags: @aceptacion
+      mink_session: aceptacion_session
+
+  extensions:
+    Behat\Symfony2Extension:
+      kernel:
+        bootstrap: apps/backend/vendor/autoload.php
+        path: apps/backend/app/AppKernel.php
+    Behat\MinkExtension:
+      base_url: "http://192.168.99.100:9000"
+      sessions:
+        aceptacion_session:
+          selenium2:
+            wd_host: "http://192.168.99.100:8910/wd/hub"
+        backend_session:
+          symfony2: ~

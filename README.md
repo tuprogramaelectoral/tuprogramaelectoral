@@ -6,6 +6,8 @@ Web que muestra los programas electorales de cada partido clasificados por ámbi
 
 Esta es una versión española desde cero de la web https://voteforpolicies.org.uk/
 
+**Si quieres colaborar con su desarrollo, diseño y dotación de contenido pásate por la [wiki](https://github.com/tuprogramaelectoral/tuprogramaelectoral/wiki)**
+
 ## Aplicaciones necesarias
 
  * docker (https://docs.docker.com/installation/)

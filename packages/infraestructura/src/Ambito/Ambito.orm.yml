@@ -1,0 +1,11 @@
+TPE\Dominio\Ambito\Ambito:
+  type: entity
+  table: ambito
+  id:
+    id:
+      type: string
+      length: 255
+  fields:
+    nombre:
+      type: string
+      length: 255

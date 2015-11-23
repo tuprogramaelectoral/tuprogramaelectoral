@@ -1,0 +1,4 @@
+suites:
+    infraestructura:
+        namespace: TPE\Infraestructura
+        psr4_prefix: TPE\Infraestructura

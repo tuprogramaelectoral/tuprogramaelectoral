@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+services:
+ - docker
+
+install:
+  - docker build -f artifacts/test/backend/Dockerfile -t backend .
+  - docker run -d --name db -e POSTGRES_USER=root -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=vspdb postgres:9.4
+  - docker run -d --name backend --link db backend
+script:
+  - docker exec -t backend bin/behat --suite=dominio
+  - docker exec -t backend bin/behat --suite=backend
+  - docker exec -t backend /bin/bash -c 'cd packages/dominio/ && bin/phpspec run --format pretty'
+  - docker exec -t backend /bin/bash -c 'cd packages/infraestructura/ && bin/phpunit --testdox'

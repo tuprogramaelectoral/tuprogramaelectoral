@@ -1,5 +1,5 @@
 alias tpe-behat='docker exec -t dev_backend_1 bin/behat'
-alias tpe-phpspec-domain='docker exec -t dev_backend_1 /bin/bash -c "cd packages/dominio/ && bin/phpspec run"'
+alias tpe-phpspec-dominio='docker exec -t dev_backend_1 /bin/bash -c "cd packages/dominio/ && bin/phpspec run"'
 alias tpe-phpunit-infraestructura='docker exec -t dev_backend_1 /bin/bash -c "cd packages/infraestructura/ && bin/phpunit"'
 alias tpe-unison='unison $TPE_PATH socket://192.168.99.100:5000 -auto -batch -ignore "Name {.git,node_modules}"'
 alias tpe-unison-fsmonitor='fswatch -o $TPE_PATH | xargs -n1 -I{} unison $TPE_PATH socket://192.168.99.100:5000/ -ignore "Name {.git,node_modules}" -auto -batch'
