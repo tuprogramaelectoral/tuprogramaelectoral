@@ -1,0 +1,19 @@
+# mac
+.DS_Store
+
+# editor
+.idea
+
+# node
+node_modules/
+
+# PHP
+**/vendor
+**/bin
+
+# artifacts
+**/.vagrant
+artifacts/*/log
+
+# Bower
+bower_components

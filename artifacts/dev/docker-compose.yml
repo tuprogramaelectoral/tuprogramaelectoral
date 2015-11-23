@@ -1,0 +1,42 @@
+db:
+  image: postgres:9.4
+  ports:
+   - 5432:5432
+  environment:
+   POSTGRES_USER: root
+   POSTGRES_PASSWORD: admin
+   POSTGRES_DB: vspdb
+
+backend:
+  image: aleherse/tuprogramaelectoral:backend-dev
+  ports:
+   - 80:80
+  volumes_from:
+   - codebase
+  links:
+   - db
+   - codebase
+  environment:
+   DATABASE_HOST: db
+   DATABASE_NAME: vspdb
+   DATABASE_USER: root
+   DATABASE_PASSWORD: admin
+   SYMFONY_SECRET: ThisTokenIsNotSoSecretChangeIt
+
+frontend:
+  image: aleherse/tuprogramaelectoral:frontend-dev
+  volumes_from:
+   - codebase
+  ports:
+   - 9000:9000
+   - 8910:8910
+   - 35729:35729
+  links:
+   - codebase
+
+#ci:
+#  image: jenkins
+#  ports:
+#   - 8080:8080
+#  volumes_from:
+#   - codebase

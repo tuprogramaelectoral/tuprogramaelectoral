@@ -1,0 +1,4 @@
+codebase:
+  image: ubuntu:15.10
+  volumes:
+   - ../../:/var/www
