@@ -59,7 +59,8 @@
                 "database_name": "DATABASE_NAME",
                 "database_user": "DATABASE_USER",
                 "database_password": "DATABASE_PASSWORD",
-                "secret": "SYMFONY_SECRET"
+                "secret": "SYMFONY_SECRET",
+                "cors_allow_origin": "ALLOW_ORIGIN"
             }
         }
     },
