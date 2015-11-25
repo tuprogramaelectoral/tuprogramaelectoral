@@ -2,7 +2,9 @@
   "name": "dominio",
   "type": "package",
   "require": {
-    "keyvanakbary/slugifier": "^4.0"
+    "keyvanakbary/slugifier": "^4.0",
+    "erusev/parsedown": "^1.6",
+    "beberlei/assert": "^2.4"
   },
   "require-dev": {
     "phpspec/phpspec": "~2.3"

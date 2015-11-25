@@ -2,8 +2,9 @@
 
 namespace TPE\Dominio\Ambito;
 
-use slugifier as s;
+use Assert\Assertion;
 use TPE\Dominio\Datos\DatoInicial;
+
 
 /**
  * Ámbito sobre el que actuan una serie de políticas
@@ -19,6 +20,17 @@ class Ambito extends DatoInicial
      */
     private $nombre;
 
+
+    /**
+     * @param string $nombre
+     */
+    public function __construct($nombre)
+    {
+        Assertion::notEmpty($nombre, 'El nombre del ámbito no puede estar vacío');
+
+        parent::__construct($nombre);
+        $this->nombre = $nombre;
+    }
 
     /**
      * @param string $json
@@ -37,15 +49,6 @@ class Ambito extends DatoInicial
         }
 
         throw new \BadMethodCallException('Faltan parámetros para crear el Ámbito a partir de ' . $json);
-    }
-
-    /**
-     * @param string $nombre
-     */
-    public function __construct($nombre)
-    {
-        $this->nombre = $nombre;
-        $this->id = s\slugify($nombre);
     }
 
     /**

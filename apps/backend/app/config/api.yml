@@ -5,6 +5,11 @@ sylius_resource:
             classes:
                 model: TPE\Dominio\Ambito\Ambito
                 repository: TPE\Infraestructura\Ambito\AmbitoBaseDeDatosRepositorio
+        app.partido:
+            driver: doctrine/orm
+            classes:
+                model: TPE\Dominio\Partido\Partido
+                repository: TPE\Infraestructura\Partido\PartidoBaseDeDatosRepositorio
 
 fos_rest:
     disable_csrf_role: ROLE_API

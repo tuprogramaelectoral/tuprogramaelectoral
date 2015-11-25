@@ -1,0 +1,18 @@
+TPE\Dominio\Partido\Partido:
+  type: entity
+  table: partido
+  id:
+    id:
+      type: string
+      length: 255
+  fields:
+    nombre:
+      type: string
+      length: 255
+    siglas:
+      type: string
+      length: 255
+    programa:
+      type: string
+      length: 512
+      nullable: true

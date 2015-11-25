@@ -81,6 +81,12 @@ doctrine:
                         dir:        "%kernel.root_dir%/../vendor/infraestructura/src/Ambito"
                         prefix:     TPE\Dominio\Ambito
                         is_bundle:  false
+                    partido:
+                        mapping:    true
+                        type:       yml
+                        dir:        "%kernel.root_dir%/../vendor/infraestructura/src/Partido"
+                        prefix:     TPE\Dominio\Partido
+                        is_bundle:  false
 
 sylius_translation:
     default_locale: %locale%

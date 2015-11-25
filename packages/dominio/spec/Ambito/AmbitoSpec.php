@@ -12,6 +12,11 @@ class AmbitoSpec extends ObjectBehavior
         $this->beConstructedWith('Administración Pública');
     }
 
+    function it_extiende_dato_inicial()
+    {
+        $this->shouldHaveType('TPE\Dominio\Datos\DatoInicial');
+    }
+
     function it_tiene_un_nombre()
     {
         $this->getNombre()->shouldReturn('Administración Pública');
@@ -25,6 +30,12 @@ class AmbitoSpec extends ObjectBehavior
     function it_puede_ser_creado_usando_JSON()
     {
         $this::crearUsandoJson('{"nombre": "Administración Pública"}')->shouldReturnAnInstanceOf('TPE\Dominio\Ambito\Ambito');
+    }
+
+    function it_lanza_una_excepcion_si_el_nombre_esta_vacio()
+    {
+        $this->beConstructedWith('');
+        $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
     }
 
     function it_lanza_excepcion_si_faltan_campos_al_ser_creado_usando_JSON()

@@ -1,3 +1,16 @@
-app:
-    resource: "@AppBundle/Resources/config/routing.yml"
-    prefix:   /
+app_ambito_index:
+    path: /ambitos
+    methods: [GET]
+    defaults:
+        _controller: app.controller.ambito:indexAction
+        _sylius:
+            paginate: false
+
+app_partido_index:
+    path: /partidos
+    methods: [GET]
+    defaults:
+        _controller: app.controller.partido:indexAction
+        _sylius:
+            paginate: false
+

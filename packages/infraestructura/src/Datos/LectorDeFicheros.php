@@ -7,6 +7,7 @@ use Symfony\Component\Finder\Finder;
 use TPE\Dominio\Ambito\Ambito;
 use TPE\Dominio\Datos\DatoInicial;
 use TPE\Dominio\Datos\Lector;
+use TPE\Dominio\Partido\Partido;
 
 
 class LectorDeFicheros implements Lector
@@ -46,6 +47,8 @@ class LectorDeFicheros implements Lector
         switch ($clase) {
             case 'TPE\Dominio\Ambito\Ambito':
                 return (new Finder())->files()->in($this->path . '/ambito/*/')->depth(0);
+            case 'TPE\Dominio\Partido\Partido':
+                return (new Finder())->files()->in($this->path . '/partido/*/')->depth(0);
         };
 
         throw new \BadMethodCallException("la clase {$clase} no está registrada en el lector de ficheros para lectura");
@@ -57,6 +60,8 @@ class LectorDeFicheros implements Lector
         switch ($clase) {
             case 'TPE\Dominio\Ambito\Ambito':
                 return Ambito::crearUsandoJson($contenido);
+            case 'TPE\Dominio\Partido\Partido':
+                return Partido::crearUsandoJson($contenido);
         };
 
         throw new \BadMethodCallException("la clase {$clase} no está registrada en el lector de ficheros para instanciar");

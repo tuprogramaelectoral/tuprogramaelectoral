@@ -1,6 +1,7 @@
 <?php
 
 use TPE\Dominio\Ambito\Ambito;
+use TPE\Dominio\Partido\Partido;
 use TPE\Infraestructura\Datos\LectorDeFicheros;
 
 
@@ -25,6 +26,26 @@ class LectorDeFicherosTest extends \PHPUnit_Framework_TestCase
 
         foreach ($ambitos as $ambito) {
             $this->assertEquals($datos[$ambito->getId()], $ambito);
+        }
+    }
+
+    public function testLeeLosFicherosConPartidosYLosDevuelveInstanciadosEnObjetos()
+    {
+        $path = LectorDeFicheros::escribirFicherosDeTest([
+            'partido/partido-ficticio/partido.json' => '{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}'
+        ]);
+
+        $datos = [
+            'partido-ficticio' => Partido::crearUsandoJson('{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}')
+        ];
+
+        $lector = new LectorDeFicheros($path);
+        $partidos = $lector->leer('TPE\Dominio\Partido\Partido');
+
+        $this->assertCount(count($datos), $partidos);
+
+        foreach ($partidos as $partido) {
+            $this->assertEquals($datos[$partido->getId()], $partido);
         }
     }
 

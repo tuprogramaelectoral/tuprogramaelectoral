@@ -4,9 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da3a8cc1db7e4eca04b2c78b52dead2a",
-    "content-hash": "690054c4ffd576f8fce6fdd14939fbf9",
+    "hash": "7487ba0e157c4b9f22431db7f1e9e9ea",
+    "content-hash": "f124021f7d15b578d94d9af9f43cb9de",
     "packages": [
+        {
+            "name": "beberlei/assert",
+            "version": "v2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6",
+                "reference": "7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "@stable"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assert": "lib/"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "time": "2015-08-21 16:50:17"
+        },
         {
             "name": "behat/transliterator",
             "version": "v1.1.0",
@@ -734,16 +787,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "e6a83bedbe67579cb0bfb688e982e617943a2945"
+                "reference": "464b5fdbfbbeb4a65465ac173c4c5d90960f41ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/e6a83bedbe67579cb0bfb688e982e617943a2945",
-                "reference": "e6a83bedbe67579cb0bfb688e982e617943a2945",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/464b5fdbfbbeb4a65465ac173c4c5d90960f41ff",
+                "reference": "464b5fdbfbbeb4a65465ac173c4c5d90960f41ff",
                 "shasum": ""
             },
             "require": {
@@ -754,12 +807,12 @@
                 "doctrine/instantiator": "~1.0.1",
                 "ext-pdo": "*",
                 "php": ">=5.4",
-                "symfony/console": "~2.5"
+                "symfony/console": "~2.5|~3.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0",
                 "satooshi/php-coveralls": "dev-master",
-                "symfony/yaml": "~2.1"
+                "symfony/yaml": "~2.3|~3.0"
             },
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
@@ -807,7 +860,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-08-31 12:59:39"
+            "time": "2015-11-23 12:44:25"
         },
         {
             "name": "dominio",
@@ -815,10 +868,12 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/dominio/",
-                "reference": "fd18262df55ddb6b00fd0893bc281f4e",
+                "reference": "1c6702b2d3670694880fbb03569134e8",
                 "shasum": null
             },
             "require": {
+                "beberlei/assert": "^2.4",
+                "erusev/parsedown": "^1.6",
                 "keyvanakbary/slugifier": "^4.0"
             },
             "require-dev": {
@@ -830,6 +885,45 @@
                     "TPE\\Dominio\\": "src/"
                 }
             }
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2015-10-04 16:44:32"
         },
         {
             "name": "friendsofsymfony/rest-bundle",
@@ -918,16 +1012,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.7",
+            "version": "v2.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "1a86ba1c7426238b4f765089e0af51174a38af7f"
+                "reference": "096ed89496f8adab9a57aaf0e3624c3407f64d4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/1a86ba1c7426238b4f765089e0af51174a38af7f",
-                "reference": "1a86ba1c7426238b4f765089e0af51174a38af7f",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/096ed89496f8adab9a57aaf0e3624c3407f64d4f",
+                "reference": "096ed89496f8adab9a57aaf0e3624c3407f64d4f",
                 "shasum": ""
             },
             "require": {
@@ -993,7 +1087,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-09-28 16:39:27"
+            "time": "2015-11-25 05:46:30"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1052,16 +1146,19 @@
             "dist": {
                 "type": "path",
                 "url": "../../packages/infraestructura/",
-                "reference": "e9875dac9f5396ce479a678e1409a112",
+                "reference": "1505eb3f15a41c071672c4adb670bb1d",
                 "shasum": null
             },
             "require": {
                 "doctrine/orm": "^2.4.8",
                 "dominio": "*@dev",
-                "sylius/resource-bundle": "^0.15.0"
+                "sylius/resource-bundle": "^0.15.0",
+                "symfony/filesystem": "^2.7",
+                "symfony/finder": "^2.7",
+                "symfony/yaml": "^2.7"
             },
             "require-dev": {
-                "phpspec/phpspec": "~2.3"
+                "phpunit/phpunit": "^5.0"
             },
             "type": "package",
             "autoload": {
@@ -2600,23 +2697,23 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "66b2e9662c44d478b69e48278aa54079a006eb42"
+                "reference": "cc69dbd24b4b2e6de60b2414ef95da2794f459a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/66b2e9662c44d478b69e48278aa54079a006eb42",
-                "reference": "66b2e9662c44d478b69e48278aa54079a006eb42",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/cc69dbd24b4b2e6de60b2414ef95da2794f459a2",
+                "reference": "cc69dbd24b4b2e6de60b2414ef95da2794f459a2",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.4",
                 "php": ">=5.3.9",
                 "psr/log": "~1.0",
-                "twig/twig": "~1.20|~2.0"
+                "twig/twig": "~1.23|~2.0"
             },
             "replace": {
                 "symfony/asset": "self.version",
@@ -2696,6 +2793,9 @@
                 ],
                 "files": [
                     "src/Symfony/Component/Intl/Resources/stubs/functions.php"
+                ],
+                "exclude-from-classmap": [
+                    "**/Tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2717,7 +2817,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-10-27 19:07:24"
+            "time": "2015-11-23 11:58:08"
         },
         {
             "name": "twig/twig",
