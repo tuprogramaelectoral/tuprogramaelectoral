@@ -2,4 +2,4 @@ services:
     cargador_de_datos:
         class: TPE\Dominio\Datos\Cargador
         arguments:
-         - [@app.repository.ambito]
+         - [@app.repository.ambito, @app.repository.partido]

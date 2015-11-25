@@ -12,6 +12,8 @@ use TPE\Dominio\Datos\Cargador;
 use TPE\Dominio\Datos\DatoInicial;
 use TPE\Dominio\Datos\DatoInicialRepositorio;
 use TPE\Dominio\Datos\Lector;
+use TPE\Dominio\Partido\Partido;
+use TPE\Dominio\Partido\PartidoEnMemoriaRepositorio;
 
 
 /**
@@ -64,6 +66,9 @@ class DominioContext implements Context, SnippetAcceptingContext
         switch ($tipoDeDato) {
             case "ámbitos":
                 $this->repositorios[$tipoDeDato] = new AmbitoEnMemoriaRepositorio($datos);
+                break;
+            case "partidos":
+                $this->repositorios[$tipoDeDato] = new PartidoEnMemoriaRepositorio($datos);
                 break;
         }
     }
@@ -146,6 +151,8 @@ class DominioContext implements Context, SnippetAcceptingContext
         switch ($tipoDeDato) {
             case "ámbitos":
                 return Ambito::crearUsandoJson($json);
+            case "partidos":
+                return Partido::crearUsandoJson($json);
         }
     }
 

@@ -64,6 +64,8 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
         switch ($tipoDeDato) {
             case "ámbitos":
                 return $this->getContainer()->get('app.repository.ambito');
+            case "partidos":
+                return $this->getContainer()->get('app.repository.partido');
         }
     }
 
@@ -73,7 +75,8 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
     public function veoLaListaDelTipoDeDatoDisponibles($tipoDeDato)
     {
         $paths = [
-            'ámbitos' => 'ambitos'
+            'ámbitos' => 'ambitos',
+            'partidos' => 'partidos'
         ];
 
         $this->getSession()->setRequestHeader('Accept', 'application/json');

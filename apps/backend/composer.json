@@ -68,6 +68,10 @@
         {
             "type": "path",
             "url": "../../packages/infraestructura"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/dominio"
         }
     ]
 }
