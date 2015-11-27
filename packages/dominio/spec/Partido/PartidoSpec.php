@@ -59,16 +59,4 @@ class PartidoSpec extends ObjectBehavior
     {
         $this::crearUsandoJson('{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}')->shouldReturnAnInstanceOf('TPE\Dominio\Partido\Partido');
     }
-//
-//    function it_lanza_excepcion_si_faltan_campos_al_ser_creado_usando_JSON()
-//    {
-//        $this->shouldThrow(new \BadMethodCallException('Faltan parámetros para crear el Ámbito a partir de {}'))
-//            ->duringCrearUsandoJson("{}");
-//    }
-//
-//    function it_lanza_excepcion_al_ser_creado_usando_un_JSON_malformado()
-//    {
-//        $this->shouldThrow(new \BadMethodCallException('detectado JSON malformado al crear el Ámbito a partir de {nombre}'))
-//            ->duringCrearUsandoJson('{nombre}');
-//    }
 }

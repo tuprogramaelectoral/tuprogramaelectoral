@@ -44,13 +44,5 @@ class AmbitoEnMemoriaRepositorioSpec extends ObjectBehavior
     {
         $this->getClassName()->shouldReturn('TPE\Dominio\Ambito\Ambito');
     }
-
-    function it_regenera_los_ambitos_almacenados_a_partir_de_nuevos_datos(Ambito $educacion, Ambito $sanidad)
-    {
-        $this->save($sanidad);
-        $this->regenerarDatos([$educacion]);
-
-        $this->findAll()->shouldReturn([$educacion]);
-    }
 }
 

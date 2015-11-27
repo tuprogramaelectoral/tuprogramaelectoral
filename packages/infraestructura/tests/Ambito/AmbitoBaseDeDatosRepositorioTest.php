@@ -26,7 +26,8 @@ class AmbitoBaseDeDatosRepositorioTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $namespaces = array(
-            'src/Ambito' => 'TPE\Dominio\Ambito'
+            'src/Ambito' => 'TPE\Dominio\Ambito',
+            'src/Partido' => 'TPE\Dominio\Partido'
         );
 
         $dbParams = array(
@@ -39,9 +40,10 @@ class AmbitoBaseDeDatosRepositorioTest extends \PHPUnit_Framework_TestCase
 
         $this->em = EntityManager::create($dbParams, $config);
 
+        $schemaTool = new SchemaTool($this->em);
         $metadata = $this->em->getClassMetadata('TPE\Dominio\Ambito\Ambito');
-        $this->em->getConnection()->executeQuery('DROP TABLE IF EXISTS ' . $metadata->getTableName());
-        (new SchemaTool($this->em))->createSchema([$metadata]);
+        $schemaTool->dropSchema([$metadata]);
+        $schemaTool->createSchema([$metadata]);
 
         $this->ambitoRepositorio = New AmbitoBaseDeDatosRepositorio(
             $this->em,
@@ -57,28 +59,5 @@ class AmbitoBaseDeDatosRepositorioTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->ambitoRepositorio->findOneBy(['nombre' => $esperado->getNombre()]);
         $this->assertEquals($esperado, $actual);
-    }
-
-    public function testRegeneraLosDatosAlmacenadosSinCargarNuevos()
-    {
-        $anterior = New Ambito('Ámbito preexistente');
-
-        $this->ambitoRepositorio->save($anterior);
-        $this->ambitoRepositorio->regenerarDatos();
-
-        $todos = $this->ambitoRepositorio->findAll();
-        $this->assertCount(0, $todos);
-    }
-
-    public function testRegeneraLosDatosAlmacenadosAPartirDeNuevosDatos()
-    {
-        $anterior = New Ambito('Ámbito preexistente');
-        $esperado = New Ambito('Ámbito de pueba');
-
-        $this->ambitoRepositorio->save($anterior);
-        $this->ambitoRepositorio->regenerarDatos([$esperado]);
-
-        $todos = $this->ambitoRepositorio->findAll();
-        $this->assertEquals([$esperado], $todos);
     }
 }

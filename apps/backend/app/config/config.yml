@@ -107,3 +107,18 @@ nelmio_cors:
         max_age:       3600
     paths:
         '^/': ~
+
+jms_serializer:
+    metadata:
+        cache: file
+        debug: "%kernel.debug%"
+        file_cache:
+            dir: "%kernel.cache_dir%/serializer"
+        auto_detection: false
+        directories:
+            ambito:
+                namespace_prefix: "TPE\\Dominio\\Ambito"
+                path: "%kernel.root_dir%/../vendor/infraestructura/src/Ambito"
+            partido:
+                namespace_prefix: "TPE\\Dominio\\Partido"
+                path: "%kernel.root_dir%/../vendor/infraestructura/src/Partido"

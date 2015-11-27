@@ -1,5 +1,5 @@
 services:
     cargador_de_datos:
-        class: TPE\Dominio\Datos\Cargador
+        class: TPE\Infraestructura\Datos\Cargador
         arguments:
-         - [@app.repository.ambito, @app.repository.partido]
+         - @doctrine.orm.default_entity_manager

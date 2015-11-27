@@ -38,21 +38,4 @@ abstract class EnMemoriaRepositorio implements DatoInicialRepositorio
     {
         $this->datos[$dato->getId()] = $dato;
     }
-
-    public function clear()
-    {
-    }
-
-    /**
-     * @param DatoInicial[] $datos = null
-     */
-    public function regenerarDatos(array $datos = null)
-    {
-        $this->datos = [];
-        if (is_array($datos)) {
-            foreach ($datos as $dato) {
-                $this->save($dato);
-            }
-        }
-    }
 }

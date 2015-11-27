@@ -2,16 +2,23 @@
 
 namespace TPE\Infraestructura\Datos;
 
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use TPE\Dominio\Ambito\Ambito;
 use TPE\Dominio\Datos\DatoInicial;
 use TPE\Dominio\Datos\Lector;
 use TPE\Dominio\Partido\Partido;
+use TPE\Dominio\Partido\Politica;
 
 
 class LectorDeFicheros implements Lector
 {
+    const CLASE_AMBITO = 'TPE\Dominio\Ambito\Ambito';
+    const CLASE_PARTIDO = 'TPE\Dominio\Partido\Partido';
+    const CLASE_POLITICA = 'TPE\Dominio\Partido\Politica';
+    const CLASE_POLITICA_CONTENIDO = 'ContenidoPolitica';
     /**
      * @var string
      */
@@ -31,7 +38,7 @@ class LectorDeFicheros implements Lector
         $objetos = [];
         $ficheros = $this->ficheros($clase);
         foreach ($ficheros as $fichero) {
-            $objetos[] = $this->cargarDesdeJson($clase, file_get_contents($fichero->getPathname()));
+            $objetos[] = $this->cargarDesdeFichero($clase, $fichero);
         }
 
         return $objetos;
@@ -39,29 +46,45 @@ class LectorDeFicheros implements Lector
 
     /**
      * @param string $clase
-     * @return \SplFileInfo[]
+     * @return Finder|\Iterator
      * @throws \Exception
      */
     private function ficheros($clase)
     {
-        switch ($clase) {
-            case 'TPE\Dominio\Ambito\Ambito':
-                return (new Finder())->files()->in($this->path . '/ambito/*/')->depth(0);
-            case 'TPE\Dominio\Partido\Partido':
-                return (new Finder())->files()->in($this->path . '/partido/*/')->depth(0);
-        };
+        try {
+            switch ($clase) {
+                case self::CLASE_AMBITO:
+                    return (new Finder())->files()->in($this->path . '/ambito/*/')->name('ambito.json')->depth(0);
+                case self::CLASE_PARTIDO:
+                    return (new Finder())->files()->in($this->path . '/partido/*/')->name('partido.json')->depth(0);
+                case self::CLASE_POLITICA:
+                    return (new Finder())->files()->in($this->path . '/ambito/*/politica/*/')->name('politica.json')->depth(0);
+                case self::CLASE_POLITICA_CONTENIDO:
+                    return (new Finder())->files()->in($this->path . '/ambito/*/politica/*/')->name('contenido.md')->depth(0);
+            };
+        } catch (\InvalidArgumentException $exception) {
+            return [];
+        }
 
         throw new \BadMethodCallException("la clase {$clase} no está registrada en el lector de ficheros para lectura");
     }
 
-
-    private function cargarDesdeJson($clase, $contenido)
+    private function cargarDesdeFichero($clase, SplFileInfo $fichero)
     {
         switch ($clase) {
-            case 'TPE\Dominio\Ambito\Ambito':
-                return Ambito::crearUsandoJson($contenido);
-            case 'TPE\Dominio\Partido\Partido':
-                return Partido::crearUsandoJson($contenido);
+            case self::CLASE_AMBITO:
+                return $fichero->getContents();
+            case self::CLASE_PARTIDO:
+                return $fichero->getContents();
+            case self::CLASE_POLITICA:
+                return [
+                    'json' => $fichero->getContents(),
+                    'contenido' => (new SplFileInfo(
+                        $fichero->getPath() . 'contenido.md',
+                        $fichero->getRelativePath(),
+                        'contenido.md')
+                    )->getContents()
+                ];
         };
 
         throw new \BadMethodCallException("la clase {$clase} no está registrada en el lector de ficheros para instanciar");

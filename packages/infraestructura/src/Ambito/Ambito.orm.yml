@@ -1,6 +1,9 @@
 TPE\Dominio\Ambito\Ambito:
   type: entity
-  table: ambito
+  table: tpe_ambito
+  indexes:
+    ambito_id_idx:
+      columns: [ id ]
   id:
     id:
       type: string
@@ -9,3 +12,7 @@ TPE\Dominio\Ambito\Ambito:
     nombre:
       type: string
       length: 255
+  oneToMany:
+    politicas:
+      targetEntity: TPE\Dominio\Partido\Politica
+      mappedBy: ambito

@@ -1,0 +1,28 @@
+TPE\Dominio\Partido\Politica:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+            groups: [Index, Show]
+        fuentes:
+            expose: true
+            type: array
+            groups: [Index, Show]
+        partido:
+            expose: true
+            type: string
+            access_type: public_method
+            read_only: true
+            serialized_name: partido_id
+            accessor:
+                getter: getPartidoId
+            groups: [Index, Show]
+        contenido:
+            expose: true
+            type: string
+            groups: [Index, Show]
+            access_type: public_method
+            read_only: true
+            accessor:
+                getter: getContenidoEnHtml

@@ -16,4 +16,9 @@ class AmbitoEnMemoriaRepositorio extends EnMemoriaRepositorio
     {
         return 'TPE\Dominio\Ambito\Ambito';
     }
+
+    public function regenerarDatos($argument1)
+    {
+        // TODO: write logic here
+    }
 }

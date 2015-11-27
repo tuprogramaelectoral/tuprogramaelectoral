@@ -1,0 +1,28 @@
+TPE\Dominio\Partido\Politica:
+  type: entity
+  table: tpe_politica
+  indexes:
+    politica_id_idx:
+      columns: [ id ]
+  id:
+    id:
+      type: string
+      length: 255
+  fields:
+    fuentes:
+      type: json_array
+    contenido:
+       type: text
+  manyToOne:
+    ambito:
+      targetEntity: TPE\Dominio\Ambito\Ambito
+      inversedBy: politicas
+      joinColumns:
+          ambito:
+            referencedColumnName: id
+    partido:
+      targetEntity: TPE\Dominio\Partido\Partido
+      inversedBy: politicas
+      joinColumns:
+          partido:
+            referencedColumnName: id
