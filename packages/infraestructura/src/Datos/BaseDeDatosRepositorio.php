@@ -23,27 +23,4 @@ abstract class BaseDeDatosRepositorio extends EntityRepository implements DatoIn
             $this->_em->flush();
         }
     }
-
-    /**
-     * @param DatoInicial[] $datos = null
-     */
-    public function regenerarDatos(array $datos = null)
-    {
-        $this->recrearEsquema();
-        if (is_array($datos)) {
-            foreach ($datos as $dato) {
-                $this->save($dato, false);
-            }
-        }
-
-        $this->_em->flush();
-        $this->clear();
-    }
-
-    private function recrearEsquema()
-    {
-        $metadata = $this->_em->getClassMetadata($this->getClassName());
-        $this->_em->getConnection()->executeQuery('DROP TABLE IF EXISTS ' . $metadata->getTableName());
-        (new SchemaTool($this->_em))->createSchema([$metadata]);
-    }
 }

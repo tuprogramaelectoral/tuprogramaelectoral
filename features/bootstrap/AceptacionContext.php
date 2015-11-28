@@ -10,6 +10,7 @@ use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\MinkExtension\Context\MinkContext;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
+use TPE\Infraestructura\Datos\LectorDeFicheros;
 
 /**
  * Defines application features from the specific context.
@@ -52,11 +53,11 @@ class AceptacionContext extends MinkContext implements SnippetAcceptingContext
      */
     public function veoLosAmbitosExistentesEnElRepositorio()
     {
-        /** @var \SplFileInfo[] $directorios */
-        $directorios = (new Finder())->directories()->in($this->dataPath . '/ambito')->depth(0);
         $ambitos = [];
-        foreach ($directorios as $directorio) {
-            $ambitos[$directorio->getFilename()] = $directorio->getFilename();
+        $contenidos = (new LectorDeFicheros($this->dataPath))->leer(LectorDeFicheros::CLASE_AMBITO);
+        foreach ($contenidos as $contenido) {
+            $ambito = json_decode($contenido, true);
+            $ambitos[\slugifier\slugify($ambito['nombre'])] = $ambito;
         }
 
         /** @var NodeElement[] $intereses */
@@ -64,7 +65,11 @@ class AceptacionContext extends MinkContext implements SnippetAcceptingContext
 
         PHPUnit_Framework_Assert::assertEquals(count($ambitos), count($intereses));
         foreach ($intereses as $interes) {
-            PHPUnit_Framework_Assert::assertArrayHasKey(basename($interes->getAttribute('name')), $ambitos);
+            PHPUnit_Framework_Assert::assertArrayHasKey($interes->getAttribute('name'), $ambitos);
+            PHPUnit_Framework_Assert::assertEquals(
+                $interes->getParent()->getText(),
+                $ambitos[$interes->getAttribute('name')]["nombre"]
+            );
         }
     }
 }

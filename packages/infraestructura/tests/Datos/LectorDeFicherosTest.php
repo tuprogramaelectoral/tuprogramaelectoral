@@ -2,12 +2,13 @@
 
 use TPE\Dominio\Ambito\Ambito;
 use TPE\Dominio\Partido\Partido;
+use TPE\Dominio\Partido\Politica;
 use TPE\Infraestructura\Datos\LectorDeFicheros;
 
 
 class LectorDeFicherosTest extends \PHPUnit_Framework_TestCase
 {
-    public function testLeeLosFicherosConAmbitosYLosDevuelveInstanciadosEnObjetos()
+    public function testLeeLosFicherosConAmbitosYDevuelveSuContenido()
     {
         $path = LectorDeFicheros::escribirFicherosDeTest([
             'ambito/administracion-publica/ambito.json' => '{"nombre": "Administración Pública"}',
@@ -15,8 +16,8 @@ class LectorDeFicherosTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $datos = [
-            'administracion-publica' => Ambito::crearUsandoJson('{"nombre": "Administración Pública"}'),
-            'agricultura' => Ambito::crearUsandoJson('{"nombre": "Agricultura"}'),
+            '{"nombre": "Administración Pública"}',
+            '{"nombre": "Agricultura"}',
         ];
 
         $lector = new LectorDeFicheros($path);
@@ -24,19 +25,19 @@ class LectorDeFicherosTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(count($datos), $ambitos);
 
-        foreach ($ambitos as $ambito) {
-            $this->assertEquals($datos[$ambito->getId()], $ambito);
+        for ($i = 0; $i < count($ambitos); $i++) {
+            $this->assertEquals($datos[$i], $ambitos[$i]);
         }
     }
 
-    public function testLeeLosFicherosConPartidosYLosDevuelveInstanciadosEnObjetos()
+    public function testLeeLosFicherosConPartidosYDevuelveSuContenido()
     {
         $path = LectorDeFicheros::escribirFicherosDeTest([
             'partido/partido-ficticio/partido.json' => '{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}'
         ]);
 
         $datos = [
-            'partido-ficticio' => Partido::crearUsandoJson('{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}')
+            '{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}'
         ];
 
         $lector = new LectorDeFicheros($path);
@@ -44,8 +45,32 @@ class LectorDeFicherosTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(count($datos), $partidos);
 
-        foreach ($partidos as $partido) {
-            $this->assertEquals($datos[$partido->getId()], $partido);
+        for ($i = 0; $i < count($partidos); $i++) {
+            $this->assertEquals($datos[$i], $partidos[$i]);
+        }
+    }
+
+    public function testLeeLosFicherosConPoliticasYDevuelveSuContenido()
+    {
+        $path = LectorDeFicheros::escribirFicherosDeTest([
+            'ambito/sanidad/politica/partido-ficticio/politica.json' => '{"partido": "partido-ficticio", "ambito": "sanidad", "fuentes": ["http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido"]}',
+            'ambito/sanidad/politica/partido-ficticio/contenido.md' => '## sanidad universal y gratuita'
+        ]);
+
+        $datos = [
+            [
+                'json' => '{"partido": "partido-ficticio", "ambito": "sanidad", "fuentes": ["http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido"]}',
+                'contenido' => '## sanidad universal y gratuita'
+            ]
+        ];
+
+        $lector = new LectorDeFicheros($path);
+        $politicas = $lector->leer('TPE\Dominio\Partido\Politica');
+
+        $this->assertCount(count($datos), $politicas);
+
+        for ($i = 0; $i < count($politicas); $i++) {
+            $this->assertEquals($datos[$i], $politicas[$i]);
         }
     }
 
@@ -57,29 +82,5 @@ class LectorDeFicherosTest extends \PHPUnit_Framework_TestCase
         $lector = new LectorDeFicheros(LectorDeFicheros::escribirFicherosDeTest([]));
 
         $lector->leer('Clase\Que\No\Existe');
-    }
-
-    /**
-     * @expectedException \BadMethodCallException
-     */
-    public function testLanzaExcepcionCuandoElContenidoJsonNoEsValido()
-    {
-        $lector = new LectorDeFicheros(LectorDeFicheros::escribirFicherosDeTest([
-            'ambito/administracion-publica/ambito.json' => 'ContenidoNoValido',
-        ]));
-
-        $lector->leer('TPE\Dominio\Ambito\Ambito');
-    }
-
-    /**
-     * @expectedException \BadMethodCallException
-     */
-    public function testLanzaExcepcionCuandoElJsonEstaIncompleto()
-    {
-        $lector = new LectorDeFicheros(LectorDeFicheros::escribirFicherosDeTest([
-            'ambito/administracion-publica/ambito.json' => '{}',
-        ]));
-
-        $lector->leer('TPE\Dominio\Ambito\Ambito');
     }
 }

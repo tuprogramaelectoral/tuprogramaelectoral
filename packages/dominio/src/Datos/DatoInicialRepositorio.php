@@ -26,11 +26,4 @@ interface DatoInicialRepositorio
      * @return string
      */
     public function getClassName();
-
-    /**
-     * @param DatoInicial[] $datos = null
-     */
-    public function regenerarDatos(array $datos = null);
-
-    public function clear();
 }

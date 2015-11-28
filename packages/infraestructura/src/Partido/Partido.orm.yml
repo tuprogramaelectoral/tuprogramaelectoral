@@ -1,6 +1,9 @@
 TPE\Dominio\Partido\Partido:
   type: entity
-  table: partido
+  table: tpe_partido
+  indexes:
+    partido_id_idx:
+      columns: [ id ]
   id:
     id:
       type: string
@@ -16,3 +19,7 @@ TPE\Dominio\Partido\Partido:
       type: string
       length: 512
       nullable: true
+  oneToMany:
+    politicas:
+      targetEntity: TPE\Dominio\Partido\Politica
+      mappedBy: partido

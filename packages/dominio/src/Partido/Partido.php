@@ -6,8 +6,13 @@ use Assert\Assertion;
 use TPE\Dominio\Datos\DatoInicial;
 
 
-class Partido extends DatoInicial
+class Partido implements DatoInicial
 {
+    /**
+     * @var string
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -23,16 +28,21 @@ class Partido extends DatoInicial
      */
     private $programa;
 
+    /**
+     * @var Politica[]
+     */
+    private $politicas;
+
 
     public function __construct($nombre, $siglas, $programa = null)
     {
         \Assert\lazy()
-            ->that($nombre, 'nombre')->notEmpty()
-            ->that($siglas, 'siglas')->notEmpty()
+            ->that($nombre, 'nombre')->string()->notEmpty()
+            ->that($siglas, 'siglas')->string()->notEmpty()
             ->verifyNow();
         Assertion::nullOrUrl($programa, 'programa no es una url');
 
-        parent::__construct($nombre);
+        $this->id = \slugifier\slugify($nombre);
         $this->nombre = $nombre;
         $this->siglas = $siglas;
         $this->programa = $programa;
@@ -83,5 +93,21 @@ class Partido extends DatoInicial
         }
 
         throw new \BadMethodCallException('Faltan parámetros para crear el Partido a partir de ' . $json);
+    }
+
+    /**
+     * @return Politica[]
+     */
+    public function getPoliticas()
+    {
+        return $this->politicas;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

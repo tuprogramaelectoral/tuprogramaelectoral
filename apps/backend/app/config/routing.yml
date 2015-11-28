@@ -5,6 +5,19 @@ app_ambito_index:
         _controller: app.controller.ambito:indexAction
         _sylius:
             paginate: false
+            serialization_groups: [List]
+
+app_ambito_show:
+    path: /ambitos/{id}
+    methods: [GET]
+    defaults:
+        _controller: app.controller.ambito:showAction
+        _sylius:
+            paginate: false
+            serialization_groups: [Show]
+            repository:
+                method: findAmbitoYPoliticasById
+                arguments: [$id]
 
 app_partido_index:
     path: /partidos
@@ -13,4 +26,3 @@ app_partido_index:
         _controller: app.controller.partido:indexAction
         _sylius:
             paginate: false
-

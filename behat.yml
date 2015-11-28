@@ -2,10 +2,6 @@ default:
   translation:
     locale: es
   suites:
-    dominio:
-      contexts: [ DominioContext ]
-      filters:
-        tags: @dominio
     backend:
       type: symfony_bundle
       bundle: AppBundle
