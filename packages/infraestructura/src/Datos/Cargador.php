@@ -16,6 +16,7 @@ class Cargador
     const CLASE_AMBITO = 'TPE\Dominio\Ambito\Ambito';
     const CLASE_PARTIDO = 'TPE\Dominio\Partido\Partido';
     const CLASE_POLITICA = 'TPE\Dominio\Partido\Politica';
+    const CLASE_MIPROGRAMA = 'TPE\Dominio\MiPrograma\MiPrograma';
 
     /**
      * @var EntityManager
@@ -50,7 +51,8 @@ class Cargador
         $this->metadata = [
             self::CLASE_AMBITO => $this->em->getClassMetadata(self::CLASE_AMBITO),
             self::CLASE_PARTIDO => $this->em->getClassMetadata(self::CLASE_PARTIDO),
-            self::CLASE_POLITICA => $this->em->getClassMetadata(self::CLASE_POLITICA)
+            self::CLASE_POLITICA => $this->em->getClassMetadata(self::CLASE_POLITICA),
+            self::CLASE_MIPROGRAMA => $this->em->getClassMetadata(self::CLASE_MIPROGRAMA),
         ];
 
         $this->schemaTool = new SchemaTool($this->em);
@@ -116,16 +118,7 @@ class Cargador
 
     private function regenerarEsquema()
     {
-        $this->schemaTool->dropSchema([
-            $this->metadata[self::CLASE_POLITICA],
-            $this->metadata[self::CLASE_AMBITO],
-            $this->metadata[self::CLASE_PARTIDO]
-        ]);
-
-        $this->schemaTool->createSchema([
-            $this->metadata[self::CLASE_POLITICA],
-            $this->metadata[self::CLASE_AMBITO],
-            $this->metadata[self::CLASE_PARTIDO]
-        ]);
+        $this->schemaTool->dropSchema($this->metadata);
+        $this->schemaTool->createSchema($this->metadata);
     }
 }

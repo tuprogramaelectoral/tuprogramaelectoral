@@ -87,6 +87,12 @@ doctrine:
                         dir:        "%kernel.root_dir%/../vendor/infraestructura/src/Partido"
                         prefix:     TPE\Dominio\Partido
                         is_bundle:  false
+                    miPrograma:
+                        mapping:    true
+                        type:       yml
+                        dir:        "%kernel.root_dir%/../vendor/infraestructura/src/MiPrograma"
+                        prefix:     TPE\Dominio\MiPrograma
+                        is_bundle:  false
 
 sylius_translation:
     default_locale: %locale%
@@ -122,3 +128,6 @@ jms_serializer:
             partido:
                 namespace_prefix: "TPE\\Dominio\\Partido"
                 path: "%kernel.root_dir%/../vendor/infraestructura/src/Partido"
+            miprograma:
+                namespace_prefix: "TPE\\Dominio\\MiPrograma"
+                path: "%kernel.root_dir%/../vendor/infraestructura/src/MiPrograma"

@@ -1,0 +1,16 @@
+TPE\Dominio\MiPrograma\MiPrograma:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+        politicas:
+            expose: true
+            type: array
+    virtual_properties:
+        getIntereses:
+            expose: true
+            type: array
+        proximoInteres:
+            expose: true
+            type: string

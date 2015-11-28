@@ -1,0 +1,12 @@
+TPE\Dominio\MiPrograma\MiPrograma:
+  type: entity
+  table: tpe_mi_programa
+  indexes:
+    mi_programa_id_idx:
+      columns: [ id ]
+  id:
+    id:
+      type: guid
+  fields:
+    politicas:
+      type: json_array

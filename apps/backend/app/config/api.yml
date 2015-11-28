@@ -10,6 +10,11 @@ sylius_resource:
             classes:
                 model: TPE\Dominio\Partido\Partido
                 repository: TPE\Infraestructura\Partido\PartidoBaseDeDatosRepositorio
+        app.miprograma:
+            driver: doctrine/orm
+            classes:
+                model: TPE\Dominio\MiPrograma\MiPrograma
+                repository: TPE\Infraestructura\MiPrograma\MiProgramaBaseDeDatosRepositorio
 
 fos_rest:
     disable_csrf_role: ROLE_API

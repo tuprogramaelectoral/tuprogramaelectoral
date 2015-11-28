@@ -17,7 +17,7 @@
     "angular-mocks": "^1.4.0"
   },
   "appPath": "app",
-  "moduleName": "VSPApp",
+  "moduleName": "TPEApp",
   "overrides": {
     "bootstrap": {
       "main": [

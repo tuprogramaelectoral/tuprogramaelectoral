@@ -4,7 +4,8 @@
   "require": {
     "keyvanakbary/slugifier": "^4.0",
     "erusev/parsedown": "^1.6",
-    "beberlei/assert": "^2.4"
+    "beberlei/assert": "^2.4",
+    "ramsey/uuid": "^3.0"
   },
   "require-dev": {
     "phpspec/phpspec": "~2.3"

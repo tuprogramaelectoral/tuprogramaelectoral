@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../BaseDeDatos_TestCase.php";
+
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -8,60 +10,15 @@ use TPE\Dominio\Ambito\Ambito;
 use TPE\Dominio\Partido\Partido;
 use TPE\Dominio\Partido\Politica;
 use TPE\Infraestructura\Ambito\AmbitoBaseDeDatosRepositorio;
+use TPE\Infraestructura\Datos\BaseDeDatosRepositorio;
 use TPE\Infraestructura\Datos\Cargador;
 use TPE\Infraestructura\Datos\LectorDeFicheros;
 use TPE\Infraestructura\Partido\PartidoBaseDeDatosRepositorio;
 use VSP\Dominio\Datos\DatoInicialRepositorio;
 
 
-class CargadorTest extends \PHPUnit_Framework_TestCase
+class CargadorTest extends BaseDeDatos_TestCase
 {
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    /**
-     * @var AmbitoBaseDeDatosRepositorio
-     */
-    private $ambitoRepositorio;
-
-    /**
-     * @var PartidoBaseDeDatosRepositorio
-     */
-    private $partidoRepositorio;
-
-
-    public function setUp()
-    {
-        $namespaces = array(
-            'src/Ambito' => 'TPE\Dominio\Ambito',
-            'src/Partido' => 'TPE\Dominio\Partido'
-        );
-
-        $dbParams = array(
-            'driver' => 'pdo_sqlite',
-            'path' => '/tmp/sqlite.db'
-        );
-
-        unlink('/tmp/sqlite.db');
-
-        $config = Setup::createConfiguration(true);
-        $config->setMetadataDriverImpl(new SimplifiedYamlDriver($namespaces));
-
-        $this->em = EntityManager::create($dbParams, $config);
-
-        $metadata = [
-            Cargador::CLASE_AMBITO => $this->em->getClassMetadata(Cargador::CLASE_AMBITO),
-            Cargador::CLASE_PARTIDO => $this->em->getClassMetadata(Cargador::CLASE_PARTIDO),
-            Cargador::CLASE_POLITICA =>$this->em->getClassMetadata(Cargador::CLASE_POLITICA)
-        ];
-
-        $this->ambitoRepositorio = New AmbitoBaseDeDatosRepositorio($this->em, $metadata[Cargador::CLASE_AMBITO]);
-        $this->partidoRepositorio = New PartidoBaseDeDatosRepositorio($this->em, $metadata[Cargador::CLASE_PARTIDO]);
-    }
-
-
     public function testLeeLosFicherosDeDatosYLosCargaEnLaBaseDeDatos()
     {
         $path = LectorDeFicheros::escribirFicherosDeTest([
@@ -82,9 +39,9 @@ class CargadorTest extends \PHPUnit_Framework_TestCase
 
         (new Cargador($this->em))->cargar(new LectorDeFicheros($path));
 
-        $ambitos = $this->ambitoRepositorio->findAll();
-        $partidos = $this->partidoRepositorio->findAll();
-        $politicas = $this->ambitoRepositorio->findOneBy(['id' => 'sanidad'])->getPoliticas();
+        $ambitos = $this->repos[self::CLASE_AMBITO]->findAll();
+        $partidos = $this->repos[self::CLASE_PARTIDO]->findAll();
+        $politicas = $this->repos[self::CLASE_AMBITO]->findOneBy(['id' => 'sanidad'])->getPoliticas();
 
         $this->assertCount(1, $ambitos);
         $this->compararAmbitos($ambito, $ambitos[0]);

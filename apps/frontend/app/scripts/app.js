@@ -2,21 +2,22 @@
 
 /**
  * @ngdoc overview
- * @name VSPApp
+ * @name TPEApp
  * @description
- * # VSPApp
+ * # TPEApp
  *
  * Main module of the application.
  */
 angular
-  .module('VSPApp', [
+  .module('TPEApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'restangular'
+    'restangular',
+    'services'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -28,19 +29,5 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  })
-  .factory('AmbitoRepositorio', ['Restangular', function(Restangular) {
-    var restAngular =
-      Restangular.withConfig(function(Configurer) {
-        Configurer.setBaseUrl('http://192.168.99.100/');
-      });
+  });
 
-    var _ambitos = restAngular.all('ambitos');
-
-    return {
-      findAll: function() {
-        return _ambitos.getList();
-      }
-    }
-  }])
-;
