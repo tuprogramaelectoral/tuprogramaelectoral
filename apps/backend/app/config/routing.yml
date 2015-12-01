@@ -26,3 +26,28 @@ app_partido_index:
         _controller: app.controller.partido:indexAction
         _sylius:
             paginate: false
+
+app_miprograma_create:
+    path: /misprogramas
+    methods: [POST]
+    defaults:
+        _controller: app.controller.miprograma:createAction
+
+app_miprograma_show:
+    path: /misprogramas/{id}
+    methods: [GET]
+    defaults:
+        _controller: app.controller.miprograma:showAction
+        _sylius:
+            paginate: false
+
+app_miprograma_update:
+    path: /misprogramas/{id}
+    methods: [POST]
+    defaults:
+        _controller: app.controller.miprograma:updateAction
+        _sylius:
+            paginate: false
+            redirect:
+                route: app_miprograma_show
+                parameters: {'id': $id}

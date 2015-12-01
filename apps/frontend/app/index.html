@@ -15,19 +15,19 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="VSPApp">
+  <body data-ng-app="TPEApp">
     <!--[if lte IE 8]>
       <p class="browsehappy">Está utilizando un navegador <strong>desactualizado</strong>. Por favor <a href="http://browsehappy.com/">actualice su navegador</a> para mejorar su experiencia.</p>
     <![endif]-->
 
     <div class="container">
-    <div ng-view=""></div>
+    	<div data-ng-view=""></div>
     </div>
 
-    <div class="footer">
+    <!-- <div class="footer">
       <div class="container">
       </div>
-    </div>
+    </div> -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -58,6 +58,8 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
 				<script src="scripts/app.js"></script>
+				<script src="scripts/config.js"></script>
+				<script src="scripts/services.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <!-- endbuild -->
 </body>

@@ -9,14 +9,13 @@ class AmbitoBaseDeDatosRepositorio extends BaseDeDatosRepositorio
 {
     public function findAmbitoYPoliticasById($id)
     {
-        return $this
-            ->createQueryBuilder('ambitoypoliticas')
+        return $this->_em->createQueryBuilder()
             ->select('a, p')
             ->from('TPE\Dominio\Ambito\Ambito', 'a')
             ->leftJoin('a.politicas', 'p')
             ->where('a.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 }

@@ -20,7 +20,7 @@ interface DatoInicialRepositorio
      * @param DatoInicial $ambito
      * @param bool $flush
      */
-    public function save(DatoInicial $ambito, $flush = true);
+    public function save(DatoInicial $dato, $flush = true);
 
     /**
      * @return string

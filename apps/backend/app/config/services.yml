@@ -3,3 +3,15 @@ services:
         class: TPE\Infraestructura\Datos\Cargador
         arguments:
          - @doctrine.orm.default_entity_manager
+
+    miprograma_form:
+        class: TPE\Infraestructura\MiPrograma\MiProgramaType
+        tags:
+         - { name: form.type, alias: app_miprograma }
+
+    intereses_existen_validator:
+        class: TPE\Infraestructura\MiPrograma\InteresesExistenValidator
+        arguments:
+         - @app.repository.miprograma
+        tags:
+         - { name: validator.constraint_validator, alias: intereses_existen_validador }

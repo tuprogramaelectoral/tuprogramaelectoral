@@ -5,10 +5,14 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\MinkContext;
+use Doctrine\ORM\EntityManager;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use TPE\Dominio\Ambito\Ambito;
 use TPE\Dominio\Datos\DatoInicial;
+use TPE\Dominio\Datos\DatoInicialRepositorio;
+use TPE\Dominio\MiPrograma\MiPrograma;
 use TPE\Dominio\Partido\Partido;
 use TPE\Dominio\Partido\Politica;
 use TPE\Infraestructura\Ambito\AmbitoBaseDeDatosRepositorio;
@@ -19,7 +23,7 @@ use TPE\Infraestructura\Datos\LectorDeFicheros;
 /**
  * Defines application features from the specific context.
  */
-class BackendContext implements Context, SnippetAcceptingContext
+class BackendContext extends MinkContext implements SnippetAcceptingContext
 {
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
@@ -27,6 +31,7 @@ class BackendContext implements Context, SnippetAcceptingContext
     const PARTIDOS = "partidos";
     const POLITICAS = "políticas";
     const CONTENIDO_POLITICA = "contenido política";
+    const MIPROGRAMA = "mi programa";
 
     /**
      * @var string
@@ -34,9 +39,14 @@ class BackendContext implements Context, SnippetAcceptingContext
     private $contenidoPath;
 
     /**
-     * @var array
+     * @var DatoInicial[][]
      */
     private $actuales;
+
+    /**
+     * @var array
+     */
+    private $miPrograma;
 
 
     /**
@@ -76,25 +86,31 @@ class BackendContext implements Context, SnippetAcceptingContext
      */
     public function veoLaListaDelTipoDeDatoDisponibles($tipoDeDato)
     {
-        /** @var DatoInicial[] $datos */
-        $datos = $this->getRepositorio($tipoDeDato)->findAll();
+        $paths = [
+            self::AMBITOS => 'ambitos',
+            self::PARTIDOS => 'partidos'
+        ];
+
+        $this->getSession()->setRequestHeader('Accept', 'application/json');
+        $this->visit($paths[$tipoDeDato]);
+
         $this->actuales[$tipoDeDato] = [];
-        foreach ($datos as $dato) {
-            $this->actuales[$tipoDeDato][$dato->getId()] = $dato;
+        foreach ($this->getRespuesta() as $dato) {
+            $this->actuales[$tipoDeDato][$dato['id']] = $dato;
         }
     }
-
 
     /**
      * @When veo la lista de políticas del ámbito :arg2
      */
-    public function veoLaListaDePoliticasDelAmbito($ambitoId)
+    public function veoLaListaDePoliticasDelAmbito($ambito)
     {
-        /** @var Ambito $ambito */
-        $ambito = $this->getRepositorio(self::AMBITOS)->findOneBy(['id' => $ambitoId]);
+        $this->getSession()->setRequestHeader('Accept', 'application/json');
+        $this->visit("ambitos/{$ambito}");
+
         $this->actuales[self::POLITICAS] = [];
-        foreach ($ambito->getPoliticas() as $politica) {
-            $this->actuales[self::POLITICAS][$politica->getId()] = $politica;
+        foreach ($this->getRespuesta()['politicas'] as $dato) {
+            $this->actuales[self::POLITICAS][$dato['id']] = $dato;
         }
     }
 
@@ -110,33 +126,98 @@ class BackendContext implements Context, SnippetAcceptingContext
 
         PHPUnit_Framework_Assert::assertCount(count($esperados), $this->actuales[$tipoDeDato]);
         foreach ($this->actuales[$tipoDeDato] as $actual) {
-            $this->compararDatoActualConEsperado($tipoDeDato, $actual, $esperados[$actual->getId()]);
+            $this->compararDatoActualConEsperado($tipoDeDato, $actual, $esperados[$actual['id']]);
         }
     }
 
-    private function compararDatoActualConEsperado($tipo, DatoInicial $actual, array $esperado)
+    private function compararDatoActualConEsperado($tipo, $actual, array $esperado)
     {
         switch ($tipo) {
             case self::AMBITOS:
                 /** @var Ambito $actual */
-                PHPUnit_Framework_Assert::assertEquals($esperado['nombre'], $actual->getNombre());
+                PHPUnit_Framework_Assert::assertEquals($esperado['nombre'], $actual["nombre"]);
                 break;
             case self::PARTIDOS:
                 /** @var Partido $actual */
-                PHPUnit_Framework_Assert::assertEquals($esperado['nombre'], $actual->getNombre());
-                PHPUnit_Framework_Assert::assertEquals($esperado['siglas'], $actual->getSiglas());
-                PHPUnit_Framework_Assert::assertEquals($esperado['programa'], $actual->getPrograma());
+                PHPUnit_Framework_Assert::assertEquals($esperado['nombre'], $actual["nombre"]);
+                PHPUnit_Framework_Assert::assertEquals($esperado['siglas'], $actual["siglas"]);
+                PHPUnit_Framework_Assert::assertEquals($esperado['programa'], $actual["programa"]);
                 break;
             case self::POLITICAS:
                 /** @var Politica $actual */
-                PHPUnit_Framework_Assert::assertEquals($esperado['partidoId'], $actual->getPartidoId());
-                PHPUnit_Framework_Assert::assertEquals($esperado['ambitoId'], $actual->getAmbitoId());
-                PHPUnit_Framework_Assert::assertEquals(json_decode($esperado['fuentes']), $actual->getFuentes());
-                PHPUnit_Framework_Assert::assertEquals($esperado['contenido'], $actual->getContenidoEnMarkdown());
+                PHPUnit_Framework_Assert::assertEquals($esperado['partidoId'], $actual["partido_id"]);
+                PHPUnit_Framework_Assert::assertEquals(json_decode($esperado['fuentes']), $actual["fuentes"]);
+                PHPUnit_Framework_Assert::assertEquals($esperado['contenido'], $actual["contenido"]);
                 break;
             default:
                 throw new \Exception("no existe forma de comparar " . $tipo);
         }
+    }
+
+    /**
+     * @When (que) selecciono los siguientes intereses:
+     */
+    public function seleccionoLosSiguientesIntereses(TableNode $table)
+    {
+        $politicas = [];
+        foreach ($table->getColumn(0) as $interes) {
+            $politicas['politicas'][$interes] = null;
+        }
+
+        $this->request('POST', 'misprogramas', $politicas);
+
+        $this->miPrograma = $this->getRespuesta();
+    }
+
+    /**
+     * @Then mi programa debería contener los siguientes intereses:
+     */
+    public function miProgramaDeberiaContenerLosSiguientesIntereses(TableNode $table)
+    {
+        $this->visit("misprogramas/{$this->miPrograma['id']}");
+        $this->miPrograma = $this->getRespuesta();
+
+        $esperado = array_flip($table->getColumn(0));
+        foreach ($this->miPrograma['intereses'] as $actual) {
+            PHPUnit_Framework_Assert::assertTrue(isset($esperado[$actual]));
+        }
+    }
+
+    /**
+     * @Then el próximo interés es :arg1
+     */
+    public function elProximoInteresEs($ambito)
+    {
+        PHPUnit_Framework_Assert::assertEquals($ambito, $this->miPrograma["proximo_interes"]);
+    }
+
+    /**
+     * @Then el sistema debería mostrar un error
+     */
+    public function elSistemaDeberiaMostrarUnError()
+    {
+        PHPUnit_Framework_Assert::assertEquals(400, $this->getRespuesta()['code']);
+    }
+
+    /**
+     * @When selecciono la política :politica
+     */
+    public function seleccionoLaPolitica($politica)
+    {
+        $this->request(
+            "POST",
+            "/misprogramas/{$this->miPrograma['id']}",
+            ["politicas" => [$this->miPrograma['proximo_interes'] => $politica]]
+        );
+    }
+
+    /**
+     * @Then mi programa debería contener las siguientes políticas:
+     */
+    public function miProgramaDeberiaContenerLasSiguientesPoliticas(TableNode $table)
+    {
+        $this->visit("misprogramas/{$this->miPrograma['id']}");
+        $this->miPrograma = $this->getRespuesta();
     }
 
     /**
@@ -147,16 +228,47 @@ class BackendContext implements Context, SnippetAcceptingContext
         return $this->getContainer()->get('cargador_de_datos');
     }
 
+    private function request($verb, $url, $valores)
+    {
+        $this
+            ->getSession()
+            ->getDriver()
+            ->getClient()
+            ->request(
+                $verb,
+                $url,
+                $valores,
+                [],
+                ['HTTP_ACCEPT' => 'application/json']
+            );
+    }
+
+    /**
+     * @return array
+     */
+    private function getRespuesta()
+    {
+        return json_decode($this->getSession()->getPage()->getContent(), true);
+    }
+
+    /**
+     * @return EntityManager
+     */
+    private function getEntityManager()
+    {
+        return $this->getContainer()->get('doctrine.orm.default_entity_manager');
+    }
+
     /**
      * @param string $tipoDeDato
-     * @return EntityRepository
+     * @return DatoInicialRepositorio
      */
     private function getRepositorio($tipoDeDato)
     {
         $repositorios = [
             self::AMBITOS => 'app.repository.ambito',
-            self::PARTIDOS => 'app.repository.partido'
-
+            self::PARTIDOS => 'app.repository.partido',
+            self::MIPROGRAMA => 'app.repository.miprograma'
         ];
 
         return $this->getContainer()->get($repositorios[$tipoDeDato]);

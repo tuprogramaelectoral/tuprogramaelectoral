@@ -34,13 +34,6 @@ class AceptacionContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
-     * @Given que la aplicación está ejecutándose
-     */
-    public function queLaAplicacionEstaEjecutandose()
-    {
-    }
-
-    /**
      * @When visito la página principal
      */
     public function visitoLaPaginaPrincipal()
@@ -57,7 +50,7 @@ class AceptacionContext extends MinkContext implements SnippetAcceptingContext
         $contenidos = (new LectorDeFicheros($this->dataPath))->leer(LectorDeFicheros::CLASE_AMBITO);
         foreach ($contenidos as $contenido) {
             $ambito = json_decode($contenido, true);
-            $ambitos[\slugifier\slugify($ambito['nombre'])] = $ambito;
+            $ambitos["politicas[" . \slugifier\slugify($ambito['nombre']) . "]"] = $ambito;
         }
 
         /** @var NodeElement[] $intereses */

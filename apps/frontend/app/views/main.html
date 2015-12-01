@@ -1,11 +1,79 @@
 <div class="container">
-    <h2>Tu Programa Electoral</h2>
-		<p>Compara las políticas del programa electoral de cada partido y toma una decisión informada sobre a qué partido votar en las elecciones generales de 2015</p>
-		<h4>Esta página está en proceso de construcción. Si quieres colaborar con su desarrollo, diseño y dotación de contenido pásate por <a href="https://github.com/tuprogramaelectoral/tuprogramaelectoral/wiki" target="_blank">aquí</a></h4>
-    <h3>¿Cúales son los ámbitos en los que estás interesado?</h3>
-		<div ng-model="ambitos">
-			<p class="input-group" ng-repeat="ambito in ambitos">
-				<label><input type="checkbox" name="{{ ambito.id }}" class="interes"/> {{ ambito.nombre }}</label>
-			</p>
+	<h2 class="cabecera">Tu Programa Electoral</h2>
+
+	<p>Compara las políticas del programa electoral de cada partido y toma una decisión informada sobre a qué partido
+		votar en las elecciones generales de 2015</p>
+	<h4>Esta página está en proceso de construcción. Si quieres colaborar con su desarrollo, diseño y dotación de
+		contenido pásate por <a href="https://github.com/tuprogramaelectoral/tuprogramaelectoral/wiki"
+														target="_blank">aquí</a></h4>
+
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading-ambitos">
+				<h3 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#mis-ambitos" data-target="#collapse-ambitos"
+						 aria-expanded="true"
+						 aria-controls="collapse-ambitos">
+						¿Cúales son los ámbitos en los que estás interesado?
+					</a>
+				</h3>
+			</div>
+			<div id="collapse-ambitos" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-ambitos">
+				<div class="panel-body">
+					<div data-ng-model="ambitos">
+						<form data-ng-submit="seleccionarIntereses()">
+							<div class="lista-intereses">
+								<div data-ng-repeat="ambito in ambitos">
+									<label>
+										<input type="checkbox" name="politicas[{{ ambito.id }}]" data-ng-model="ambito.elegido"
+													 class="interes"/>
+										{{ ambito.nombre }}
+									</label>
+								</div>
+							</div>
+							<button class="btn btn-default" type="submit" value="seleccionar">Seleccionar</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
+		<div data-ng-repeat="ambito in misAmbitos" class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading-{{ ambito.id }}">
+				<h3 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#mis-ambitos" data-target="#collapse-{{ ambito.id }}"
+						 aria-expanded="false"
+						 aria-controls="collapse-{{ ambito.id }}">
+						{{ ambito.nombre }}
+					</a>
+				</h3>
+			</div>
+			<div id="collapse-{{ ambito.id }}" data-ng-class="{in: miPrograma.proximo_interes == ambito.id}"
+					 class="panel-collapse collapse" role="tabpanel"
+					 aria-labelledby="heading-{{ ambito.id }}">
+				<div class="panel-body">
+					<ul class="nav nav-tabs nav-justified" role="tablist">
+						<li role="presentation" data-ng-repeat="politica in ambito.politicas" data-ng-class="{active: $index == 0}">
+							<a data-target="#politica-{{ politica.id }}" aria-controls="home" role="tab" data-toggle="tab">
+								Opción {{ $index + 1 }}
+							</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div data-ng-repeat="politica in ambito.politicas" role="tabpanel" data-ng-class="{active: $index == 0}"
+								 class="tab-pane" id="politica-{{ politica.id }}">
+							<div data-ng-bind-html="politica.contenido"></div>
+							<button class="btn btn-default" data-ng-click="elegirPolitica(miPrograma.id, ambito.id, politica.id)">
+								Elegir
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-ng-if="mostrarResumen" class="panel panel-default">
+		<div class="panel-body">
+			<p>Pulse el siguiente enlace para ver tu programa electoral</p>
+		</div>
+	</div>
 </div>

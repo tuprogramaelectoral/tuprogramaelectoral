@@ -15,9 +15,9 @@ abstract class BaseDeDatosRepositorio extends EntityRepository implements DatoIn
      * @param DatoInicial $ambito
      * @param bool $flush
      */
-    public function save(DatoInicial $ambito, $flush = true)
+    public function save(DatoInicial $dato, $flush = true)
     {
-        $this->_em->persist($ambito);
+        $this->_em->persist($dato);
 
         if ($flush) {
             $this->_em->flush();
