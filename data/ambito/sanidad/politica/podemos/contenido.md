@@ -5,13 +5,13 @@ a blindar el carácter universal de la sanidad española.
 Con ello garantizaremos que nuestro sistema de salud
 cumpla con los derechos humanos:
 
- - Cobertura sanitaria universal: derecho a la tarjeta
+- Cobertura sanitaria universal: derecho a la tarjeta
 sanitaria para todas las personas, también para los
 inmigrantes o emigrantes de nacionalidad española,
 quienes pierden el acceso a la cobertura sanitaria
 universal noventa días después de su salida del país.
 
- - Derogación del Real Decreto 16/2012, de 20 de abril,
+- Derogación del Real Decreto 16/2012, de 20 de abril,
 de medidas urgentes para garantizar la sostenibilidad
 del Sistema Nacional de Salud y mejorar la calidad y
 seguridad de sus prestaciones, mediante el cual se
@@ -150,34 +150,34 @@ como celíacos y diabéticos.
 
 La «Ley Celíaca» se basará en los siguientes principios:
 
- - Investigación, prevención, promoción y tratamiento
+- Investigación, prevención, promoción y tratamiento
 relacionado con la enfermedad celíaca.
 
- - Creación y publicación de un listado de alimentos sin
+- Creación y publicación de un listado de alimentos sin
 gluten, de gestión pública para evitar clientelismos y
 especulaciones. Identificación de esos alimentos y de
 la publicidad que los da a conocer mediante un sello
 controlado por el Ministerio de Sanidad, en el que se
 especifique su origen completamente público.
 
- - Inclusión de la opción libre de gluten en todas las acciones
+- Inclusión de la opción libre de gluten en todas las acciones
 del Gobierno destinadas al apoyo alimentario
 de la población.
 
- - Optimización de las estrategias de intervención sociosanitaria
+- Optimización de las estrategias de intervención sociosanitaria
 para garantizar un diagnóstico y un tratamiento
 precoz de la enfermedad celíaca, así como
 un adecuado seguimiento del paciente.
 
- - Elaboración de una guía de buenas prácticas clínicas,
+- Elaboración de una guía de buenas prácticas clínicas,
 publicada y distribuida entre los trabajadores sanitarios,
 que será revisada y actualizada anualmente.
 
- - Incentivación y promoción de restaurantes, bares y
+- Incentivación y promoción de restaurantes, bares y
 panaderías para la elaboración y venta de alimentos
 libres de gluten.
 
- - Realización de controles periódicos para la detección de
+- Realización de controles periódicos para la detección de
 la celiaquía a niños en edad de escolaridad obligatoria.
 Por último, estudiaremos distintas ayudas directas a celíacos,
 independientemente de su edad, en función de su
