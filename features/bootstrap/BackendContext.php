@@ -145,7 +145,6 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
                 break;
             case self::POLITICAS:
                 /** @var Politica $actual */
-                PHPUnit_Framework_Assert::assertEquals($esperado['partidoId'], $actual["partido_id"]);
                 PHPUnit_Framework_Assert::assertEquals(json_decode($esperado['fuentes']), $actual["fuentes"]);
                 PHPUnit_Framework_Assert::assertEquals($esperado['contenido'], $actual["contenido"]);
                 break;
