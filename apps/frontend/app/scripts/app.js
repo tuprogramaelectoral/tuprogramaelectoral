@@ -21,6 +21,9 @@ angular
   ])
   .config(function ($routeProvider) {
     $routeProvider
+      .when('/politica-de-cookies', {
+        templateUrl: 'views/cookies.html'
+      })
       .when('/:miProgramaId?', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',

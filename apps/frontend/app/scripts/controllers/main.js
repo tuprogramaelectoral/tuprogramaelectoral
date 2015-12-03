@@ -39,7 +39,9 @@ angular.module('TPEApp')
         });
         $scope.cargarMisPoliticas();
       }, function() {
+        $cookies.remove('miProgramaId');
         $location.path('/');
+        $('#collapse-ambitos').collapse('show');
       });
     };
 
@@ -93,6 +95,14 @@ angular.module('TPEApp')
       }
     };
 
+    $scope.cookies = function () {
+      if (typeof $cookies.get('cookies') == 'undefined') {
+        $cookies.put('cookies', true);
+      } else {
+        $('#cookies').hide();
+      }
+    };
+
     $scope.$watch("miPrograma", function (newValue, oldValue) {
       if (typeof newValue != 'undefined') {
         if (typeof newValue.proximo_interes != 'undefined') {
@@ -115,6 +125,7 @@ angular.module('TPEApp')
       }
     });
 
+    $scope.cookies();
     $scope.reset();
     $scope.cargarProgramaId();
     $scope.cargarAmbitos();
