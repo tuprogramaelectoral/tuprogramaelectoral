@@ -11,12 +11,11 @@ TPE\Dominio\Partido\Politica:
             groups: [Index, Show]
         partido:
             expose: true
-            type: string
-            access_type: public_method
-            read_only: true
-            serialized_name: partido_id
-            accessor:
-                getter: getPartidoId
+            type: TPE\Dominio\Partido\Partido
+            groups: [Index, Show]
+        ambito:
+            expose: true
+            type: TPE\Dominio\Ambito\Ambito
             groups: [Index, Show]
         contenido:
             expose: true

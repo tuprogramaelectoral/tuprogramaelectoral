@@ -10,6 +10,11 @@ sylius_resource:
             classes:
                 model: TPE\Dominio\Partido\Partido
                 repository: TPE\Infraestructura\Partido\PartidoBaseDeDatosRepositorio
+        app.politica:
+            driver: doctrine/orm
+            classes:
+                model: TPE\Dominio\Partido\Politica
+                repository: TPE\Infraestructura\Partido\PoliticaBaseDeDatosRepositorio
         app.miprograma:
             driver: doctrine/orm
             classes:

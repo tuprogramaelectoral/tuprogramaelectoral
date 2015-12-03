@@ -39,6 +39,7 @@ class AceptacionContext extends MinkContext implements SnippetAcceptingContext
     public function visitoLaPaginaPrincipal()
     {
         $this->iAmOnHomepage();
+        sleep(1);
     }
 
     /**
@@ -55,7 +56,6 @@ class AceptacionContext extends MinkContext implements SnippetAcceptingContext
 
         /** @var NodeElement[] $intereses */
         $intereses = $this->getSession()->getPage()->findAll('css','.interes');
-
         PHPUnit_Framework_Assert::assertEquals(count($ambitos), count($intereses));
         foreach ($intereses as $interes) {
             PHPUnit_Framework_Assert::assertArrayHasKey($interes->getAttribute('name'), $ambitos);

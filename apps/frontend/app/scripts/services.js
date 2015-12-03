@@ -16,6 +16,20 @@ angular.module('services', [])
       }
     }
   }])
+  .factory('Politica', ['Restangular', 'config', function (Restangular, config) {
+    var restAngular =
+      Restangular.withConfig(function (Configurer) {
+        Configurer.setBaseUrl(config.restAPI);
+      });
+
+    var _politicas = restAngular.all('politicas');
+
+    return {
+      findOneById: function (id) {
+        return _politicas.one(id).get();
+      }
+    }
+  }])
   .factory('MiPrograma', ['Restangular', 'config', function (Restangular, config) {
     var restAngular =
       Restangular.withConfig(function (Configurer) {
@@ -31,7 +45,7 @@ angular.module('services', [])
       crear: function (ambitosElegidos) {
         var intereses = {"politicas": {}};
         ambitosElegidos.forEach(function (ambito) {
-          intereses["politicas"][ambito.id] = null;
+          intereses["politicas"][ambito] = null;
         });
 
         return _misProgramas.post(intereses);

@@ -19,6 +19,14 @@ app_ambito_show:
                 method: findAmbitoYPoliticasById
                 arguments: [$id]
 
+app_politica_show:
+    path: /politicas/{id}
+    methods: [GET]
+    defaults:
+        _controller: app.controller.politica:showAction
+        _sylius:
+            paginate: false
+
 app_partido_index:
     path: /partidos
     methods: [GET]
@@ -40,6 +48,9 @@ app_miprograma_show:
         _controller: app.controller.miprograma:showAction
         _sylius:
             paginate: false
+            repository:
+                method: findById
+                arguments: [$id]
 
 app_miprograma_update:
     path: /misprogramas/{id}
@@ -48,6 +59,4 @@ app_miprograma_update:
         _controller: app.controller.miprograma:updateAction
         _sylius:
             paginate: false
-            redirect:
-                route: app_miprograma_show
-                parameters: {'id': $id}
+

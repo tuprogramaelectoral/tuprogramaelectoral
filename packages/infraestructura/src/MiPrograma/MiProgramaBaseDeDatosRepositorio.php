@@ -3,6 +3,7 @@
 namespace TPE\Infraestructura\MiPrograma;
 
 use Doctrine\DBAL\Types\Type;
+use Ramsey\Uuid\Uuid;
 use TPE\Dominio\Datos\DatoInicial;
 use TPE\Dominio\MiPrograma\MiPrograma;
 use TPE\Infraestructura\Datos\BaseDeDatosRepositorio;
@@ -13,6 +14,15 @@ class MiProgramaBaseDeDatosRepositorio extends BaseDeDatosRepositorio
     public function createNew()
     {
         return new MiPrograma([]);
+    }
+
+    public function findById($id)
+    {
+        if (Uuid::isValid($id)) {
+            return $this->findOneBy(['id' => $id]);
+        }
+
+        return null;
     }
 
     public function existenLosIntereses(array $intereses)
