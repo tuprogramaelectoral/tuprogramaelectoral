@@ -7,20 +7,34 @@
 		contenido pásate por <a href="https://github.com/tuprogramaelectoral/tuprogramaelectoral/wiki"
 														target="_blank">aquí</a></h4>
 
-	<div id="cookies" class="alert alert-info alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<p>
-			Utilizamos cookies propias y de terceros para mejorar nuestros servicios e identificarle durante el proceso de
-			confección de su programa electoral. Si continúa navegando consideramos que acepta el uso de cookies. Puede
-			cambiar la configuración u obtener más información <a href="/politica-de-cookies">aquí</a>.
-		</p>
-		<button type="button" class="btn-link center-block" data-dismiss="alert">OK</button>
+	<div class="cookies">
+		<div class="alert alert-info alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<p>
+				Utilizamos cookies propias y de terceros para mejorar nuestros servicios e identificarle durante el proceso de
+				confección de su programa electoral. Si continúa navegando consideramos que acepta el uso de cookies. Puede
+				cambiar la configuración u obtener más información <a href="/politica-de-cookies">aquí</a>.
+			</p>
+			<button type="button" class="btn-link center-block" data-dismiss="alert">OK</button>
+		</div>
 	</div>
 
 	<div class="panel-group" id="secciones" role="tablist" aria-multiselectable="true">
-		<div class="panel panel-default">
+		<div id="panel-resultados" class="panel panel-default hidden">
+			<div class="panel-heading" role="tab" id="heading-resultados">
+				<h3 class="panel-title">Porcentaje de afinidad</h3>
+			</div>
+			<div id="collapse-resultados" class="panel-collapse" role="tabpanel" aria-labelledby="heading-resultados">
+				<div class="panel-body">
+					<div id="grafico"></div>
+					<button class="btn btn-default" data-ng-click="crearMiPrograma()">Crear mi programa</button>
+					<button data-ng-if="!miPrograma.publico" class="btn btn-default" data-ng-click="borrarMiPrograma()">Borrar</button>
+				</div>
+			</div>
+		</div>
+		<div id="panel-ambitos" class="panel panel-default hidden">
 			<div class="panel-heading" role="tab" id="heading-ambitos">
 				<h3 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#secciones" data-target="#collapse-ambitos"
@@ -34,6 +48,8 @@
 				<div class="panel-body">
 					<div data-ng-model="ambitos">
 						<form data-ng-submit="seleccionarIntereses()">
+							<a class="btn btn-default" data-ng-click="marcarTodosLosAmbitos(true)">Marcar todos</a>
+							<a class="btn btn-default" data-ng-click="marcarTodosLosAmbitos(false)">Desmarcar todos</a>
 							<div class="lista-intereses">
 								<div data-ng-repeat="ambito in ambitos">
 									<label>
@@ -44,13 +60,13 @@
 									</label>
 								</div>
 							</div>
-							<button class="btn btn-default" type="submit" value="seleccionar">Seleccionar</button>
+							<button class="btn btn-default" type="submit" value="seleccionar">Confeccionar mi programa</button>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div data-ng-repeat="politica in misPoliticas | orderBy:'ambito.id'" class="panel panel-default">
+		<div data-ng-if="!miPrograma.terminado" data-ng-repeat="politica in misPoliticas | orderBy:'ambito.id'" class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading-{{ politica.id }}">
 				<h3 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#secciones" data-target="#collapse-{{ politica.id }}"
@@ -65,6 +81,26 @@
 					 aria-labelledby="heading-{{ politica.id }}">
 				<div class="panel-body">
 					<div data-ng-bind-html="politica.contenido"></div>
+				</div>
+			</div>
+		</div>
+		<div data-ng-if="miPrograma.terminado" data-ng-repeat="politica in misPoliticas | orderBy:'ambito.id'" class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading-terminado-{{ politica.id }}">
+				<h3 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#secciones" data-target="#collapse-terminado-{{ politica.id }}"
+						 aria-expanded="false"
+						 aria-controls="collapse-terminado-{{ politica.id }}">
+						{{ politica.ambito.nombre }}
+					</a>
+					<small>{{ politica.partido.nombre }}</small>
+				</h3>
+			</div>
+			<div id="collapse-terminado-{{ politica.id }}"
+					 class="panel-collapse collapse" role="tabpanel"
+					 aria-labelledby="heading-terminado-{{ politica.id }}">
+				<div class="panel-body">
+					<div data-ng-bind-html="politica.contenido"></div>
+					<small data-ng-repeat="fuente in politica.fuentes">{{ fuente }}</small>
 				</div>
 			</div>
 		</div>
@@ -102,9 +138,16 @@
 			</div>
 		</div>
 	</div>
-	<div data-ng-if="mostrarResumen" class="panel panel-default">
+	<div id="panel-resumen" class="panel panel-default hidden">
 		<div class="panel-body">
-			<p>Gráfico de afinidad</p>
+			<p>Nos gustaría almacenar su programa electoral para realizar estadísticas, en ningún momento guardaremos
+				información que pueda identificarle.</p>
+			<p>Si acepta podrá acceder siempre que quiera a su selección de políticas e incluso compartirla en redes sociales.</p>
+			<p>En caso de no aceptar podrá forzar su borrado o esperar a que sea borrado automáticamente al cabo de 48 horas.</p>
+			<div class="center-block">
+				<button type="button" class="btn btn-default" data-ng-click="completarPrograma(miPrograma.id, true)">Si acepto</button>
+				<button type="button" class="btn btn-default" data-ng-click="completarPrograma(miPrograma.id, false)">No acepto</button>
+			</div>
 		</div>
 	</div>
 </div>

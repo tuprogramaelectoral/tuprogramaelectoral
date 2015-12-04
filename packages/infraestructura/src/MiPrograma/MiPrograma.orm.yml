@@ -10,3 +10,9 @@ TPE\Dominio\MiPrograma\MiPrograma:
   fields:
     politicas:
       type: json_array
+    terminado:
+      type: boolean
+    publico:
+      type: boolean
+    ultimaModificacion:
+      type: datetime

@@ -16,10 +16,27 @@ class MiProgramaBaseDeDatosRepositorio extends BaseDeDatosRepositorio
         return new MiPrograma([]);
     }
 
-    public function findById($id)
+    public function findOneBy(array $criteria)
+    {
+        if (isset($criteria['id']) && Uuid::isValid($criteria['id'])) {
+            return parent::findOneBy($criteria);
+        }
+
+        return null;
+    }
+
+    public function findNoExpiradoById($id)
     {
         if (Uuid::isValid($id)) {
-            return $this->findOneBy(['id' => $id]);
+            return $this->_em->createQueryBuilder()
+                ->select('mp')
+                ->from('TPE\Dominio\MiPrograma\MiPrograma', 'mp')
+                ->where('mp.id = :id')
+                ->andWhere('mp.publico = true OR (mp.publico = false AND mp.ultimaModificacion > :fechaCaducidad)')
+                ->setParameter('id', $id)
+                ->setParameter('fechaCaducidad', new \DateTime('-48 hours'))
+                ->getQuery()
+                ->getOneOrNullResult();
         }
 
         return null;

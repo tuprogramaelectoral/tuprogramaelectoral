@@ -40,10 +40,10 @@ Característica: Construir mi programa electoral
       | turismo |
     Y el próximo interés es "sanidad"
     Cuando veo la lista de políticas del ámbito "sanidad"
-    Y selecciono la política "partido-ficticio-sanidad"
+    Y selecciono la política "partido-ficticio_sanidad"
     Entonces mi programa debería contener las siguientes políticas:
       | ámbito  | política                 |
-      | sanidad | partido-ficticio-sanidad |
+      | sanidad | partido-ficticio_sanidad |
       | turismo |                          |
     Y el próximo interés es "turismo"
 

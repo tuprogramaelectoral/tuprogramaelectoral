@@ -39,7 +39,7 @@ class PoliticaSpec extends ObjectBehavior
 
     function it_tiene_un_id_generado_a_partir_del_partido_y_ambito_asociado()
     {
-        $this->getId()->shouldReturn('partido-ficticio-sanidad');
+        $this->getId()->shouldReturn('partido-ficticio_sanidad');
     }
 
     function it_tiene_una_lista_de_fuentes()

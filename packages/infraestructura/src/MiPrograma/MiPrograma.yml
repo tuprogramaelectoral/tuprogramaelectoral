@@ -7,7 +7,16 @@ TPE\Dominio\MiPrograma\MiPrograma:
         politicas:
             expose: true
             type: array
+        terminado:
+            expose: true
+            type: boolean
+        publico:
+            expose: true
+            type: boolean
     virtual_properties:
+        getAfinidad:
+            expose: true
+            type: array
         getIntereses:
             expose: true
             type: array

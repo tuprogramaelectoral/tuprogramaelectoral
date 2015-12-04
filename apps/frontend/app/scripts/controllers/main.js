@@ -16,33 +16,75 @@ angular.module('TPEApp')
     $filter,
     Ambito,
     Politica,
-    MiPrograma
+    MiPrograma,
+    Grafico
   ) {
 
-    $scope.cargarAmbitos = function () {
+    $scope.crearMiPrograma = function () {
+      $cookies.remove('miProgramaId');
+      $location.path('/');
+      $scope.reset();
+      $scope.cargarAmbitos();
+    };
+
+    $scope.borrarMiPrograma = function () {
+      var programaId = $scope.getProgramaId();
+      MiPrograma.borrar(programaId).then(function () {
+        $cookies.remove('miProgramaId');
+        $location.path('/');
+      });
+    };
+
+    $scope.cargarAmbitos = function (miPrograma) {
       Ambito.findAll().then(function (ambitos) {
         var nuevosAmbitos = {};
         ambitos.forEach(function (ambito) {
           nuevosAmbitos[ambito.id] = ambito;
         });
         $scope.ambitos = nuevosAmbitos;
+        $('#panel-ambitos').removeClass('hidden');
+        if (typeof miPrograma != 'undefined') {
+          $scope.establecerPrograma(miPrograma);
+        } else {
+          $('#collapse-ambitos').collapse('show');
+        }
       });
     };
 
+    $scope.marcarTodosLosAmbitos = function (accion) {
+      for (var ambito in $scope.ambitos) {
+        if ($scope.ambitos.hasOwnProperty(ambito)) {
+          $scope.ambitos[ambito].elegido = accion;
+        }
+      }
+    };
+
     $scope.cargarPrograma = function (miProgramaId) {
-      MiPrograma.cargar(miProgramaId).then(function (miNuevoPrograma) {
-        $scope.miPrograma = miNuevoPrograma;
-        $scope.miProgramaId = miNuevoPrograma.id;
-        $cookies.put('miProgramaId', miNuevoPrograma.id);
-        miNuevoPrograma.intereses.forEach(function (interes) {
+        MiPrograma.cargar(miProgramaId).then(function (miNuevoPrograma) {
+        if (miNuevoPrograma.terminado) {
+          $('#panel-ambitos').addClass('hidden');
+          $scope.establecerPrograma(miNuevoPrograma);
+          Grafico.mostrar(miNuevoPrograma.afinidad);
+          $('#panel-resultados').removeClass('hidden');
+        } else {
+          $scope.cargarAmbitos(miNuevoPrograma);
+        }
+      }, function() {
+          $scope.crearMiPrograma();
+      });
+    };
+
+    $scope.establecerPrograma = function (miPrograma) {
+      $('#collapse-ambitos').collapse('hide');
+      $scope.miPrograma = miPrograma;
+      $scope.miProgramaId = miPrograma.id;
+      if (!miPrograma.terminado) {
+        $cookies.put('miProgramaId', miPrograma.id, {'expires': new Date(Date.now() + 1.728e+8)});
+        miPrograma.intereses.forEach(function (interes) {
           $scope.ambitos[interes].elegido = true;
         });
-        $scope.cargarMisPoliticas();
-      }, function() {
-        $cookies.remove('miProgramaId');
-        $location.path('/');
-        $('#collapse-ambitos').collapse('show');
-      });
+      }
+      $scope.cargarMisPoliticas();
     };
 
     $scope.cargarMisPoliticas = function () {
@@ -50,7 +92,7 @@ angular.module('TPEApp')
       if (typeof politicas != 'undefined') {
         for (var ambito in politicas) {
           var existe = $.grep($scope.misPoliticas, function(e){
-              return e.id == id;
+              return e.id == politicas[ambito];
             }).length > 0;
           if (politicas.hasOwnProperty(ambito) && !existe && typeof $scope.misAmbitos[ambito] == 'undefined') {
             Politica.findOneById(politicas[ambito]).then(function (politica) {
@@ -71,8 +113,8 @@ angular.module('TPEApp')
         $scope.reset();
         $scope.miPrograma = miPrograma;
         $scope.miProgramaId = miPrograma.id;
-        $cookies.put('miProgramaId', miPrograma.id);
-        $('#collapse-ambitos').collapse();
+        $cookies.put('miProgramaId', miPrograma.id, {'expires': new Date(Date.now() + 1.728e+8)});
+        $('#collapse-ambitos').collapse('hide');
       });
     };
 
@@ -82,51 +124,63 @@ angular.module('TPEApp')
       });
     };
 
+    $scope.completarPrograma = function (miProgramaId, publico) {
+      MiPrograma.completarPrograma(miProgramaId, publico).then(function () {
+        $location.path('/' + miProgramaId);
+      });
+    };
+
     $scope.reset = function () {
       $scope.misAmbitos = {};
       $scope.misPoliticas = [];
-      $scope.mostrarResumen = false;
+      $scope.miPrograma = undefined;
+      $scope.miProgramaId = undefined;
+      $('#panel-resultados').addClass('hidden');
+      $('#panel-resumen').addClass('hidden');
     };
 
-    $scope.cargarProgramaId = function () {
-      $scope.miProgramaId = $routeParams.miProgramaId;
+    $scope.getProgramaId = function () {
+      var miProgramaId = $routeParams.miProgramaId;
       if (typeof $scope.miProgramaId == 'undefined') {
-        $scope.miProgramaId = $cookies.get('miProgramaId');
+        miProgramaId = $cookies.get('miProgramaId');
       }
+
+      return miProgramaId;
     };
 
     $scope.cookies = function () {
-      if (typeof $cookies.get('cookies') == 'undefined') {
-        $cookies.put('cookies', true);
+      if ($cookies.get('cookies') == 'aceptado') {
+        $('.cookies').hide();
       } else {
-        $('#cookies').hide();
+        $cookies.put('cookies', 'aceptado');
+      }
+    };
+
+    $scope.run = function () {
+      var miProgramaId = $scope.getProgramaId();
+      if (typeof miProgramaId != 'undefined') {
+        $scope.cargarPrograma(miProgramaId)
+      } else {
+        $scope.cargarAmbitos();
       }
     };
 
     $scope.$watch("miPrograma", function (newValue, oldValue) {
       if (typeof newValue != 'undefined') {
+        $('#panel-resumen').addClass('hidden');
         if (typeof newValue.proximo_interes != 'undefined') {
           Ambito.findPoliticas(newValue.proximo_interes).then(function (ambito) {
             $scope.misAmbitos[ambito.id] = ambito;
           });
         } else {
-          $scope.mostrarResumen = true;
+          if (!newValue.terminado) {
+            $('#panel-resumen').removeClass('hidden');
+          }
         }
       }
     });
 
-    $scope.$watch('ambitos', function (newValue) {
-      if (typeof newValue != 'undefined') {
-        if (typeof $scope.miProgramaId == 'undefined') {
-          $('#collapse-ambitos').collapse('show');
-        } else {
-          $scope.cargarPrograma($scope.miProgramaId);
-        }
-      }
-    });
-
-    $scope.cookies();
     $scope.reset();
-    $scope.cargarProgramaId();
-    $scope.cargarAmbitos();
+    $scope.run();
+    $scope.cookies();
   });
