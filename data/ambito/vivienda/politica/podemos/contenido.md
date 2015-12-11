@@ -173,3 +173,41 @@ con el mercado (mejores servicios) y las administraciones
 Modificaremos el artículo 53 de la Constitución española
 para equiparar los derechos económicos, sociales y culturales
 a los derechos civiles y políticos.
+
+### Inembargabilidad de la primera y única vivienda
+Promoveremos una declaración de inembargabilidad e
+inejecutabilidad de la primera y única vivienda, de ocupación
+permanente. Todo inmueble destinado a ser vivienda
+única y de ocupación permanente se declarará
+como un bien inembargable e inejecutable, salvo en caso
+de renuncia expresa del titular.
+En caso de fallecimiento del titular del inmueble, la inembargabilidad
+e inejucatibilidad afectará a los familiares
+con ocupación permanente en dicho inmueble y que
+no tengan alternativa habitacional. Se entenderá por familiares
+aquellos con ascendencia o descendencia directa
+del antiguo titular fallecido.
+Las garantías de inembargabilidad e inejecutable no serán
+oponibles respecto de deudas originadas en obligaciones
+alimentarias, impuestos, tasas, contribuciones,
+expensas que graven directamente la vivienda u obligaciones
+con garantía real sobre el inmueble y que hubiere sido constituida a los efectos de la adquisición, construcción
+o mejoras de la vivienda única.
+### Eliminación de las cláusulas abusivas
+Promoveremos la eliminación automática e incondicional
+por parte de las entidades bancarias —y sin previa
+petición del titular— de las cláusulas declaradas abusivas
+por los tribunales, bajo apercibimiento de sanción en
+caso de no hacerlo.
+### Observatorio del Derecho a la Vivienda
+Crearemos el Observatorio del Derecho a la Vivienda
+(ODV), con el objetivo de investigar y analizar la situación
+de la vivienda en España.
+Las funciones del ODV incluirán la elaboración de censos
+periódicos de viviendas vacías, la realización de un seguimiento
+de las políticas públicas, y la elaboración de informes.
+Las capacidades del ODV no solo deben ser consultivas,
+sino también de control, seguimiento, denuncia,
+ejecución y elaboración de propuestas legislativas.
+El ODV estará compuesto por representantes de las instituciones
+y de la sociedad civil.

@@ -89,8 +89,8 @@ angular.module('services', [])
     }
 
     var _contenido = {
-      'pp': {"label": "PP", "color": "#279FD4"},
-      'psoe': {"label": "PSOE", "color": "#E0001A"},
+      'partido-popular': {"label": "PP", "color": "#279FD4"},
+      'partido-socialista': {"label": "PSOE", "color": "#E0001A"},
       'ciudadanos': {"label": "Ciudadanos", "color": "#EE8738"},
       'podemos': {"label": "Podemos", "color": "#6C295C"}
     };
