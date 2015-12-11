@@ -43,7 +43,6 @@ a instancia de una iniciativa popular.
 directa que pone de manifiesto la oposición
 ciudadana a determinadas normas que le afectan directamente.
 
-
 - Iniciativa de Consulta Popular. Permite a la gente impulsar
 el inicio de una consulta en el ámbito competencial
 correspondiente.
@@ -542,8 +541,6 @@ monetarias.
 
 - Prohibir el endeudamiento bancario por parte de los
 partidos políticos o limitar severamente dicho endeudamiento.
-
-
 - Publicar la identidad de todo aquel donante que
 aporte más de 5000 euros al año.
 
