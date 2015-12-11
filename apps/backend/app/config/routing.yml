@@ -49,7 +49,7 @@ app_miprograma_show:
         _sylius:
             paginate: false
             repository:
-                method: findById
+                method: findNoExpiradoById
                 arguments: [$id]
 
 app_miprograma_update:
@@ -59,4 +59,18 @@ app_miprograma_update:
         _controller: app.controller.miprograma:updateAction
         _sylius:
             paginate: false
+            criteria:
+                id: $id
+                terminado:  false
 
+app_miprograma_delete:
+    path: /misprogramas/{id}
+    methods: [DELETE]
+    defaults:
+        _controller: app.controller.miprograma:deleteAction
+        _sylius:
+            paginate: false
+            criteria:
+                id: $id
+                terminado:  true
+                publico:  false

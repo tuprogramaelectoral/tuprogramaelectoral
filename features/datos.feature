@@ -34,4 +34,4 @@ Característica: Carga de datos iniciales
     Cuando veo la lista de políticas del ámbito "sanidad"
     Entonces la lista de "políticas" debería contener:
       | id                       | partidoId        | ambitoId | fuentes                                                                                                     | contenido                       |
-      | partido-ficticio-sanidad | partido-ficticio | sanidad  | ["http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido"] | <h2>sanidad universal y gratuita</h2> |
+      | partido-ficticio_sanidad | partido-ficticio | sanidad  | ["http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido"] | <h2>sanidad universal y gratuita</h2> |

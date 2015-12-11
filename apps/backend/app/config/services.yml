@@ -9,9 +9,14 @@ services:
         tags:
          - { name: form.type, alias: app_miprograma }
 
-    intereses_existen_validator:
+    intereses_existen_validador:
         class: TPE\Infraestructura\MiPrograma\InteresesExistenValidator
         arguments:
          - @app.repository.miprograma
         tags:
          - { name: validator.constraint_validator, alias: intereses_existen_validador }
+
+    mi_programa_esta_terminado_validador:
+        class: TPE\Infraestructura\MiPrograma\MiProgramaEstaTerminadoValidator
+        tags:
+         - { name: validator.constraint_validator, alias: mi_programa_esta_terminado_validador }

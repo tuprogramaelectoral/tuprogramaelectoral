@@ -23,14 +23,35 @@ class MiPrograma implements DatoInicial
      */
     private $yaOrdenado = false;
 
+    /**
+     * @var bool
+     */
+    private $publico;
 
-    public function __construct(array $politicas)
+    /**
+     * @var bool
+     */
+    private $terminado;
+
+    /**
+     * @var \DateTime
+     */
+    private $ultimaModificacion;
+
+
+    public function __construct(array $politicas, $publico = false, $terminado = false)
     {
         \Assert\that($politicas)->isArray();
+        \Assert\that($publico)->boolean();
 
         $this->id = Uuid::uuid4()->toString();
-        $this->politicas = $politicas;
+        $this->publico = $publico;
+        $this->terminado = $terminado;
+        foreach ($politicas as $interes => $politica) {
+            $this->elegirPolitica($interes, $politica);
+        }
         $this->ordenarPoliticas();
+        $this->actualizarFechaDeModificacion();
     }
 
     private function ordenarPoliticas()
@@ -39,6 +60,11 @@ class MiPrograma implements DatoInicial
             ksort($this->politicas);
             $this->yaOrdenado = true;
         }
+    }
+
+    private function actualizarFechaDeModificacion()
+    {
+        $this->ultimaModificacion = new \DateTime();
     }
 
     /**
@@ -58,16 +84,52 @@ class MiPrograma implements DatoInicial
         return array_keys($this->politicas);
     }
 
+    /**
+     * @return string[]
+     */
     public function getPoliticas()
     {
         $this->ordenarPoliticas();
         return $this->politicas;
     }
 
+    /**
+     * @param string $interes
+     * @return null|string
+     */
+    public function getPolitica($interes)
+    {
+        return (isset($this->politicas[$interes])) ? $this->politicas[$interes] : null;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getAfinidad()
+    {
+        $afinidad = [];
+        foreach ($this->politicas as $politica) {
+            if (null !== $politica) {
+                $partido = explode('_', $politica, 2)[0];
+                $afinidad[$partido] = (isset($afinidad[$partido])) ? $afinidad[$partido] + 1 : 1;
+            }
+        }
+
+        return $afinidad;
+    }
+
+    /**
+     * @param string $interes
+     * @param string $politica
+     */
     public function elegirPolitica($interes, $politica) {
+        $this->actualizarFechaDeModificacion();
         $this->politicas[$interes] = $politica;
     }
 
+    /**
+     * @return null|string
+     */
     public function proximoInteres()
     {
         $this->ordenarPoliticas();
@@ -78,5 +140,39 @@ class MiPrograma implements DatoInicial
         }
 
         return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublico()
+    {
+        return $this->publico;
+    }
+
+    /**
+     * @param bool $publico
+     */
+    public function setPublico($publico)
+    {
+        $this->actualizarFechaDeModificacion();
+        $this->publico = $publico;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTerminado()
+    {
+        return $this->terminado;
+    }
+
+    /**
+     * @param bool $terminado
+     */
+    public function setTerminado($terminado)
+    {
+        $this->actualizarFechaDeModificacion();
+        $this->terminado = $terminado;
     }
 }

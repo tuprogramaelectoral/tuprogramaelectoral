@@ -42,7 +42,7 @@ class Politica implements DatoInicial
             ->that($contenido, 'contenido')->string()->notEmpty()
             ->verifyNow();
 
-        $this->id = \slugifier\slugify($partido->getId() . '-' . $ambito->getId());
+        $this->id = $partido->getId() . '_' . $ambito->getId();
         $this->partido = $partido;
         $this->ambito = $ambito;
         $this->fuentes = $fuentes;
