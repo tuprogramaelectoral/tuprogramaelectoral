@@ -1,5 +1,5 @@
 ### Pensiones justas para nuestros mayores
-En Ciudadanos consideramos que el sistema de pensiones es el pilar fundamental
+En *el partido* consideramos que el sistema de pensiones es el pilar fundamental
 del estado del bienestar y creemos necesario reabrir el Pacto de Toledo y
 consensuar entre todos sus firmantes una reforma del sistema de pensiones para
 asegurar su sostenibilidad, la suficiencia de las pensiones, la transparencia del

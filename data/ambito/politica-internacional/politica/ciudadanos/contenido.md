@@ -165,14 +165,14 @@ apertura del mercado estadounidense.
 
 Ahora bien, las negociaciones han sido criticadas por su opacidad, la amenaza de la
 desregulación del mercado europeo, el establecimiento de tribunales de arbitraje o la
-privatización de los servicios públicos. Ciudadanos entiende la preocupación de la
+privatización de los servicios públicos. *el partido* entiende la preocupación de la
 sociedad y por ello defiende un debate abierto y bien informado que permita tener
 posiciones más centradas entre los partidarios a cualquier costa del Tratado y los que se
 oponen únicamente por tratarse de un acuerdo de libre comercio. De hecho, el Parlamento
 Europeo, con especial protagonismo del grupo liberal ALDE, al que pertenece la delegación
-de Ciudadanos, ha conseguido que se publiquen la mayor parte de los posicionamientos
+de *el partido*, ha conseguido que se publiquen la mayor parte de los posicionamientos
 de los negociadores europeos, conviniéndolas en las más transparentes de las
-negociadas por la UE. Ciudadanos seguirá promoviendo la transparencia, manteniendo
+negociadas por la UE. *el partido* seguirá promoviendo la transparencia, manteniendo
 una posición favorable a la negociación mientras se respeten ciertas líneas rojas para el
 acuerdo:
 

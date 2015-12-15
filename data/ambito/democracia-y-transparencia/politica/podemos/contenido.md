@@ -1,6 +1,6 @@
 ### Revocatorios por incumplimiento del programa electoral
 Los programas electorales han de ser entendidos como
-contratos con la ciudadanía. Por eso, Podemos establece
+contratos con la ciudadanía. Por eso, *el partido* establece
 unos compromisos mínimos contractuales y, en caso de
 incumplimiento, planteará una convocatoria de elecciones.
 Así, a los dos años de mandato se pondrá en marcha

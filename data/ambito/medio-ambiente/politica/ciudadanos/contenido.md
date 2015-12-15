@@ -334,7 +334,7 @@ Foros y Organismos Públicos específicos.
 permitan tanto el desarrollo de energías limpias, como reducción de contaminación como
 paliar efectos sintéticos o locales del Cambio Climático.
 
-En definitiva, en Ciudadanos-Cs creemos firmemente que la lucha contra el Cambio
+En definitiva, en *el partido* creemos firmemente que la lucha contra el Cambio
 Climático debe ser una prioridad absoluta en nuestra sociedad. La concienciación y la
 educación de las generaciones presentes y futuras, el trabajo conjunto con agentes
 sociales implicados, grupos ecologistas, industria y comunidad científica, así como el

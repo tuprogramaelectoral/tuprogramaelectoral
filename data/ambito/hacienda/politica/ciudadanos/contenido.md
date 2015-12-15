@@ -639,7 +639,7 @@ reducirá sustancialmente el número de puestos de libre designación y regular�
 administrativa y profesional de sus funcionarlos.
 
 ### Estatuto del Contribuyente
-Ciudadanos cree que todos deben contribuir a financiar el gasto público, y que el fraude
+*el partido* cree que todos deben contribuir a financiar el gasto público, y que el fraude
 fiscal no es admisible, aunque sea de pequeña cuantía. No obstante, creemos que el
 ciudadano en su relación con la Administración Tributaria también tiene que tener
 derechos, porque si no, no es ciudadano sino súbdito. Las últimas reformas, tanto de los
@@ -647,7 +647,7 @@ gobiernos del PP como del PSOE han recortado derechos de los pequeños contribuy
 que quieren cumplir con Hacienda, aunque en algún momento tengan una discrepancia
 con Hacienda.
 
-Para solucionar esta situación, Ciudadanos propondrá un estatuto del Contribuyente, a
+Para solucionar esta situación, *el partido* propondrá un estatuto del Contribuyente, a
 través de una Ley de Derechos y Garantías que potencie los derechos de los
 contribuyentes, poniendo la Administración, también la tributaria, al servicio de los
 ciudadanos, que son la mayoría, que quieren cumplir con sus obligaciones fiscales.

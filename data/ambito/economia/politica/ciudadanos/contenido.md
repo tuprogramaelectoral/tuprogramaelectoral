@@ -234,7 +234,7 @@ financieras y la protección de los consumidores financieros e integridad de los
 para evitar los conflictos de interés que puede suscitar que una misma institución pública
 sea responsable de ambas funciones.
 
-Así pues, C's impulsará la adopción en España del sistema de regulación financiera de
+Así pues, *el partido* impulsará la adopción en España del sistema de regulación financiera de
 "doble vértice", integrado por:
 De una parte, una nueva "Comisión Nacional de Servicios Financieros" (CNSF), Institución
 que tomará como punto de partida la actual CNMV, pero que asumirá las siguientes
@@ -305,7 +305,7 @@ Autoridad no le encomendó una función complementaria esencial: analizar, de fo
 rigurosa e independiente, la eficacia y el coste de las distintas partidas y programas de
 gasto público, ni siquiera los del Estado.
 
-Así pues, C's defenderá que la Autoridad Independiente de Responsabilidad Fiscal (AiREF)
+Así pues, *el partido* defenderá que la Autoridad Independiente de Responsabilidad Fiscal (AiREF)
 asuma las siguientes funciones:
 
 - La evaluación del coste y eficacia de los programas de gasto público. A tal fin, asumirá
@@ -336,7 +336,7 @@ social no solo beneficiará a la propia empresa, sino que prestigiará ante los 
 sistema económico de mercado, de iniciativa privada y de libre empresa que consagra
 nuestra Constitución.
 
-Por todo ello, C's, con la especial legitimidad que le da su firme defensa de la economía de
+Por todo ello, *el partido*, con la especial legitimidad que le da su firme defensa de la economía de
 mercado, la libertad de empresa y la iniciativa privada a través de sus diputados y
 representantes políticos, vigilará y denunciará públicamente aquellas conductas de
 empresas, empresarios o directivos —sean grandes, medianas o pequeñas— que, aunque

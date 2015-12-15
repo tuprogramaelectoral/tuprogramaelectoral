@@ -3,7 +3,7 @@
 protección de la salud.
 
 - Asegurar una Sanidad Pública, Universal, Sostenible y de Calidad, un derecho
-fundamental que tenga garantizada la suficiencia financiera. ElPSOE recuperará
+fundamental que tenga garantizada la suficiencia financiera. El *partido* recuperará
 el carácter universal de la asistencia sanitaria derogando el RDL 16/2012 con
 carácter inmediato a su llegada al Gobierno.
 
@@ -11,11 +11,11 @@ carácter inmediato a su llegada al Gobierno.
 del Sistema Nacional de Salud es su carácter UNIVERSAL. Y un gobierno
 del PP con un Real Decreto Ley cambió en 2012 la naturaleza de este
 derecho (el de la Universalidad), recuperando la distinción entre titulares y
-beneficiarios del aseguramiento. Por tanto, el PSOE recuperará el carácter
+beneficiarios del aseguramiento. Por tanto, el *partido* recuperará el carácter
 universal de la asistencia sanitaria derogando el RDL 16/2012 con carácter
 inmediato a su llegada al Gobierno. La Ley General de Sanidad de 1986
 (PSOE), creó el Sistema Nacional de Salud, consiguiendo uno de los mejores
-sistemas sanitarios públicos de nuestro entorno. El PSOE, después de 30
+sistemas sanitarios públicos de nuestro entorno. El *partido*, después de 30
 años, promoverá la redacción de una nueva ley que se adapte a los nuevos
 escenarios económicos y sociales, que evite las desigualdades sociales en
 salud y proteja al sistema sanitario público, para que éste no vuelva a estar
@@ -146,7 +146,7 @@ o riesgo de tenerlo, contemplando una Atención Temprana Universal como
 elemento de la cartera básica de salud, con criterios de equidad, proximidad y
 gratuidad en el acceso.
 
-- El PSOE se compromete a desarrollar la normativa de salud laboral y crear
+- El *partido* se compromete a desarrollar la normativa de salud laboral y crear
 los dispositivos necesarios en todos los niveles del Sistema Nacional de Salud,
 contribuyendo así a fortalecer las intervenciones preventivas de detección de
 riesgos laborales y de promoción de la salud en el lugar de trabajo. y ofertar a los
@@ -372,7 +372,7 @@ legislatura hay un consenso al respecto, abriremos el debate sobre la eutanasia.
 - Invertir en sanidad con el fin de asegurar la suficiencia financiera y un crecimiento
 presupuestario acorde con su desarrollo demográfico, la morbilidad de la
 población y tecnológico. El Sistema Nacional de Salud tiene una insuficiente
-financiación. Por ello, en el contexto de la reforma fiscal que promueve el PSOE,
+financiación. Por ello, en el contexto de la reforma fiscal que promueve el *partido*,
 la sanidad pública tendrá la necesaria suficiencia financiera. Nuestro objetivo
 es invertir más en sanidad pública, procurando que la participación en el PIB
 alcance el 7% del PIB al final de la segunda legislatura.

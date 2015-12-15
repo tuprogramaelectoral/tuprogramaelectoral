@@ -183,7 +183,7 @@ y una atención específica a las necesidades educativas de cada uno de los alum
 
 #### Hacia la verdadera gratuidad de la enseñanza: libros de texto y otros gastos adicionales para las familias
 Un importante freno a la igualdad de oportunidades es la existencia de una gran cantidad
-de gastos a los que las familias deben hacer frente. Ciudadanos está comprometido con
+de gastos a los que las familias deben hacer frente. *el partido* está comprometido con
 la verdadera enseñanza gratuita.
 
 Proponemos:
@@ -224,7 +224,7 @@ que nos referimos en la sección anferlor.
 #### Un MIR docente: concursos de provisión y formación del profesorado
 Tras analizar múltiples esfuerzos de reformas de sistemas educativos de todo el mundo,
 la evidencia es clara: de aquellos controlables por la administración, no hay factor más
-Importante para el aprendizaje de un alumno que el profesor que tiene. En Ciudadanos
+Importante para el aprendizaje de un alumno que el profesor que tiene. En *el partido*
 creemos que la profesión de maestro y profesor es una de las más Importantes en nuestra
 sociedad y queremos ver a nuestro mejor talento joven entrando en esta profesión.
 
@@ -446,7 +446,7 @@ secundaria europea, los estudiantes aprenden de media entre uno y dos Idiomas
 extranjeros, siendo las medias más altas las de Luxemburgo (2.5), Holanda (2.2) y
 Finlandia (2.2).
 
-Ciudadanos se comprometa a trabajar para que todos los estudiantes tengan acceso a un
+*el partido* se comprometa a trabajar para que todos los estudiantes tengan acceso a un
 sistema de enseñanza plurilingüe.
 
 Educar a nuestros hijos en un solo idioma (sea español o catalán o euskera a gallego) es
@@ -462,13 +462,13 @@ alumnos lo practican en la escuela.
 En un mundo globalizado como el nuestro los españoles tendrán que competir con ellos y
 quedaran en clara desventaja si han sido condenados al monolingüismo.
 
-En Ciudadanos queremos que nuestros hijos alcancen el mejor nivel posible en varios
+En *el partido* queremos que nuestros hijos alcancen el mejor nivel posible en varios
 Idiomas, no solo en uno. Sabemos que para conseguirlo, su práctica diaria en la escuela
 es Imprescindible pero también sería deseable facilitar su aprendizaje apostando por la
 versión original subtitulada tanto en cine como en televisión. Cuando nos referimos a
 dominar distintos idiomas como una oportunidad que no podemos dejar escapar, no solo
 pensamos en lenguas extranjeras como el Inglés, también reclamamos conocer otras
-lenguas españolas. Por ello Ciudadanos propone que en todas las escuelas se eduque a
+lenguas españolas. Por ello *el partido* propone que en todas las escuelas se eduque a
 los niños en dos idiomas (español e Inglés) o tres (lengua autonómica, español o inglés).
 Además, el fomento de la diversidad lingüística supone un enriquecimiento de nuestro
 patrimonio cultural y lingüístico por lo que proponemos que los centros de educación
@@ -652,7 +652,7 @@ nuestro país tenemos muy poca cultura oratoria. En la enseñanza secundarla no 
 incorporado como parte de los objetivos de ninguna asignatura. En la universidad la
 reforma de Bolonia ha propiciado los seminarlos y las exposiciones orales pero aún así, la
 capacidad de comunicar deja mucho que desear en bastantes universitarios, y no digamos
-ya entre los estudiantes de primarla y secundarla. Por eso en Ciudadanos consideramos
+ya entre los estudiantes de primarla y secundarla. Por eso en *el partido* consideramos
 esencial Introducir en la escuela el aprendizaje de las técnicas básicas para poder hablar
 y expresarse lo mejor posible en público.
 
@@ -670,7 +670,7 @@ mezquindades.
 En el ámbito educativo parece esencial introducir el aprendizaje del trabajo en equipo y la
 cooperación como una fórmula de éxito tanto en lo profesional como en lo personal. Según
 los Investigadores uno de los mecanismos más eficaces para conseguirlo es el mundo del
-deporte. En Ciudadanos apostamos por darle la importancia que se merece, porque el
+deporte. En *el partido* apostamos por darle la importancia que se merece, porque el
 deporte no solo nos ayuda a mantener en forma nuestro cuerpo, sino que también forma
 a nuestros hijos en valores.
 
@@ -714,7 +714,7 @@ a entender mejor los procesos propios de la dirección de una empresa.
 De acuerdo con el artículo 27.2 de la Constitución Española "La educación tendrá por
 objeto el pleno desarrollo de la personalidad humana en el respeto a los principios
 democráticos de convivencia y a los derechos y libertades fundamentales". Desde
-Ciudadanos creemos que el objetivo de la educación no es sólo preparar a nuestros
+*el partido* creemos que el objetivo de la educación no es sólo preparar a nuestros
 jóvenes para el mercado laboral, sino también educar ciudadanos libres y responsables.
 La formación de tales ciudadanos no sólo es un requerimiento para el funcionamiento de
 nuestra democracia, sino que es a su vez una palanca clave del desarrollo económico.
@@ -736,7 +736,7 @@ instituciones para que el crimen, pequeño y grande, se castigue, y a la vez edu
 ciudadanos en los valores democráticos y cívicos, podremos revertir, con el tiempo, la
 carencia de algunos valores fundamentales, que dificulta el desarrollo económico y social.
 
-Ciudadanos propone por tanto:
+*el partido* propone por tanto:
 
 - Dar una especial Importancia al estudio de los derechos y deberes
 constitucionales cuyo estudio entendemos que debería ser obligatorio,
@@ -759,7 +759,7 @@ un espíritu solidarlo.
 - El respeto a la naturaleza y el desarrollo sostenlble como un elemento a promover
 a la hora de desarrollar la "ciudadanía responsable" en los alumnos.
 
-Finalmente, desde Ciudadanos reconocemos la Importancia del fenómeno religioso y
+Finalmente, desde *el partido* reconocemos la Importancia del fenómeno religioso y
 rechazamos que el debate sobre educación en España se centre en la elección entre
 ciudadanía y religión. Desde la premisa básica de la laicidad, proponemos que ese
 conocimiento puede Incorporarse al acervo cultural de los estudiantes a través de una
@@ -877,7 +877,7 @@ que dichas políticas son más o menos exitosas, y con el fin de mejorarlas.
 
 #### La universidad y el sistema de conocimiento
 La 'política del conocimiento' es una de las grandes asignaturas pendientes de España. El
-objetivo de Ciudadanos es plantear y desarrollar como prioridad una política coherente,
+objetivo de *el partido* es plantear y desarrollar como prioridad una política coherente,
 creíble y sostenible que englobe lo que normalmente son un conjunto de políticas
 relacionadas con la generación y la difusión del conocimiento; en particular, la política
 universitaria y la de investigación, desarrollo e innovación (l+D+ij.
@@ -1183,7 +1183,7 @@ secuencia de plazos específicos para realizar la adaptación.
 #### Internacionalización
 Como consecuencia del marcado carácter endogámico de la universidad española, ésta
 está excesivamente al margen de las tendencias internacionalizadoras que afectan al
-mundo académico global. En Ciudadanos creemos que la universidad española debe ser
+mundo académico global. En *el partido* creemos que la universidad española debe ser
 capaz de atraer estudiantes y académicos internacionales y fomentar la movilidad
 internacional de estudiantes, profesores e investigadores españoles. Además, debe
 desarrollar relaciones estrechas de colaboración con instituciones educativas y de
@@ -1241,7 +1241,7 @@ atraer de manera efectiva y dar el servicio necesario a estudiantes Internaciona
 ni tampoco obtener valor económico de los mismos a través de las matrículas, por
 lo que los estudiantes Internacionales no generan recursos sino costes.
 
-Desde Ciudadanos creemos que es necesario hacer un esfuerzo Importante para
+Desde *el partido* creemos que es necesario hacer un esfuerzo Importante para
 Internacionalizar la universidad española. Creemos que el factor más Importante para ello
 es la mejora de la calidad de nuestras universidades de acuerdo con las medidas que
 hemos propuesto con anterioridad. Además, nuestro programa tiene numerosas medidas

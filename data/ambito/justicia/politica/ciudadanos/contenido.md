@@ -13,7 +13,7 @@ los dos adjuntos será por un lado asistir al Presidente en relación con los no
 y por otro con el régimen disciplinario.
 
 Mientras no exista amplio consenso para acometer una reforma constitucional en el
-sentido propuesto, C's procurará sumar los apoyos suficientes para reformar de forma
+sentido propuesto, *el partido* procurará sumar los apoyos suficientes para reformar de forma
 inmediata el sistema actual de nombramientos de los vocales del Consejo, mediante una
 Ley Orgánica que, acercándose a la literalidad y al espíritu del artículo 122.3 de la
 Constitución, establezca el nombramiento de los doce vocales entre jueces y magistrados
@@ -96,7 +96,7 @@ menor protección que los territorios.
 
 ### Justicia independiente
 La mejora de justicia en España pasa sin duda por reforzar la independencia judicial,
-despolitizando y profesionalizando su funcionamiento. Para C's es fundamental la
+despolitizando y profesionalizando su funcionamiento. Para *el partido* es fundamental la
 preservación del Poder Judicial como pilar del Estado de Derecho y debe estar realmente
 constituido por Jueces y Tribunales independientes e imparciales, garantes de una
 Justicia igual para todos, evitando presiones políticas o de cualquier orden.
@@ -132,7 +132,7 @@ los dos adjunfos será por un lado asisfir al Presidenfe en relación con los no
 y por otro con el régimen disciplinario.
 
 Mientras no exista amplio consenso para acometer una reforma constitucional en el
-sentido propuesto, C's procurará sumar los apoyos suficientes para reformar de forma
+sentido propuesto, *el partido* procurará sumar los apoyos suficientes para reformar de forma
 inmediata el sistema actual de nombramientos de los vocales del Consejo, mediante una
 Ley Orgánica que, acercándose a la literalidad y al espíritu del artículo 122.3 de la
 Constitución, establezca el nombramiento de los doce vocales entre jueces y magistrados
@@ -179,7 +179,7 @@ la Ley en unos plazos razonables.
 ### Poder judicial único para toda España
 Para garantizar la independencia del Poder Judicial consideramos primordial el
 mantenimiento de un único Poder Judicial para toda España, con una sola Jurisdicción
-Ordinaria, cuya cúspide sea el Tribunal Supremo. C's sostiene que, para que todos los
+Ordinaria, cuya cúspide sea el Tribunal Supremo. *el partido* sostiene que, para que todos los
 ciudadanos españoles, vivan donde vivan, mantengan el mismo derecho constitucional a
 la tutela judicial efectiva, debe preservarse al TS como el más alto tribunal de la
 jurisdicción ordinaria, manteniendo los recursos de casación que le son atribuidos.
@@ -318,7 +318,7 @@ competencias en materia de causas frente a aforados.
 La tutela judicial efectiva exige que las personas físicas y jurídicas puedan acudir a la
 jurisdicción a solventar las controversias y reclamar lo que les corresponda, sin que las
 tasas puedan tener carácter dlsuasorlo al acceso a la jurisdicción.
-Ciudadanos propone la exención generalizada de las tasas judiciales, con la excepción de
+*el partido* propone la exención generalizada de las tasas judiciales, con la excepción de
 que podrán mantenerse para grandes empresas que hagan uso frecuente del acceso a la
 jurisdicción, y nunca en una cuantía que pueda suponer un obstáculo Importante para el
 acceso a la misma.
@@ -447,11 +447,11 @@ beneficios penitenciarios a la devolución de lo defraudado.
 
 ### Ministerio Fiscal
 El artículo 124 de la Constitución prevé que el Fiscal General del estado será nombrado por
-el Rey, a propuesta del Gobierno, oído el Consejo General del Poder Judicial. C's propone,
+el Rey, a propuesta del Gobierno, oído el Consejo General del Poder Judicial. *el partido* propone,
 en caso de modificación constitucional, su nombramiento por una mayoría de tres quintos
 del Congreso, a propuesta del Gobierno. En cualquier caso, para garantizar su
 independencia del poder político [sea con el actual sistema de nombramiento por el
-Gobierno o con el propuesto por el Congreso], con posterioridad a su nombramiento, C's
+Gobierno o con el propuesto por el Congreso], con posterioridad a su nombramiento, *el partido*
 propone:
 
 - Aplicar las mismas prevenciones que a jueces y magistrados y vocales del

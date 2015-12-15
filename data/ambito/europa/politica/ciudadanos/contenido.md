@@ -19,7 +19,7 @@ Preliminar de nuestra Constitución.
 
 - Los países del Sur se deben comprometer con seriedad a un programa de
 reformas estructurales en profundidad como el que planfeamos desde
-Ciudadanos.
+*el partido*.
 - Por su parte los países del norte deben comprometerse a hacer más para que
 Europa no sea sólo la Europa de los mercaderes y banqueros, sino cada vez más
 la Europa de los ciudadanos. En particular, propondremos crear un Programa
@@ -32,7 +32,7 @@ corrupción.
 
 ### Un nueva Europa: más unida, próspera y solidaria
 
-En relación con Gibraltar, Ciudadanos apuesta por la descolonización a través del diálogo
+En relación con Gibraltar, *el partido* apuesta por la descolonización a través del diálogo
 político con el Reino Unidoy la colaboración en la resolución de problemas comunes (flujos
 ilícitos, tráfico de drogas y problemas medioambientales).
 

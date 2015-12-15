@@ -1,5 +1,5 @@
 ### Servicios sociales
-- Ciudadanos establecerá el derecho a los servicios sociales como un derecho
+- *el partido* establecerá el derecho a los servicios sociales como un derecho
 fundamental en la reforma constitucional que proponemos. Elaboraremos una Ley
 Marco de Servicios Sociales que garantizará en toda España el derecho subjetivo a la
 atención social, una cartera mínima de servicios, unos mínimos de calidad, la
@@ -65,7 +65,7 @@ control estricto de los programas residenciales.
 
 ### Dependencia y autonomía personal
 
-En el cambio constitucional que propone Ciudadanos, la atención a las personas en
+En el cambio constitucional que propone *el partido*, la atención a las personas en
 situación de dependencia, dentro de los derechos sociales, pasará a estar recogida como
 derecho fundamental en nuestra Constitución.
 

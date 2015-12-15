@@ -2,7 +2,7 @@ Los cambios que afectan al mercado turístico y a la economía global exigen un 
 de rumbo en la política turística y en las estructuras e instrumentos utilizados hasta
 el momento, para seguir aprovechando el potencial de desarrollo que ofrece esta
 importante actividad.
-El cambio de rumbo de la política de turismo que propone el PSOE va dirigido a:
+El cambio de rumbo de la política de turismo que propone el *partido* va dirigido a:
 
 - Avanzar en una política turística más transversal y colaborativa, con un fuerte
 compromiso público y privado.

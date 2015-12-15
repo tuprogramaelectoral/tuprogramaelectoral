@@ -100,7 +100,7 @@ CC.AA., de la inversión en l+D, no sólo para recuperar lo perdido, sino para m
 sustancialmente la situación. Dicha inversión excluye lo presupuestado en grandes obras
 de ingeniería y todo lo referido a Innovación (la i de l+D+i), incluidos préstamos a
 empresas, CDTI, etc., que dependerían del Ministerio de Industria y de la Red Cervera de
-Transferencia Tecnológica que propone C's en el Programa de Política Económica.
+Transferencia Tecnológica que propone *el partido* en el Programa de Política Económica.
 
 - Promover las reformas organizativas y estructurales tendentes a que las diferentes
 instituciones científicas de participación pública tengan mayor autonomía, con
@@ -425,7 +425,7 @@ instituciones públicas.
 #### Favorecer la cooperación entre las instituciones científicas públicas con el sector empresarial
 Es obvio que sin una actividad propia de l+D poca o ninguna Innovación se puede realizar.
 Por lo tanto aunque este Programa de Política Científica va dirigido a la l+D, dejando la
-famosa "i" de l+D+i para el Programa de Política Económica de C's (incluyendo la Red
+famosa "i" de l+D+i para el Programa de Política Económica de *el partido* (incluyendo la Red
 Cervera de Transferencia Tecnológica), las instituciones científicas públicas y las
 empresas deben confluir en puntos de interés sobre el desarrollo de la investigación
 científica. Esta conexión es notoria en los principales países industrializados

@@ -1,4 +1,4 @@
-- Cambiar el modelo energético. En C's apostamos por una transición gradual hacia un
+- Cambiar el modelo energético. En *el partido* apostamos por una transición gradual hacia un
 nuevo modelo energético basado en las energías renovables, el autoabastecimiento, el
 ahorro y la eficiencia así como en un modelo de producción descentralizado.
 
@@ -75,7 +75,7 @@ mientras no salga a la red, no estará gravada por cargo o peaje alguno.
 consumidores pueden utilizar la red para inyectar en la misma sus excedentes de
 energía así como para recibir de la misma sus déficits. El modelo que mayor éxito está
 teniendo en este campo es el denominado "balance neto", en el que en la factura del
-consumidor sencillamente se compensan sus déficits con sus excedentes. Para C's
+consumidor sencillamente se compensan sus déficits con sus excedentes. Para *el partido*
 debe regularse un mecanismo de balance neto con las siguientes características:
 
   - La energía excedentaria debe soportar un cargo de red, dado que está evitando
@@ -164,7 +164,7 @@ propias.
 
 ### Disminuir el importe de la factura eléctrica
 
-- Ciudadanos modificará el sistema de precios para que los consumidores paguemos,
+- *el partido* modificará el sistema de precios para que los consumidores paguemos,
 fundamentalmente, por los costes de producción de las múltiples tecnologías que
 cubren la demanda y de esta forma hacer que las familias y empresas paguen
 básicamente por los precios de generación de la energía.

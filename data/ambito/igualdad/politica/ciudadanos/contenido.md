@@ -52,7 +52,7 @@ políticas de conciliación.
 
 ### Gestación subrogada o embarazo por sustitución.
 
-En Ciudadanos defendemos una regulación que contemple la posibilidad de la gestación
+En *el partido* defendemos una regulación que contemple la posibilidad de la gestación
 subrogada, con el consentimiento expreso de las partes implicadas y con plenas garantías
 jurídicas.
 
@@ -98,7 +98,7 @@ discriminación de la mujer en el mercado laboral y facilita una mejor conciliac
 mediante el aumento de la duración de la baja total de unas 8 semanas (de los 16 (madre)
 y 2 (padre) actuales).
 
-- En el marco del Complemento Salarial que Ciudadanos ha propuesto se
+- En el marco del Complemento Salarial que *el partido* ha propuesto se
 añadirá un crédito fiscal adicional por cada niño en edad comprendida entre los 0 y 3 años
 para guarderías públicas o privadas. Calculamos que este crédito fiscal afectará a
 alrededor de 300.000 niños. Además se establecerán programas de cooperación con las
@@ -156,7 +156,7 @@ por prácticas discriminatorias.
 administrativas a aquellas asociaciones o colectivos que fomenten la discriminación por
 razón de sexo.
 
-- Ciudadanos-Cs considera básico, para cambio de percepciones y
+- *el partido* considera básico, para cambio de percepciones y
 conductas estereotipadas entre niños y niñas, que desde la enseñanza se actúe de
 contrapeso frente a otros ámbitos públicos y privados, como la televisión, el entorno social
 y familiar, la industria del juguete, etc., que ejercen a menudo una gran influencia en pro
@@ -189,7 +189,7 @@ diferencias entre identidad sexual, expresión de género y orientación sexual.
 libros, material audiovisual), que fomenten la igualdad entre todas las personas con
 independencia de su identidad sexual, orientación sexual y su expresión de género.
 
-- Ciudadanos-C's no apoyara la concesión de subvenciones, de cualquier
+- *el partido* no apoyara la concesión de subvenciones, de cualquier
 tipo de ayuda pública ni tan siquiera concesiones administrativas a aquellos centros que
 discriminen al alumnado por razón de identidad sexual, orientación sexual o su expresión
 de género.
@@ -241,7 +241,7 @@ asistida en régimen de igualdad y no discriminación.
 
 ### Desigualdad por razón de identidad sexual
 
-Con independencia  de que desde Ciudadanos-C's apoyemos una Ley Integral que dé
+Con independencia  de que desde *el partido* apoyemos una Ley Integral que dé
 respuesta a todos los aspectos relacionados con la transexualidad, proponemos la
 modificación directa e inmediata, mediante una PNL, de la Ley 3/2007 en dos apartados
 eliminando el límite de edad del Artículo 1, para que la rectificación de la mención registral
@@ -275,7 +275,7 @@ Así mismo se instará a la Dirección General de Registros y Notariado a que co
 solicitudes de rectificación registral de la mención de sexo como de carácter urgente ya
 que afectan a un derecho fundamental que es el de la propia identidad.
 
-Además, Ciudadanos-C's propone las siguientes medidas para corregir las desigualdades
+Además, *el partido* propone las siguientes medidas para corregir las desigualdades
 por razón de identidad sexual:
 
 - Elaboraremos una Ley Integral de Transexualidad, una ley que aborde su
@@ -313,7 +313,7 @@ establecer una estrategia conjunta donde se desarrollen planes Integrales de
 acción contra la violencia y odio ante los diferentes colectivos, con una mayor
 dotación de los recursos necesarios para lograr su definitiva desaparición.
 
-- Como parte de una estrategia de prevención eficaz. Ciudadanos apoyará
+- Como parte de una estrategia de prevención eficaz. *el partido* apoyará
 campañas dlvulgatlvas y de sensibilización contra la violencia de género y contra
 la violencia intrafamiliar (que afecta también a los niños y niñas, a los hombres y
 a los mayores). Fomentaremos campañas de concienclación, educación, control,
@@ -365,18 +365,18 @@ anorexia, la bulimla u otros trastornos de la conducta alimentaria. Impulsaremos
 la tramitación de una norma que tipifique como delito la Incitación a la anorexia y
 otros trastornos de la conducta alimentaria.
 
-- Ciudadanos apoya a nivel nacional e internacional la lucha contra el tráfico de
+- *el partido* apoya a nivel nacional e internacional la lucha contra el tráfico de
 seres humanos, que afecta principalmente a mujeres y niñas. La persecución de
 las organizaciones dedicadas a la trata de seres humanos con fines de explotación
 sexual es clave en esta lucha.
 
-- Ciudadanos perseguirá y condenará los crímenes de mutilación genital femenina
+- *el partido* perseguirá y condenará los crímenes de mutilación genital femenina
 y otras formas de violencia contra las mujeres (matrimonios forzados, dellfos de
 honor, etc.) que todavía hoy se practican ¡legalmente en territorio español, y apoya
 los esfuerzos de la UE y la comunidad Internacional en la lucha contra esta lacra
 mundial.
 
-- En cuanto a la actual ley contra la violencia de género, en Ciudadanos pensamos
+- En cuanto a la actual ley contra la violencia de género, en *el partido* pensamos
 que debe ser modificada para acabar con la asimetría penal por cuestión de sexo
 y la Ineficacia de la propia ley.
 
@@ -385,7 +385,7 @@ problema.
 
 ### Conciliación familiar, personal y laboral
 
-Ciudadanos propone un pacto nacional por la racionalización de horarios y la
+*el partido* propone un pacto nacional por la racionalización de horarios y la
 conciliación laboral, abierto a la adhesión de ciudadanos, asociaciones, agentes sociales.
 El objetivo del pacto es generalizar una jornada laboral más compacta y flexible que, junto
 a la adopción de medidas de flexibilidad laboral permita concillar mejor el tiempo
