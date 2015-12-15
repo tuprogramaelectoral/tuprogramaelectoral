@@ -249,7 +249,7 @@ garantía de mayor eficacia del sistema.
 corto, medio y largo plazo con las energías renovables y la eficiencia energética
 como principales protagonistas. Para iniciar esta transición es necesario
 un marco regulatorio estable, restaurar la seguridad jurídica y derogar las
-normas retroactivas, cuestión sobre la cual el PSOE presentó un recurso de
+normas retroactivas, cuestión sobre la cual el *partido* presentó un recurso de
 inconstitucionalidad.
 
 - Eliminar las trabas al desarrollo del autoconsumo energético, incluido el

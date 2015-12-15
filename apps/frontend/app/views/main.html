@@ -100,7 +100,11 @@
 					 aria-labelledby="heading-terminado-{{ politica.id }}">
 				<div class="panel-body">
 					<div data-ng-bind-html="politica.contenido"></div>
-					<small data-ng-repeat="fuente in politica.fuentes">{{ fuente }}</small>
+					<ul>
+						<li data-ng-repeat="fuente in politica.fuentes">
+							<small>{{ fuente }}</small>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

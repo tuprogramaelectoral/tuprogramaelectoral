@@ -117,10 +117,10 @@ a la organización territorial del Estado en Comunidades. A tal fin, proponemos:
 ### Supresión de Diputaciones provinciales.
 Esta medida en ningún caso afectará ni a los Consejos insulares [Archipiélago Balear), ni
 a los Cabildos (Archipiélago Canario).
-Ciudadanos comprende las circunstancias especiales del Archipiélago Canario como
+*el partido* comprende las circunstancias especiales del Archipiélago Canario como
 Región Ultraperiférica. Por ello, se compromete a mantener tanto su Régimen Económico
 y Fiscal (REFC) como la bonificación al fransporte, la zona ZEC, la RIC, el IGIC, etc.
-Ciudadanos asume la peculiaridad del Archipiélago Balear. Por ello mantendrá su régimen
+*el partido* asume la peculiaridad del Archipiélago Balear. Por ello mantendrá su régimen
 especial (REB) y todos aquellos aspectos que lo caracterizan (bonificaciones en
 transporte, infraestructuras, tarifas portuarias y aeroportuarias, etc.).
 

@@ -420,7 +420,7 @@ sobre los requisitos y funcionalidades mínimos y obligatorios que ha de reunir 
 ley cualquier sistema de información sanitario público y privado.
 
 ### Regulación de la muerte digna
-Ciudadanos participa del consenso mayoritario de los países de nuestro entorno que
+*el partido* participa del consenso mayoritario de los países de nuestro entorno que
 regula que las personas a sean ayudadas en el morir en caso de enfermedad no tratable
 con consecuencia irreversible de muerte o siendo paciente en fase terminal. Defendemos
 la posibilidad de rechazar o interrumpir un tratamiento de soporte vital; el derecho a recibir
@@ -436,7 +436,7 @@ decisión traumática. Las mujeres abortan porque se han quedado embarazadas sin
 quererlo y, en función de sus propias circunstancias, no son capaces de encontrar otra
 solución.
 
-En C's consideramos necesario incrementar los esfuerzos para evitar los embarazos no
+En *el partido* consideramos necesario incrementar los esfuerzos para evitar los embarazos no
 deseados y por ello de aumentar las actuaciones orientadas a mejorar la educación sexual
 de hombres y mujeres y el acceso y utilización de los anticonceptivos, incluida la píldora
 postcoital o del día después. Somos partidarios de la implementación de una estrategia
@@ -449,7 +449,7 @@ estudios, no cabe duda de que los embarazos no deseados y consecuentemente los
 posteriores abortos que pudieran producirse tienen mucho que ver con la situación
 socioeconómica y cultural de las embarazadas.
 
-En C's pensamos que la legislación española sobre la interrupción voluntaria del embarazo
+En *el partido* pensamos que la legislación española sobre la interrupción voluntaria del embarazo
 ha de ser similar a las legislaciones de países de nuestro entorno como Alemania, Francia,
 Austria, Dinamarca o Italia que han adoptado un solución basada en un compromiso
 razonable entre intereses legítimos en conflicto, estableciendo ciertas limitaciones

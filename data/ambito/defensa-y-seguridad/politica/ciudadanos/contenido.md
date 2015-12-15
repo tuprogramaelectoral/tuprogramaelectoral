@@ -93,7 +93,7 @@ las áreas de lucha contra el ciberdellto y el cibercrimen.
 dotándole de mayor conexión con las universidades y empresas.
 
 ### Guardia Civil
-En el ámbito concreto de la Guardia Civil, Ciudadanos apuesta por elaborar un modelo de
+En el ámbito concreto de la Guardia Civil, *el partido* apuesta por elaborar un modelo de
 carrera y unos procedimientos de promoción Interna que conjuguen la formación con la
 experiencia en Unidades operativas.
 

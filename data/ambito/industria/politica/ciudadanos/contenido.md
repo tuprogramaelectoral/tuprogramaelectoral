@@ -1,5 +1,5 @@
 ### Un sistema educativo al nivel de los mejores del mundo, capaz de generar conocimiento para la sociedad.
-Ciudadanos considera que la educación en España debe ser una educación de calidad,
+*el partido* considera que la educación en España debe ser una educación de calidad,
 innovadora, que proporcione las competencias cognitivas y no cognitivas que requiere
 una sociedad moderna y que sea gratuita y universal en sus etapas obligatorias. Nuestro
 modelo educativo se basará en una apuesta más ambiciosa por la equidad y la igualdad
@@ -15,7 +15,7 @@ máximo las cualidades de cada estudiante, con un foco menos memorístico y más
 en el razonamiento independiente. En el capítulo sobre educación primaria y secundaria
 explicamos cómo lograremos estos objetivos.
 
-Además, el programa de Ciudadanos sobre las Universidades y el sistema de
+Además, el programa de *el partido* sobre las Universidades y el sistema de
 conocimientos buscará formar un capital humano cualificado y generar y diseminar el
 conocimiento que posibilita a un país adaptar nuevas tecnologías, formas organizativas,
 etc.; es decir, desarrollarse como sociedad democrática avanzada en la sociedad global
@@ -24,7 +24,7 @@ enriquecer la sociedad del conocimiento, generando nuevas ideas y conocimientos.
 Finalmente, este sistema de conocimiento debe ser un instrumento crucial para que
 España sea competitiva en la sociedad global del conocimiento, caracterizada por una
 gran movilidad de las ideas y las personas que las generan. El programa de Universidades
-de Ciudadanos explica como lograremos estos objetivos.
+de *el partido* explica como lograremos estos objetivos.
 
 ### Una red de centros de transferencia para asegurar la transferencia de conocimiento de la universidad a la empresa
 En nuestro programa de innovación hemos propuesto crear una red de institutos

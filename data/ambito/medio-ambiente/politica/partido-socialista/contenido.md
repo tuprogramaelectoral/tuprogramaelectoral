@@ -231,7 +231,7 @@ También la franja costera requiere un análisis estratégico sobre las oportuni
 amenazas que ha de afrontar en las próximas décadas. Por ello, llevaremos a cabo
 una revisión de la ley de Costas aprobada por el Partido Popular que ha sido declarada
 parcialmente nula por el Tribunal Constitucional tras el recurso planteado por el
-PSOE.
+*partido*.
 
 ### Residuos y prevención de la contaminación.
 Una economía circular demanda un mejor tratamiento de los residuos. España es el

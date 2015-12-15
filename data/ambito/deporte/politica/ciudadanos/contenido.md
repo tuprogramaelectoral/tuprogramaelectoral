@@ -29,7 +29,7 @@ posee una regulación al respecto. Igualmente, son conocidos los problemas de ge
 existentes en ciertas entidades deportivas, que propician falta de transparencia y
 perjuicios para el conjunto de la sociedad.
 
-Para ello, desde Ciudadanos:
+Para ello, desde *el partido*:
 
 - Promoveremos prácticas de Buen Gobierno entre las Entidades Públicas y
 Privadas que organizan, gestionan y desarrollan su labor principal en el contexto
@@ -56,7 +56,7 @@ deportiva se realice de forma adecuada, permitiendo desarrollar los valores soci
 personales positivos que esta actividad posee, sirviendo como elemento coheslonador
 para nuestra sociedad.
 
-Con este propósito, desde Ciudadanos:
+Con este propósito, desde *el partido*:
 
 - Fomentaremos observatorios del deporte que velen por la prevención y corrección
 de los aspectos negativos del deporte, especialmente lo relativo a violencia y
@@ -89,7 +89,7 @@ considerablemente. Por todo ello, el deporte debe ser un eje fundamental, en el 
 Investigación, la innovación y el desarrollo de estrategias adecuadas, ayuden al sector a
 evolucionar adecuadamente.
 
-Para eso, desde Ciudadanos:
+Para eso, desde *el partido*:
 
 - Incentivaremos políticas públicas y privadas que fomenten estudios de
 Investigación, desarrollo e Innovación en el deporte, aumentando la Inversión en

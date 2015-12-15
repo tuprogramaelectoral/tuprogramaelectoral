@@ -186,7 +186,7 @@ régimen y capaz de ser implementado en operaciones urbanísticas encaminadas a:
 - Resolución de problemáticas urbanísticas de núcleos poblacionales consolidados
 
 ### Fomento del alquiler y nuevas formas de uso de la Vivienda Social
-Con esta medida. Ciudadanos busca dar una solución accesible a la vivienda a diferentes
+Con esta medida. *el partido* busca dar una solución accesible a la vivienda a diferentes
 sectores de la población, especialmente a los más vulnerables, promoviendo, con
 acciones de ayudas a las Comunidades y Ayuntamientos, un parque de viviendas de
 protección oficial en régimen de alquiler.

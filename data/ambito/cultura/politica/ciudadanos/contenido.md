@@ -29,7 +29,7 @@ conocimiento de diferentes entornos culturales.
 - Impulsaremos la creación de un carné único que permita el préstamo de libros a
 todos los jóvenes en todas las bibliotecas públicas, incluyendo las universitarias
 
-- Para C's es fundamental la educación sexual para prevenir las enfermedades de
+- Para *el partido* es fundamental la educación sexual para prevenir las enfermedades de
 fransmisión sexual y los embarazos no deseados enfre los jóvenes. Aseguraremos
 el acceso a información y recursos sobre salud sexual y reproductiva.
 
@@ -419,7 +419,7 @@ país. Nada puede hacerse sin ellos. La imaginación, la creatividad, el talento
 improvisarse, pero un gobierno debe proteger a sus creadores y, desde la administración,
 ayudarles a desarrollar su trabajo.
 
-Estatuto del artista y del creador: En Ciudadanos pensamos que desde la administración
+Estatuto del artista y del creador: En *el partido* pensamos que desde la administración
 hay que implementar el marco adecuado para proporcionar una fiscalidad equitativa a
 aquellos que trabajan de forma no continuada y cuyos ingresos son irregulares, como es
 el caso, en muchas ocasiones, de los artistas y los creadores. Al mismo tiempo, es
@@ -463,7 +463,7 @@ audiovisuales y ser el motor de la industria audiovisual del país y la puesta e
 todos aquellos proyectos y trabajos que abogan por una sociedad más justa y mejor
 formada.
 
-En Ciudadanos queremos un modelo de RTVE capaz de
+En *el partido* queremos un modelo de RTVE capaz de
 
 - convertirla en un referente en el servicio público y la producción audiovisual,
 

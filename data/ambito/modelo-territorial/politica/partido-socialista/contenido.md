@@ -1,7 +1,7 @@
 
 - Derogar la LRSAL (Ley de Reforma Local) llevada a cabo por el PP.
 
-- Aprobar una Ley deR égimen Local que refuerce la autonomía local, que garantice
+- Aprobar una Ley de Régimen Local que refuerce la autonomía local, que garantice
 un sistema de financiación estable y proporcional a unas competencias bien
 definidas de los entes locales y aquellas que no siendo propias, previo convenio,
 puedan desarrollarse sin comprometer la estabilidad presupuestaria con
