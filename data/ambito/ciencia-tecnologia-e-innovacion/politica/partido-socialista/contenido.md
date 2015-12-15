@@ -190,30 +190,38 @@ servicio, a igual velocidad y calidad, no cueste más que el coste medio del mis
 en los países de la UE.
 
 - Aprobar una Ley para regular el desarrollo de los derechos digitales que incluirá:
+
 -	Derecho a la formación digital para acceder a todas las oportunidades
 que ofrece la sociedad en red. En la sociedad red la brecha digital es una
 brecha de oportunidades.
+
 -	 Derecho a la neutralidad de red como garantía de un internet abierto,
 equitativo, innovador y en libertad. Los servicios de conexión a internet
 fijo o móvil deben garantizar a todo el mundo: el mismo acceso a todos los
 espacios de internet, que no se ralentice ni corte tráfico alguno, sea del
 tipo que sea y que todo ello tenga el origen y destino que tenga, salvo los
 casos específicos de gestión adecuada de red y de legalidad.
+
 -	 Derecho a la privacidad y protección de datos personales. Hay que
 garantizar un marco legal efectivo de protección de datos personales,
 que permita operar de forma consciente, informada y transparente en la
 relación entre proveedor de contenidos y persona usuaria.
+
 -	 Derecho a la seguridad y secreto absoluto de las comunicaciones
 electrónicas y de los datos que circulan por la red, con las salvaguardas
 de legalidad adecuadas.
+
 -	 Derecho a la reparación y rectificación en el caso de publicación de posibles
 delitos o actos en que posteriormente se pruebe su falsedad.
+
 -	 Derecho al conocimiento, acceso y reutilización de los datos generados
 y en poder de las administraciones públicas, adoptando una estrategia
 integral de open data o apertura de datos. Así como también a disfrutar
 de las innovaciones, creaciones, productos no fungibles y conocimiento
 generado con presupuesto público.
+
 -	 Derecho a la gestión del patrimonio y la huella digital.
+
 -	 Derecho al olvido. Capacidad de borrar la huella digital a petición, siempre
 que sea razonable, y a disponer de nuestro patrimonio digital (cuentas de
 correo, de redes sociales, etc.) libremente, pudiendo decidir en cualquier
