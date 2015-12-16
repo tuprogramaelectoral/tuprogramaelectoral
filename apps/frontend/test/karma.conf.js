@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/restangular/dist/restangular.js',
       'bower_components/d3/d3.js',
       'bower_components/d3pie/d3pie/d3pie.min.js',
+      'bower_components/knuth-shuffle/index.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

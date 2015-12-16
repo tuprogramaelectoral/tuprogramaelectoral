@@ -170,6 +170,7 @@ angular.module('TPEApp')
         $('#panel-resumen').addClass('hidden');
         if (typeof newValue.proximo_interes != 'undefined') {
           Ambito.findPoliticas(newValue.proximo_interes).then(function (ambito) {
+            window.knuthShuffle(ambito.politicas);
             $scope.misAmbitos[ambito.id] = ambito;
           });
         } else {
