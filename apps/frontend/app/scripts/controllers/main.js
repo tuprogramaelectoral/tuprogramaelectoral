@@ -135,6 +135,7 @@ angular.module('TPEApp')
       $scope.misPoliticas = [];
       $scope.miPrograma = undefined;
       $scope.miProgramaId = undefined;
+      $scope.miProgramaUrl = $location.path();
       $('#panel-resultados').addClass('hidden');
       $('#panel-resumen').addClass('hidden');
     };
