@@ -11,6 +11,7 @@ backend:
   image: aleherse/tuprogramaelectoral:backend-dev
   ports:
    - 80:80
+   - 9900:9900
   volumes_from:
    - codebase
   links:
@@ -22,6 +23,8 @@ backend:
    DATABASE_USER: root
    DATABASE_PASSWORD: admin
    SYMFONY_SECRET: ThisTokenIsNotSoSecretChangeIt
+  extra_hosts:
+   - "hostmachine:192.168.99.1"
 
 frontend:
   image: aleherse/tuprogramaelectoral:frontend-dev
