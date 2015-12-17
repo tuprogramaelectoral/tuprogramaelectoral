@@ -1,7 +1,7 @@
 <div class="container">
 	<h2 class="cabecera">Tu Programa Electoral</h2>
 
-	<p>Compara las propuestas del programa electoral de cada partido y toma una decisión informada sobre a qué partido
+	<p>Compara las propuestas del programa electoral de los principales partidos y toma una decisión informada sobre a qué partido
 		votar en las elecciones generales de 2015</p>
 	<div class="cookies">
 		<div class="alert alert-info alert-dismissible" role="alert">
@@ -25,19 +25,63 @@
 			<div id="collapse-resultados" class="panel-collapse" role="tabpanel" aria-labelledby="heading-resultados">
 				<div class="panel-body">
 					<div id="grafico"></div>
-					<div class="row">
-						<div class="col-md-6">
-							<p>Comparte tu selección de propuestas en las redes sociales</p>
-							<div><a href="https://twitter.com/intent/tweet?button_hashtag=TuProgramaElectoral&text=Esta%20es%20mi%20afinidad%20con%20las%20propuestas%20electorales" class="twitter-hashtag-button" data-related="TuProgElectoral" data-url="{{ miProgramaUrl }}">Tweet #TuProgramaElectoral</a></div>
-							<div class="facebook-share"><div class="fb-share-button" data-href="{{ miProgramaUrl }}" data-layout="icon_link"></div></div>
-							<div><div class="g-plus" data-action="share" data-href="{{ miProgramaUrl }}"></div></div>
-							<div><a href="{{ miProgramaUrl }}" target="_blank"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> Enlace</a></div>
+					<div class="row" data-ng-if="miPrograma.publico">
+						<div class="col-md-12">
+							Comparte tu selección de propuestas en las redes sociales
+							<div class="btn-group" role="group">
+								<button class="btn  btn-default"
+												socialshare
+												socialshare-provider="facebook"
+												socialshare-type="sharer"
+												socialshare-text="{{ compartir }}"
+												socialshare-url="{{ miProgramaUrl }}"
+												socialshare-trigger="click" >
+									<i class="fa fa-facebook"></i> Compartir en Facebook
+								</button>
+								<button class="btn btn-default"
+												socialshare
+												socialshare-provider="twitter"
+												socialshare-hashtags="TuProgramaElectoral"
+												socialshare-text="{{ compartir }}"
+												socialshare-url="{{ miProgramaUrl }}"
+												socialshare-trigger="click" >
+									<i class="fa fa-twitter"></i> Twittear #TuProgramaElectoral
+								</button>
+								<button class="btn btn-default"
+												socialshare
+												socialshare-provider="google+"
+												socialshare-text="{{ compartir }}"
+												socialshare-url="{{ miProgramaUrl }}"
+												socialshare-trigger="click">
+									<i class="fa fa-google-plus"></i> Compartir en G+
+								</button>
+								<button class="btn btn-default text-left"
+												socialshare
+												socialshare-provider="tumblr"
+												socialshare-type="link"
+												socialshare-text="{{ compartir 	}}"
+												socialshare-url="{{ miProgramaUrl }}"
+												socialshare-trigger="click" >
+									<i class="fa fa-tumblr"></i> Compartir en Tumblr
+								</button>
+								<a class="btn btn-default" href="{{ miProgramaUrl }}" target="_blank">
+									<span class="glyphicon glyphicon-link" aria-hidden="true"></span> Copiar enlace</a>
+							</div>
 						</div>
-						<div class="col-md-6">
-							<p>O crea tu propia selección de propuestas</p>
+					</div>
+					<div class="row" data-ng-if="!miPrograma.publico">
+						<div class="col-md-12">
+							Borra tu selección de propuestas
+							<div>
+								<button class="btn btn-default" data-ng-click="borrarMiPrograma()">Borrar</button>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							O crea tu propia selección de propuestas
 							<div>
 								<button class="btn btn-default" data-ng-click="crearMiPrograma()">Crear mi programa</button>
-								<button data-ng-if="!miPrograma.publico" class="btn btn-default" data-ng-click="borrarMiPrograma()">Borrar</button>
 							</div>
 						</div>
 					</div>

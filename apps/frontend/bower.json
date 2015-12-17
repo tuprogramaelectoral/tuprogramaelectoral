@@ -14,7 +14,8 @@
     "restangular": "~1.5.1",
     "d3": "~3.5.10",
     "d3pie": "~0.1.9",
-    "knuth-shuffle": "~1.0.1"
+    "knuth-shuffle": "~1.0.1",
+    "angular-socialshare": "angularjs-socialshare#~0.1.19"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

@@ -17,9 +17,10 @@ angular
     'ngSanitize',
     'ngTouch',
     'restangular',
-    'services'
+    'services',
+    '720kb.socialshare'
   ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/politica-de-cookies', {
         templateUrl: 'views/cookies.html'
@@ -32,5 +33,5 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }]);
 

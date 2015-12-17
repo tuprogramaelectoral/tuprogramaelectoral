@@ -33,7 +33,7 @@ angular.module('services', [])
   .factory('MiPrograma', ['Restangular', 'config', function (Restangular, config) {
     var restAngular =
       Restangular.withConfig(function (Configurer) {
-        Configurer.setBaseUrl(config.restAPI);
+        Configurer.setBaseUrl(config.misProgramasAPI);
       });
 
     var _misProgramas = restAngular.all('misprogramas');
@@ -108,7 +108,7 @@ angular.module('services', [])
           }
         }
 
-        _grafico = new d3pie("grafico", new _configuracion(contenido));
+        new d3pie("grafico", new _configuracion(contenido));
       }
     }
   }])

@@ -62,9 +62,14 @@ angular.module('TPEApp')
     $scope.cargarPrograma = function (miProgramaId) {
         MiPrograma.cargar(miProgramaId).then(function (miNuevoPrograma) {
         if (miNuevoPrograma.terminado) {
+          if ($location.path() == '/') {
+            $location.path('/' + miProgramaId);
+          }
           $('#panel-ambitos').addClass('hidden');
           $scope.establecerPrograma(miNuevoPrograma);
-          Grafico.mostrar(miNuevoPrograma.afinidad);
+          if (!$('#grafico').html()) {
+            Grafico.mostrar(miNuevoPrograma.afinidad);
+          }
           $('#panel-resultados').removeClass('hidden');
         } else {
           $scope.cargarAmbitos(miNuevoPrograma);
@@ -135,7 +140,8 @@ angular.module('TPEApp')
       $scope.misPoliticas = [];
       $scope.miPrograma = undefined;
       $scope.miProgramaId = undefined;
-      $scope.miProgramaUrl = $location.path();
+      $scope.miProgramaUrl = $location.absUrl();
+      $scope.compartir = 'Esta es mi afinidad con las propuestas electorales';
       $('#panel-resultados').addClass('hidden');
       $('#panel-resumen').addClass('hidden');
     };
