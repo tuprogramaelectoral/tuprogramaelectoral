@@ -148,7 +148,7 @@ angular.module('TPEApp')
 
     $scope.getProgramaId = function () {
       var miProgramaId = $routeParams.miProgramaId;
-      if (typeof $scope.miProgramaId == 'undefined') {
+      if (typeof miProgramaId == 'undefined') {
         miProgramaId = $cookies.get('miProgramaId');
       }
 
