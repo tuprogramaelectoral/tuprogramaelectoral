@@ -93,11 +93,11 @@ class LectorDeFicheros implements Lector
     public static function escribirFicherosDeTest(array $ficheros)
     {
         $fs = new Filesystem();
-        $path = sys_get_temp_dir() . '/vsp-tests/';
+        $path = sys_get_temp_dir() . '/tpe-tests';
         $fs->remove($path);
 
         foreach ($ficheros as $filePath => $contenido) {
-            $fs->dumpFile($path . $filePath, $contenido);
+            $fs->dumpFile($path . '/' . $filePath, $contenido);
         }
 
         return $path;
