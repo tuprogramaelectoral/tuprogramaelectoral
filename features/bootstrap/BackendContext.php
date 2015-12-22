@@ -78,6 +78,7 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function cargoLosFicherosEnElSistema()
     {
+        $this->getCargador()->regenerarEsquema();
         $this->getCargador()->cargar(new LectorDeFicheros($this->contenidoPath));
     }
 
@@ -248,28 +249,5 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
     private function getRespuesta()
     {
         return json_decode($this->getSession()->getPage()->getContent(), true);
-    }
-
-    /**
-     * @return EntityManager
-     */
-    private function getEntityManager()
-    {
-        return $this->getContainer()->get('doctrine.orm.default_entity_manager');
-    }
-
-    /**
-     * @param string $tipoDeDato
-     * @return DatoInicialRepositorio
-     */
-    private function getRepositorio($tipoDeDato)
-    {
-        $repositorios = [
-            self::AMBITOS => 'app.repository.ambito',
-            self::PARTIDOS => 'app.repository.partido',
-            self::MIPROGRAMA => 'app.repository.miprograma'
-        ];
-
-        return $this->getContainer()->get($repositorios[$tipoDeDato]);
     }
 }

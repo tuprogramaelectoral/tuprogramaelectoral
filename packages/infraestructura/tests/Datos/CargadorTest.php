@@ -19,9 +19,9 @@ use VSP\Dominio\Datos\DatoInicialRepositorio;
 
 class CargadorTest extends BaseDeDatos_TestCase
 {
-    public function testLeeLosFicherosDeDatosYLosCargaEnLaBaseDeDatos()
+    public function testLeeLosFicherosDeDatosYLosInsertaEnLaBaseDeDatos()
     {
-        $path = LectorDeFicheros::escribirFicherosDeTest([
+        $this->cargarFicheros([
             'ambito/sanidad/ambito.json' => '{"nombre": "Sanidad"}',
             'partido/partido-ficticio/partido.json' => '{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}',
             'ambito/sanidad/politica/partido-ficticio/politica.json' => '{"partido": "partido-ficticio", "ambito": "sanidad", "fuentes": ["http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido"]}',
@@ -36,8 +36,6 @@ class CargadorTest extends BaseDeDatos_TestCase
             ["http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido"],
             '## sanidad universal y gratuita'
         );
-
-        (new Cargador($this->em))->cargar(new LectorDeFicheros($path));
 
         $ambitos = $this->repos[self::CLASE_AMBITO]->findAll();
         $partidos = $this->repos[self::CLASE_PARTIDO]->findAll();
@@ -84,11 +82,9 @@ class CargadorTest extends BaseDeDatos_TestCase
      */
     public function testLanzaExcepcionCuandoElContenidoJsonNoEsValido()
     {
-        $path = LectorDeFicheros::escribirFicherosDeTest([
+        $this->cargarFicheros([
             'ambito/administracion-publica/ambito.json' => 'ContenidoNoValido',
         ]);
-
-        (new Cargador($this->em))->cargar(new LectorDeFicheros($path));
     }
 
     /**
@@ -96,10 +92,39 @@ class CargadorTest extends BaseDeDatos_TestCase
      */
     public function testLanzaExcepcionCuandoElJsonEstaIncompleto()
     {
-        $path = LectorDeFicheros::escribirFicherosDeTest([
+        $this->cargarFicheros([
             'ambito/administracion-publica/ambito.json' => '{}',
         ]);
+    }
 
-        (new Cargador($this->em))->cargar(new LectorDeFicheros($path));
+    public function testLeeLosFicherosDeDatosYLosactualizaEnLaBaseDeDatos()
+    {
+        // Datos iniciales
+        $this->cargarFicheros([
+            'ambito/sanidad/ambito.json' => '{"nombre": "Sanidad"}',
+            'partido/partido-ficticio/partido.json' => '{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}',
+            'ambito/sanidad/politica/partido-ficticio/politica.json' => '{"partido": "partido-ficticio", "ambito": "sanidad", "fuentes": ["http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido"]}',
+            'ambito/sanidad/politica/partido-ficticio/contenido.md' => '## sanidad universal y gratuita'
+        ]);
+
+        // Actualización
+        $this->cargarFicheros([
+            'ambito/sanidad/politica/partido-ficticio/politica.json' => '{"partido": "partido-ficticio", "ambito": "sanidad", "fuentes": ["http://partido-ficticio.es/programa/sanidad nuevo apartado sobre sanidad en el programa electoral del partido"]}',
+            'ambito/sanidad/politica/partido-ficticio/contenido.md' => '## Nueva política'
+        ], false);
+
+        $ambito = Ambito::crearUsandoJson('{"nombre": "Sanidad"}');
+        $partido = Partido::crearUsandoJson('{"nombre": "Partido Ficticio", "siglas": "PF", "programa": "http://partido-ficticio.es"}');
+        $politica = new Politica(
+            $partido,
+            $ambito,
+            ["http://partido-ficticio.es/programa/sanidad nuevo apartado sobre sanidad en el programa electoral del partido"],
+            '## Nueva política'
+        );
+
+        $politicas = $this->repos[self::CLASE_AMBITO]->findOneBy(['id' => 'sanidad'])->getPoliticas();
+
+        $this->assertCount(1, $politicas);
+        $this->compararPoliticas($politica, $politicas[0]);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace TPE\Infraestructura\Datos;
 
-use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Tools\SchemaTool;
 use TPE\Dominio\Ambito\Ambito;
 use TPE\Dominio\Datos\Lector;
@@ -29,7 +30,7 @@ class Cargador
     private $schemaTool;
 
     /**
-     * @var ClassMetadata[]
+     * @var ClassMetadataInfo[]
      */
     private $metadata;
 
@@ -65,25 +66,102 @@ class Cargador
     {
         $this->lector = $lector;
 
-        $this->regenerarEsquema();
         $this->cargarDatos(self::CLASE_AMBITO);
         $this->cargarDatos(self::CLASE_PARTIDO);
         $this->cargarDatos(self::CLASE_POLITICA);
-
-        $this->em->flush();
-        $this->em->clear();
     }
 
     private function cargarDatos($tipo)
     {
         foreach ($this->lector->leer($tipo) as $datos) {
-            $this->em->persist(
-                $this->crearObjeto($tipo, $datos)
-            );
+            $dato = $this->crearDato($tipo, $datos);
+            if ($this->existe($dato)) {
+                $this->update($dato);
+            } else {
+                $this->insert($dato);
+            }
         }
     }
 
-    private function crearObjeto($tipo, $datos)
+    private function existe(DatoInicial $dato)
+    {
+        return $this->em->getConnection()->createQueryBuilder()
+            ->select('count(*)')
+            ->from($this->getMetadata($dato)->getTableName())
+            ->where('id = :id')
+            ->setParameter('id', $dato->getId())
+            ->execute()
+            ->fetchColumn() == 1;
+    }
+
+    private function update(DatoInicial $dato)
+    {
+        $metadata = $this->getMetadata($dato);
+        $idColumn = $metadata->getSingleIdentifierColumnName();
+        $query = $this->em->getConnection()->createQueryBuilder()
+            ->update($metadata->getTableName())
+            ->where("{$idColumn} = :{$idColumn}")
+            ->setParameter($idColumn, $dato->getId());
+
+        foreach ($metadata->getFieldNames() as $campo) {
+            $query
+                ->set($metadata->getColumnName($campo), ':' . $campo)
+                ->setParameter($campo, $this->getFieldValue($dato, $campo));
+        }
+
+        $query->execute();
+    }
+
+    private function insert(DatoInicial $dato)
+    {
+        $metadata = $this->getMetadata($dato);
+        $query = $this->em->getConnection()->createQueryBuilder()
+            ->insert($metadata->getTableName());
+
+        foreach ($metadata->getFieldNames() as $campo) {
+            $query
+                ->setValue($metadata->getColumnName($campo), ':' . $campo)
+                ->setParameter($campo, $this->getFieldValue($dato, $campo));
+        }
+
+        foreach ($metadata->getAssociationMappings() as $campo => $mapping) {
+            if ($mapping['type'] == ClassMetadataInfo::MANY_TO_ONE && $mapping['isOwningSide']) {
+                $query
+                    ->setValue($metadata->getColumnName($campo), ':' . $campo)
+                    ->setParameter($campo, $metadata->getFieldValue($dato, $campo)->getId());
+            }
+        }
+
+        $query->execute();
+    }
+
+    private function getFieldValue(DatoInicial $dato, $campo)
+    {
+        $metadata = $this->getMetadata($dato);
+        $type = Type::getType($metadata->getTypeOfField($campo));
+
+        return $type->convertToDatabaseValue(
+            $metadata->getFieldValue($dato, $campo),
+            $this->em->getConnection()->getDatabasePlatform()
+        );
+    }
+
+    /**
+     * @param DatoInicial $dato
+     * @return ClassMetadataInfo
+     */
+    private function getMetadata(DatoInicial $dato)
+    {
+        return $this->metadata[get_class($dato)];
+    }
+
+    /**
+     * @param string $tipo
+     * @param string $datos
+     * @return DatoInicial
+     * @throws \Exception
+     */
+    private function crearDato($tipo, $datos)
     {
         switch ($tipo) {
             case self::CLASE_AMBITO:
@@ -97,8 +175,8 @@ class Cargador
             case self::CLASE_POLITICA:
                 $json = json_decode($datos['json'], true);
                 return new Politica(
-                    $this->getObjeto(self::CLASE_PARTIDO, $json['partido']),
-                    $this->getObjeto(self::CLASE_AMBITO, $json['ambito']),
+                    $this->getDato(self::CLASE_PARTIDO, $json['partido']),
+                    $this->getDato(self::CLASE_AMBITO, $json['ambito']),
                     $json['fuentes'],
                     $datos['contenido']
                 );
@@ -107,7 +185,7 @@ class Cargador
         throw new \BadMethodCallException("la clase {$tipo} no está registrada en el lector de ficheros para instanciar");
     }
 
-    private function getObjeto($tipo, $id)
+    private function getDato($tipo, $id)
     {
         if (isset($this->objetos[$tipo][$id])) {
             return $this->objetos[$tipo][$id];
@@ -116,7 +194,7 @@ class Cargador
         throw new \Exception("No se ha encontrado el objeto referenciado {$id}");
     }
 
-    private function regenerarEsquema()
+    public function regenerarEsquema()
     {
         $this->schemaTool->dropSchema($this->metadata);
         $this->schemaTool->createSchema($this->metadata);

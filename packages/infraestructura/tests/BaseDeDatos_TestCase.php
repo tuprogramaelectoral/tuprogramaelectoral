@@ -33,6 +33,11 @@ class BaseDeDatos_TestCase extends \PHPUnit_Framework_TestCase
      */
     protected $repos;
 
+    /**
+     * @var Cargador
+     */
+    protected $cargador;
+
 
     public function setUp()
     {
@@ -55,6 +60,7 @@ class BaseDeDatos_TestCase extends \PHPUnit_Framework_TestCase
         $config->setMetadataDriverImpl(new SimplifiedYamlDriver($namespaces));
 
         $this->em = EntityManager::create($dbParams, $config);
+        $this->cargador = new Cargador($this->em);
 
         $metadata = [
             self::CLASE_AMBITO => $this->em->getClassMetadata(self::CLASE_AMBITO),
@@ -68,11 +74,19 @@ class BaseDeDatos_TestCase extends \PHPUnit_Framework_TestCase
         $this->repos[self::CLASE_MIPROGRAMA] = New MiProgramaBaseDeDatosRepositorio($this->em, $metadata[self::CLASE_MIPROGRAMA]);
     }
 
-
-    public function cargarFicheros(array $ficheros)
+    protected function cargarFicheros(array $ficheros, $force = true)
     {
         $path = LectorDeFicheros::escribirFicherosDeTest($ficheros);
 
-        (new Cargador($this->em))->cargar(new LectorDeFicheros($path));
+        $this->cargarDesdePath($path, $force);
+    }
+
+    protected function cargarDesdePath($path, $force = true)
+    {
+        if ($force) {
+            $this->cargador->regenerarEsquema();
+        }
+
+        $this->cargador->cargar(new LectorDeFicheros($path));
     }
 }
