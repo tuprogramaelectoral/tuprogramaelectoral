@@ -1,0 +1,4 @@
+suites:
+    domain:
+        namespace: TPE\Domain
+        psr4_prefix: TPE\Domain

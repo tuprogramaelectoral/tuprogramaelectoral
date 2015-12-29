@@ -1,15 +1,15 @@
 <?php
 
-namespace spec\TPE\Dominio\Ambito;
+namespace spec\TPE\Domain\Field;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use TPE\Dominio\Ambito\Ambito;
+use TPE\Domain\Field\Field;
 
 
-class AmbitoEnMemoriaRepositorioSpec extends ObjectBehavior
+class FieldMemoryRepositorySpec extends ObjectBehavior
 {
-    function let(Ambito $admon, Ambito $empleo, Ambito $educacion)
+    function let(Field $admon, Field $empleo, Field $educacion)
     {
         $admon->getId()->willReturn("administracion-publica");
         $empleo->getId()->willReturn("empleo");
@@ -21,28 +21,28 @@ class AmbitoEnMemoriaRepositorioSpec extends ObjectBehavior
         ]);
     }
 
-    function it_encuentra_una_lista_vacia_si_no_hay_ambitos_almacenados()
+    function it_should_return_empty_when_finds_all_and_there_are_no_fields()
     {
         $this->beConstructedWith([]);
 
         $this->findAll()->shouldReturn([]);
     }
 
-    function it_encuentra_un_ambito_por_su_id(Ambito $admon)
+    function it_should_find_a_field_by_its_id(Field $admon)
     {
         $this->find('administracion-publica')->shouldBeEqualTo($admon);
     }
 
-    function it_guarda_un_ambito(Ambito $educacion)
+    function it_should_save_a_field(Field $educacion)
     {
         $this->save($educacion);
 
         $this->find('educacion')->shouldReturn($educacion);
     }
 
-    function it_devuelve_el_namespace_del_tipo_de_dato_que_gestiona()
+    function it_should_return_the_classname_of_the_managed_entity()
     {
-        $this->getClassName()->shouldReturn('TPE\Dominio\Ambito\Ambito');
+        $this->getClassName()->shouldReturn('TPE\Domain\Field\Field');
     }
 }
 

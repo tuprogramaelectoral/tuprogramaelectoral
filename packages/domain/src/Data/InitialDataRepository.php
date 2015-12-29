@@ -1,26 +1,26 @@
 <?php
 
-namespace TPE\Dominio\Datos;
+namespace TPE\Domain\Data;
 
 
-interface DatoInicialRepositorio
+interface InitialDataRepository
 {
     /**
-     * @return DatoInicial[]
+     * @return InitialData[]
      */
     public function findAll();
 
     /**
      * @param string $id
-     * @return DatoInicial|null
+     * @return InitialData|null
      */
     public function find($id);
 
     /**
-     * @param DatoInicial $ambito
+     * @param InitialData $object
      * @param bool $flush
      */
-    public function save(DatoInicial $dato, $flush = true);
+    public function save(InitialData $object, $flush = true);
 
     /**
      * @return string
