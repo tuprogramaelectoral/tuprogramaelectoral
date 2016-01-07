@@ -1,0 +1,25 @@
+TPE\Domain\Party\Party:
+  type: entity
+  table: tpe_party
+  indexes:
+    party_id_idx:
+      columns: [ id ]
+  id:
+    id:
+      type: string
+      length: 255
+  fields:
+    name:
+      type: string
+      length: 255
+    acronym:
+      type: string
+      length: 255
+    programmeUrl:
+      type: string
+      length: 512
+      nullable: true
+  oneToMany:
+    policies:
+      targetEntity: TPE\Domain\Party\Policy
+      mappedBy: party

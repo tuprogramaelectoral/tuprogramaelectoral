@@ -10,8 +10,8 @@ use TPE\Domain\Party\Policy;
 /**
  * Ámbito sobre el que actuan una serie de políticas
  *
- * Class Ambito
- * @package TPE\Ambito
+ * Class Field
+ * @package TPE\Field
  */
 class Field implements InitialData
 {
@@ -26,14 +26,14 @@ class Field implements InitialData
     private $name;
 
     /**
-     * @var Politica[]
+     * @var Policy[]
      */
     private $policies = [];
 
 
     /**
      * @param string $name
-     * @param Politica[] $policies
+     * @param Policy[] $policies
      */
     public function __construct($name, $policies = null)
     {
@@ -46,10 +46,10 @@ class Field implements InitialData
 
     /**
      * @param string $json
-     * @param array $politicas
+     * @param array $policies
      * @return Field
      */
-    public static function createFromJson($json, array $politicas = null)
+    public static function createFromJson($json, array $policies = null)
     {
         $data = json_decode($json, true);
 
@@ -58,7 +58,7 @@ class Field implements InitialData
         }
 
         if (isset($data['name'])) {
-            return new Field($data['name'], $politicas);
+            return new Field($data['name'], $policies);
         }
 
         throw new \BadMethodCallException('Missing required attributes while creating Field from ' . $json);
@@ -73,7 +73,7 @@ class Field implements InitialData
     }
 
     /**
-     * @return Politica[]
+     * @return Policy[]
      */
     public function getPolicies()
     {

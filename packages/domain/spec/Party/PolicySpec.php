@@ -17,7 +17,7 @@ class PolicySpec extends ObjectBehavior
         $this->beConstructedWith(
             $party,
             $field,
-            ['http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido'],
+            ['http://partido-ficticio.es/programa/'],
             '## sanidad universal y gratuita'
         );
     }
@@ -54,7 +54,7 @@ class PolicySpec extends ObjectBehavior
 
     function it_should_have_a_list_of_sources()
     {
-        $this->getSources()->shouldReturn(['http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido']);
+        $this->getSources()->shouldReturn(['http://partido-ficticio.es/programa/']);
     }
 
     function it_should_have_the_content_of_the_policy_in_markdown()
@@ -84,7 +84,7 @@ class PolicySpec extends ObjectBehavior
         $this->beConstructedWith(
             $party,
             $field,
-            ['http://partido-ficticio.es/programa/sanidad apartado sobre sanidad en el programa electoral del partido'],
+            ['http://partido-ficticio.es/programa/'],
             ''
         );
 

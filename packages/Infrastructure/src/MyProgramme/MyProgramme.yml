@@ -1,0 +1,25 @@
+TPE\Dominio\MyProgramme\MyProgramme:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+        policies:
+            expose: true
+            type: array
+        completed:
+            expose: true
+            type: boolean
+        public:
+            expose: true
+            type: boolean
+    virtual_properties:
+        getPartyAffinity:
+            expose: true
+            type: array
+        getInterests:
+            expose: true
+            type: array
+        nextInterest:
+            expose: true
+            type: string

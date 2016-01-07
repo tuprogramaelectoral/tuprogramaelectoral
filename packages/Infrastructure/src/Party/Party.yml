@@ -1,0 +1,15 @@
+TPE\Domain\Party\Party:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+        name:
+            expose: true
+            type: string
+        acronym:
+            expose: true
+            type: string
+        programme:
+            expose: true
+            type: string

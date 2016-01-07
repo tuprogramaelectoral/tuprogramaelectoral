@@ -1,0 +1,15 @@
+TPE\Domain\Field\Field:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+            groups: [List, Show]
+        name:
+            expose: true
+            type: string
+            groups: [List, Show]
+        policies:
+            expose: true
+            type: ArrayCollection<TPE\Domain\Party\Policy>
+            groups: [Show]

@@ -1,0 +1,27 @@
+TPE\Domain\Party\Policy:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: string
+            groups: [Index, Show]
+        sources:
+            expose: true
+            type: array
+            groups: [Index, Show]
+        party:
+            expose: true
+            type: TPE\Domain\Party\Party
+            groups: [Index, Show]
+        field:
+            expose: true
+            type: TPE\Domain\Field\Field
+            groups: [Index, Show]
+        content:
+            expose: true
+            type: string
+            groups: [Index, Show]
+            access_type: public_method
+            read_only: true
+            accessor:
+                getter: getContentInHtml

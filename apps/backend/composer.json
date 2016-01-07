@@ -22,8 +22,8 @@
         "sylius/translation-bundle": "^0.15.0",
         "friendsofsymfony/rest-bundle": "^1.7",
         "nelmio/cors-bundle": "^1.4",
-        "dominio": "*@dev",
-        "infraestructura": "*@dev"
+        "domain": "*@dev",
+        "infrastructure": "*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -68,11 +68,11 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../../packages/infraestructura"
+            "url": "../../packages/infrastructure"
         },
         {
             "type": "path",
-            "url": "../../packages/dominio"
+            "url": "../../packages/domain"
         }
     ]
 }
