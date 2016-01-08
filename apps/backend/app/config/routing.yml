@@ -30,6 +30,7 @@ app_policy_show:
         _controller: app.controller.policy:showAction
         _sylius:
             paginate: false
+            serialization_groups: [List]
 
 app_party_index:
     path: /parties

@@ -4,12 +4,16 @@ TPE\Domain\Party\Party:
         id:
             expose: true
             type: string
+            groups: [List, Show]
         name:
             expose: true
             type: string
+            groups: [List, Show]
         acronym:
             expose: true
             type: string
+            groups: [List, Show]
         programme:
             expose: true
             type: string
+            groups: [List, Show]

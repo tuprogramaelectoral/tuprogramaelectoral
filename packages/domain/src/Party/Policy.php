@@ -38,8 +38,8 @@ class Policy implements InitialData
     public function __construct(Party $party, Field $field, array $sources, $content)
     {
         \Assert\lazy()
-            ->that($sources, 'fuentes')->isArray()->notEmpty()
-            ->that($content, 'contenido')->string()->notEmpty()
+            ->that($sources, 'sources')->isArray()->notEmpty()
+            ->that($content, 'content')->string()->notEmpty()
             ->verifyNow();
 
         $this->id = $party->getId() . '_' . $field->getId();

@@ -4,23 +4,23 @@ TPE\Domain\Party\Policy:
         id:
             expose: true
             type: string
-            groups: [Index, Show]
+            groups: [List, Show]
         sources:
             expose: true
             type: array
-            groups: [Index, Show]
+            groups: [List, Show]
         party:
             expose: true
             type: TPE\Domain\Party\Party
-            groups: [Index, Show]
+            groups: [List, Show]
         field:
             expose: true
             type: TPE\Domain\Field\Field
-            groups: [Index, Show]
+            groups: [List, Show]
         content:
             expose: true
             type: string
-            groups: [Index, Show]
+            groups: [List, Show]
             access_type: public_method
             read_only: true
             accessor:
