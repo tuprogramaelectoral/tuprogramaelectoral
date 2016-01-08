@@ -75,23 +75,23 @@ doctrine:
             default:
                 auto_mapping: false
                 mappings:
-                    ambito:
+                    field:
                         mapping:    true
                         type:       yml
-                        dir:        "%kernel.root_dir%/../vendor/infraestructura/src/Ambito"
-                        prefix:     TPE\Dominio\Ambito
+                        dir:        "%kernel.root_dir%/../vendor/infrastructure/src/Field"
+                        prefix:     TPE\Domain\Field
                         is_bundle:  false
-                    partido:
+                    party:
                         mapping:    true
                         type:       yml
-                        dir:        "%kernel.root_dir%/../vendor/infraestructura/src/Partido"
-                        prefix:     TPE\Dominio\Partido
+                        dir:        "%kernel.root_dir%/../vendor/infrastructure/src/Party"
+                        prefix:     TPE\Domain\Party
                         is_bundle:  false
-                    miPrograma:
+                    myProgramme:
                         mapping:    true
                         type:       yml
-                        dir:        "%kernel.root_dir%/../vendor/infraestructura/src/MiPrograma"
-                        prefix:     TPE\Dominio\MiPrograma
+                        dir:        "%kernel.root_dir%/../vendor/infrastructure/src/MyProgramme"
+                        prefix:     TPE\Domain\MyProgramme
                         is_bundle:  false
 
 sylius_translation:
@@ -123,11 +123,11 @@ jms_serializer:
         auto_detection: false
         directories:
             ambito:
-                namespace_prefix: "TPE\\Dominio\\Ambito"
-                path: "%kernel.root_dir%/../vendor/infraestructura/src/Ambito"
+                namespace_prefix: "TPE\\Domain\\Field"
+                path: "%kernel.root_dir%/../vendor/infrastructure/src/Field"
             partido:
-                namespace_prefix: "TPE\\Dominio\\Partido"
-                path: "%kernel.root_dir%/../vendor/infraestructura/src/Partido"
+                namespace_prefix: "TPE\\Domain\\Party"
+                path: "%kernel.root_dir%/../vendor/infrastructure/src/Party"
             miprograma:
-                namespace_prefix: "TPE\\Dominio\\MiPrograma"
-                path: "%kernel.root_dir%/../vendor/infraestructura/src/MiPrograma"
+                namespace_prefix: "TPE\\Domain\\MyProgramme"
+                path: "%kernel.root_dir%/../vendor/infrastructure/src/MyProgramme"

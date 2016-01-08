@@ -12,50 +12,50 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use TPE\Infraestructura\Datos\Cargador;
-use TPE\Infraestructura\Datos\LectorDeFicheros;
+use TPE\Infrastructure\Data\Loader;
+use TPE\Infrastructure\Data\ReaderOfFiles;
 
 
-class CargaCommand extends ContainerAwareCommand
+class LoaderCommand extends ContainerAwareCommand
 {
-    const ARG_DIRECTORIO = 'directorio';
-    const OPT_REGENERAR = 'regenerar';
+    const ARG_DIRECTORY = 'directory';
+    const OPT_REGENERATE = 'regenerate';
 
     protected function configure()
     {
         $this
-            ->setName('datos:carga')
+            ->setName('data:load')
             ->setDescription('Load data into the database')
             ->addArgument(
-                self::ARG_DIRECTORIO,
+                self::ARG_DIRECTORY,
                 InputArgument::REQUIRED,
-                'Directorio con los datos iniciales'
+                'Directory containing the initial data'
             )
             ->addOption(
-                self::OPT_REGENERAR,
+                self::OPT_REGENERATE,
                 null,
                 InputOption::VALUE_NONE,
-                'regenera esquema de base de datos'
+                'regenerate DB schema'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $path = $input->getArgument(self::ARG_DIRECTORIO);
+        $path = $input->getArgument(self::ARG_DIRECTORY);
 
-        if ($input->getOption(self::OPT_REGENERAR)) {
-            $this->getCargador()->regenerarEsquema();
+        if ($input->getOption(self::OPT_REGENERATE)) {
+            $this->getLoader()->regenerateScheme();
         }
 
-        $this->getCargador()->cargar(new LectorDeFicheros($path));
+        $this->getLoader()->load(new ReaderOfFiles($path));
     }
 
     /**
-     * @return Cargador
+     * @return Loader
      */
-    private function getCargador()
+    private function getLoader()
     {
-        return $this->getContainer()->get('cargador_de_datos');
+        return $this->getContainer()->get('data_loader');
 
     }
 }

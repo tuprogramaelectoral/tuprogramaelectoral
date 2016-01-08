@@ -1,25 +1,25 @@
 sylius_resource:
     resources:
-        app.ambito:
+        app.field:
             driver: doctrine/orm
             classes:
-                model: TPE\Dominio\Ambito\Ambito
-                repository: TPE\Infraestructura\Ambito\AmbitoBaseDeDatosRepositorio
-        app.partido:
+                model: TPE\Domain\Field\Field
+                repository: TPE\Infrastructure\Field\FieldDBRepository
+        app.party:
             driver: doctrine/orm
             classes:
-                model: TPE\Dominio\Partido\Partido
-                repository: TPE\Infraestructura\Partido\PartidoBaseDeDatosRepositorio
-        app.politica:
+                model: TPE\Domain\Party\Party
+                repository: TPE\Infrastructure\Party\PartyDBRepository
+        app.policy:
             driver: doctrine/orm
             classes:
-                model: TPE\Dominio\Partido\Politica
-                repository: TPE\Infraestructura\Partido\PoliticaBaseDeDatosRepositorio
-        app.miprograma:
+                model: TPE\Domain\Party\Policy
+                repository: TPE\Infrastructure\Party\PolicyDBRepository
+        app.myprogramme:
             driver: doctrine/orm
             classes:
-                model: TPE\Dominio\MiPrograma\MiPrograma
-                repository: TPE\Infraestructura\MiPrograma\MiProgramaBaseDeDatosRepositorio
+                model: TPE\Domain\MyProgramme\MyProgramme
+                repository: TPE\Infrastructure\MyProgramme\MyProgrammeDBRepository
 
 fos_rest:
     disable_csrf_role: ROLE_API
