@@ -1,6 +1,4 @@
 default:
-  translation:
-    locale: es
   suites:
     backend:
       type: symfony_bundle

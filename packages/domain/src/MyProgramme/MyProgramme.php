@@ -125,6 +125,7 @@ class MyProgramme implements InitialData
     public function selectPolicy($interest, $policy) {
         $this->updateLastModification();
         $this->policies[$interest] = $policy;
+        $this->sorted = false;
     }
 
     /**

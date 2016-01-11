@@ -1,4 +1,4 @@
-TPE\Dominio\MyProgramme\MyProgramme:
+TPE\Domain\MyProgramme\MyProgramme:
     exclusion_policy: ALL
     properties:
         id:

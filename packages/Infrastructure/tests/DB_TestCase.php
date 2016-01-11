@@ -61,8 +61,8 @@ class DB_TestCase extends \PHPUnit_Framework_TestCase
         $this->metadata = [
             Loader::CLASS_FIELD => $this->em->getClassMetadata(Loader::CLASS_FIELD),
             Loader::CLASS_PARTY => $this->em->getClassMetadata(Loader::CLASS_PARTY),
-            Loader::CLASS_POLICY =>$this->em->getClassMetadata(Loader::CLASS_POLICY),
-            Loader::CLASS_MY_PROGRAMME =>$this->em->getClassMetadata(Loader::CLASS_MY_PROGRAMME)
+            Loader::CLASS_POLICY => $this->em->getClassMetadata(Loader::CLASS_POLICY),
+            Loader::CLASS_MY_PROGRAMME => $this->em->getClassMetadata(Loader::CLASS_MY_PROGRAMME)
         ];
 
         $this->repos[Loader::CLASS_FIELD] = New FieldDBRepository($this->em, $this->metadata[Loader::CLASS_FIELD]);

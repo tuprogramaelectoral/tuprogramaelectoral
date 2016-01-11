@@ -7,18 +7,16 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Filesystem\Filesystem;
-use TPE\Dominio\Ambito\Ambito;
-use TPE\Dominio\Datos\DatoInicial;
-use TPE\Dominio\Datos\DatoInicialRepositorio;
-use TPE\Dominio\MiPrograma\MiPrograma;
-use TPE\Dominio\Partido\Partido;
-use TPE\Dominio\Partido\Politica;
-use TPE\Infraestructura\Ambito\AmbitoBaseDeDatosRepositorio;
-use TPE\Infraestructura\Datos\BaseDeDatosRepositorio;
-use TPE\Infraestructura\Datos\Cargador;
-use TPE\Infraestructura\Datos\LectorDeFicheros;
+use TPE\Domain\Data\InitialData;
+use TPE\Domain\Field\Field;
+use TPE\Domain\Party\Party;
+use TPE\Domain\Party\Policy;
+use TPE\Infrastructure\Data\Loader;
+use TPE\Infrastructure\Data\ReaderOfFiles;
+
 
 /**
  * Defines application features from the specific context.
@@ -27,26 +25,26 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
 {
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
-    const AMBITOS = "ámbitos";
-    const PARTIDOS = "partidos";
-    const POLITICAS = "políticas";
-    const CONTENIDO_POLITICA = "contenido política";
-    const MIPROGRAMA = "mi programa";
+    const FIELDS = "fields";
+    const PARTIES = "parties";
+    const POLICIES = "policies";
+    const POLICY_CONTENT = "policy content";
+    const MYPROGRAMME = "my programme";
 
     /**
      * @var string
      */
-    private $contenidoPath;
-
-    /**
-     * @var DatoInicial[][]
-     */
-    private $actuales;
+    private $filesPath;
 
     /**
      * @var array
      */
-    private $miPrograma;
+    private $current;
+
+    /**
+     * @var array
+     */
+    private $myProgramme;
 
 
     /**
@@ -61,171 +59,280 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
-     * @Given que los ficheros y su contenido son los siguientes:
+     * @Given the repository files and content is:
      */
-    public function queLosFicherosYSuContenidoSonLosSiguientes(TableNode $table)
+    public function theRepositoryFilesAndContentIs(TableNode $table)
     {
-        $ficheros = [];
-        foreach ($table as $fichero) {
-            $ficheros[$fichero['path']] = $fichero['contenido'];
+        $files = [];
+        foreach ($table as $file) {
+            $files[$file['path']] = $file['content'];
         }
 
-        $this->contenidoPath = LectorDeFicheros::escribirFicherosDeTest($ficheros);
+        $this->filesPath = ReaderOfFiles::writeTestFiles($files);
     }
 
     /**
-     * @Given cargo los ficheros en el sistema
+     * @Given the content of the files are loaded into the system
      */
-    public function cargoLosFicherosEnElSistema()
+    public function theContentOfTheFilesAreLoadedIntoTheSystem()
     {
-        $this->getCargador()->regenerarEsquema();
-        $this->getCargador()->cargar(new LectorDeFicheros($this->contenidoPath));
+        $this->getLoader()->regenerateScheme();
+        $this->getLoader()->load(new ReaderOfFiles($this->filesPath));
     }
 
     /**
-     * @When veo la lista de :tipoDeDato disponibles
+     * @When I see the list of available :dataType
      */
-    public function veoLaListaDelTipoDeDatoDisponibles($tipoDeDato)
-    {
-        $paths = [
-            self::AMBITOS => 'ambitos',
-            self::PARTIDOS => 'partidos'
-        ];
-
-        $this->getSession()->setRequestHeader('Accept', 'application/json');
-        $this->visit($paths[$tipoDeDato]);
-
-        $this->actuales[$tipoDeDato] = [];
-        foreach ($this->getRespuesta() as $dato) {
-            $this->actuales[$tipoDeDato][$dato['id']] = $dato;
-        }
-    }
-
-    /**
-     * @When veo la lista de políticas del ámbito :arg2
-     */
-    public function veoLaListaDePoliticasDelAmbito($ambito)
+    public function iSeeTheListOfAvailableDataType($dataType)
     {
         $this->getSession()->setRequestHeader('Accept', 'application/json');
-        $this->visit("ambitos/{$ambito}");
+        $this->visit($dataType);
 
-        $this->actuales[self::POLITICAS] = [];
-        foreach ($this->getRespuesta()['politicas'] as $dato) {
-            $this->actuales[self::POLITICAS][$dato['id']] = $dato;
+        $this->current[$dataType] = [];
+        foreach ($this->getResponse() as $data) {
+            $this->current[$dataType][$data['id']] = $data;
         }
     }
 
     /**
-     * @Then la lista de :tipoDeDato debería contener:
+     * @When I see the list of policies linked to the field :field
      */
-    public function laListaDelTipoDeberiaContener($tipoDeDato, TableNode $table)
+    public function iSeeTheListOfPoliciesLinkedToTheField($field)
     {
-        $esperados = [];
-        foreach ($table as $dato) {
-            $esperados[$dato['id']] = $dato;
-        }
+        $this->getSession()->setRequestHeader('Accept', 'application/json');
+        $this->visit("fields/{$field}");
 
-        PHPUnit_Framework_Assert::assertCount(count($esperados), $this->actuales[$tipoDeDato]);
-        foreach ($this->actuales[$tipoDeDato] as $actual) {
-            $this->compararDatoActualConEsperado($tipoDeDato, $actual, $esperados[$actual['id']]);
+        $this->current[self::POLICIES] = [];
+        foreach ($this->getResponse()['policies'] as $data) {
+            $this->current[self::POLICIES][$data['id']] = $data;
         }
     }
 
-    private function compararDatoActualConEsperado($tipo, $actual, array $esperado)
+    /**
+     * @Then the list of :dataType contains:
+     */
+    public function theListOfDataTypeContains($dataType, TableNode $table)
     {
-        switch ($tipo) {
-            case self::AMBITOS:
-                /** @var Ambito $actual */
-                PHPUnit_Framework_Assert::assertEquals($esperado['nombre'], $actual["nombre"]);
+        $expected = [];
+        foreach ($table as $data) {
+            $expected[$data['id']] = $data;
+        }
+
+        PHPUnit_Framework_Assert::assertCount(count($expected), $this->current[$dataType]);
+        foreach ($this->current[$dataType] as $current) {
+            $this->compareCurrentWithExpected($dataType, $current, $expected[$current['id']]);
+        }
+    }
+
+    private function compareCurrentWithExpected($dataType, array $current, array $expected)
+    {
+        switch ($dataType) {
+            case self::FIELDS:
+                /** @var Field $current */
+                PHPUnit_Framework_Assert::assertEquals($expected['name'], $current["name"]);
                 break;
-            case self::PARTIDOS:
-                /** @var Partido $actual */
-                PHPUnit_Framework_Assert::assertEquals($esperado['nombre'], $actual["nombre"]);
-                PHPUnit_Framework_Assert::assertEquals($esperado['siglas'], $actual["siglas"]);
-                PHPUnit_Framework_Assert::assertEquals($esperado['programa'], $actual["programa"]);
+            case self::PARTIES:
+                /** @var Party $current */
+                PHPUnit_Framework_Assert::assertEquals($expected['name'], $current["name"]);
+                PHPUnit_Framework_Assert::assertEquals($expected['acronym'], $current["acronym"]);
+                PHPUnit_Framework_Assert::assertEquals($expected['programmeUrl'], $current["programme_url"]);
                 break;
-            case self::POLITICAS:
-                /** @var Politica $actual */
-                PHPUnit_Framework_Assert::assertEquals(json_decode($esperado['fuentes']), $actual["fuentes"]);
-                PHPUnit_Framework_Assert::assertEquals($esperado['contenido'], $actual["contenido"]);
+            case self::POLICIES:
+                /** @var Policy $current */
+                PHPUnit_Framework_Assert::assertEquals(json_decode($expected['sources']), $current["sources"]);
+                PHPUnit_Framework_Assert::assertEquals($expected['content'], $current["content"]);
+                PHPUnit_Framework_Assert::assertEquals($expected['partyId'], $current["party"]["id"]);
                 break;
             default:
-                throw new \Exception("no existe forma de comparar " . $tipo);
+                throw new \Exception("It doesn't exist a way to compare " . $dataType);
         }
     }
 
     /**
-     * @When (que) selecciono los siguientes intereses:
+     * @When (that) I select these interests:
      */
-    public function seleccionoLosSiguientesIntereses(TableNode $table)
+    public function iSelectTheseInterests(TableNode $table)
     {
-        $politicas = [];
-        foreach ($table->getColumn(0) as $interes) {
-            $politicas['politicas'][$interes] = null;
+        $policies = [];
+        foreach ($table->getColumn(0) as $interest) {
+            $policies['policies'][$interest] = null;
         }
 
-        $this->request('POST', 'misprogramas', $politicas);
-
-        $this->miPrograma = $this->getRespuesta();
+        $this->request('POST', 'myprogrammes', $policies);
+        $this->myProgramme = $this->getResponse();
     }
 
     /**
-     * @Then mi programa debería contener los siguientes intereses:
+     * @Then my programme contains the interests:
      */
-    public function miProgramaDeberiaContenerLosSiguientesIntereses(TableNode $table)
+    public function myProgrammeContainsTheInterests(TableNode $table)
     {
-        $this->visit("misprogramas/{$this->miPrograma['id']}");
-        $this->miPrograma = $this->getRespuesta();
-
-        $esperado = array_flip($table->getColumn(0));
-        foreach ($this->miPrograma['intereses'] as $actual) {
-            PHPUnit_Framework_Assert::assertTrue(isset($esperado[$actual]));
+        $expected = array_flip($table->getColumn(0));
+        foreach ($this->myProgramme['interests'] as $current) {
+            PHPUnit_Framework_Assert::assertTrue(isset($expected[$current]));
         }
     }
 
     /**
-     * @Then el próximo interés es :arg1
+     * @Then the next interest is :interest
      */
-    public function elProximoInteresEs($ambito)
+    public function theNextInterestIs($interest)
     {
-        PHPUnit_Framework_Assert::assertEquals($ambito, $this->miPrograma["proximo_interes"]);
+        PHPUnit_Framework_Assert::assertEquals($interest, $this->myProgramme["next_interest"]);
     }
 
     /**
-     * @Then el sistema debería mostrar un error
+     * @Given there is no next interest
      */
-    public function elSistemaDeberiaMostrarUnError()
+    public function thereIsNoNextInterest()
     {
-        PHPUnit_Framework_Assert::assertEquals(400, $this->getRespuesta()['code']);
+        PHPUnit_Framework_Assert::assertNotTrue(isset($this->myProgramme["next_interest"]));
     }
 
     /**
-     * @When selecciono la política :politica
+     * @Then the system shows an error
      */
-    public function seleccionoLaPolitica($politica)
+    public function theSystemShowsAnError()
     {
-        $this->request(
-            "POST",
-            "/misprogramas/{$this->miPrograma['id']}",
-            ["politicas" => [$this->miPrograma['proximo_interes'] => $politica]]
+        PHPUnit_Framework_Assert::assertEquals(400, $this->myProgramme['code']);
+    }
+
+    /**
+     * @When I select the linked policy :policy
+     */
+    public function iSelectTheLinkedPolicy($policy)
+    {
+        $this->updateMyProgramme(
+            $this->myProgramme['id'],
+            ["policies" => [$this->myProgramme['next_interest'] => $policy]]
+        );
+    }
+
+    private function updateMyProgramme($myProgrammeId, $changes)
+    {
+        $this->request("POST", "/myprogrammes/{$myProgrammeId}", $changes);
+
+        $response = $this->getResponse();
+        if (null == $response) {
+            $this->visit("myprogrammes/{$myProgrammeId}");
+            $response = $this->getResponse();
+        }
+
+        $this->myProgramme = $response;
+    }
+
+    /**
+     * @When I set my programme as completed and privacy :privacy
+     */
+    public function iSetMyProgrammeAsCompletedAndPrivacy($privacy)
+    {
+        $this->updateMyProgramme(
+            $this->myProgramme['id'],
+            ["policies" => [], "completed" => true, 'public' => ($privacy == 'public') ? true : false]
         );
     }
 
     /**
-     * @Then mi programa debería contener las siguientes políticas:
+     * @Then my programme contains these linked policies:
      */
-    public function miProgramaDeberiaContenerLasSiguientesPoliticas(TableNode $table)
+    public function myProgrammeContainsTheseLinkedPolicies(TableNode $table)
     {
-        $this->visit("misprogramas/{$this->miPrograma['id']}");
-        $this->miPrograma = $this->getRespuesta();
+        $expected = [];
+        foreach ($table as $data) {
+            if (!empty($data['policy'])) {
+                $expected[$data['field']] = $data['policy'];
+            }
+        }
+
+        foreach ($this->myProgramme['policies'] as $field => $policy) {
+            PHPUnit_Framework_Assert::assertTrue(isset($expected[$field]));
+            PHPUnit_Framework_Assert::assertEquals($expected[$field], $policy);
+        }
     }
 
     /**
-     * @return Cargador
+     * @Then my programme is completed
      */
-    private function getCargador()
+    public function myProgrammeIsCompleted()
     {
-        return $this->getContainer()->get('cargador_de_datos');
+        PHPUnit_Framework_Assert::assertTrue($this->myProgramme['completed']);
+    }
+
+    /**
+     * @Then my programme privacy is :privacy
+     */
+    public function myProgrammePrivacyIs($privacy)
+    {
+        if ('public' == $privacy) {
+            PHPUnit_Framework_Assert::assertTrue($this->myProgramme['public']);
+        } else {
+            PHPUnit_Framework_Assert::assertFalse($this->myProgramme['public']);
+        }
+    }
+
+    /**
+     * @Then my programme party affinity is:
+     */
+    public function myProgrammePartyAffinityIs(TableNode $table)
+    {
+        $expected = [];
+        foreach ($table as $data) {
+            $expected[$data['party']] = $data['affinity'];
+        }
+
+        foreach ($this->myProgramme['party_affinity'] as $party => $affinity) {
+            PHPUnit_Framework_Assert::assertTrue(isset($expected[$party]));
+            PHPUnit_Framework_Assert::assertEquals($expected[$party], $affinity);
+        }
+    }
+
+    /**
+     * @When :timePassed passes from my last programme modification
+     */
+    public function passesFromMyLastProgrammeModification($timePassed)
+    {
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        /** @var ClassMetadata $metadata */
+        $metadata = $em->getClassMetadata(Loader::CLASS_MY_PROGRAMME);
+        $em->getConnection()->createQueryBuilder()
+            ->update($metadata->getTableName())
+            ->where("{$metadata->getColumnName('id')} = :id")
+            ->set($metadata->getColumnName('lastModification'), ':lastModification')
+            ->setParameters([
+                'id' => $this->myProgramme['id'],
+                'lastModification' => date_format(new \DateTime('-' . $timePassed), 'Y-m-d H:i:s')
+            ])
+            ->execute();
+    }
+
+    /**
+     * @Then my programme is still accessible
+     */
+    public function myProgrammeIsStillAccessible()
+    {
+        $this->visit("myprogrammes/{$this->myProgramme['id']}");
+        $actual = $this->getResponse();
+
+        PHPUnit_Framework_Assert::assertEquals($this->myProgramme['id'], $actual['id']);
+    }
+
+    /**
+     * @Then my programme is not accessible
+     */
+    public function myProgrammeIsNotAccessible()
+    {
+        $this->visit("myprogrammes/{$this->myProgramme['id']}");
+        $actual = $this->getResponse();
+
+        PHPUnit_Framework_Assert::assertEquals(404, $actual['error']['code']);
+    }
+
+    /**
+     * @return Loader
+     */
+    private function getLoader()
+    {
+        return $this->getContainer()->get('data_loader');
     }
 
     private function request($verb, $url, $valores)
@@ -246,7 +353,7 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
     /**
      * @return array
      */
-    private function getRespuesta()
+    private function getResponse()
     {
         return json_decode($this->getSession()->getPage()->getContent(), true);
     }

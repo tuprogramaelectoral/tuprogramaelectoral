@@ -67,6 +67,6 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
 
     public function getName()
     {
-        return 'app_my_programme';
+        return 'app_myprogramme';
     }
 }
