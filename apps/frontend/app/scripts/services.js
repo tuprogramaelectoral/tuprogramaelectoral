@@ -1,83 +1,84 @@
 angular.module('services', [])
-  .factory('Ambito', ['Restangular', 'config', function (Restangular, config) {
+  .factory('Field', ['Restangular', 'config', function (Restangular, config) {
     var restAngular =
       Restangular.withConfig(function (Configurer) {
         Configurer.setBaseUrl(config.restAPI);
       });
 
-    var _ambitos = restAngular.all('ambitos');
+    var _fields = restAngular.all('fields');
 
     return {
       findAll: function () {
-        return _ambitos.getList();
+        return _fields.getList();
       },
-      findPoliticas: function (id) {
-        return _ambitos.one(id).get();
+      findOneById: function (id) {
+        return _fields.one(id).get();
       }
     }
   }])
-  .factory('Politica', ['Restangular', 'config', function (Restangular, config) {
+  .factory('Policy', ['Restangular', 'config', function (Restangular, config) {
     var restAngular =
       Restangular.withConfig(function (Configurer) {
         Configurer.setBaseUrl(config.restAPI);
       });
 
-    var _politicas = restAngular.all('politicas');
+    var _policies = restAngular.all('policies');
 
     return {
       findOneById: function (id) {
-        return _politicas.one(id).get();
+        return _policies.one(id).get();
       }
     }
   }])
-  .factory('MiPrograma', ['Restangular', 'config', function (Restangular, config) {
+  .factory('MyProgramme', ['Restangular', 'config', function (Restangular, config) {
     var restAngular =
       Restangular.withConfig(function (Configurer) {
-        Configurer.setBaseUrl(config.misProgramasAPI);
+        Configurer.setBaseUrl(config.restAPI);
       });
 
-    var _misProgramas = restAngular.all('misprogramas');
+    var _myProgrammes = restAngular.all('myprogrammes');
 
     return {
-      cargar: function (miProgramaId) {
-        return _misProgramas.one(miProgramaId).get();
+      findOneById: function (myProgrammeId) {
+        return _myProgrammes.one(myProgrammeId).get();
       },
-      crear: function (ambitosElegidos) {
-        var intereses = {"politicas": {}};
-        ambitosElegidos.forEach(function (ambito) {
-          intereses["politicas"][ambito] = null;
+      create: function (interests) {
+        var data = {"policies": {}};
+        interests.forEach(function (field) {
+          data["policies"][field] = null;
         });
 
-        return _misProgramas.post(intereses);
+        return _myProgrammes.post(data);
       },
-      borrar: function (miProgramaId) {
-        return _misProgramas.one(miProgramaId).remove();
+      delete: function (myProgrammeId) {
+        return _myProgrammes.one(myProgrammeId).remove();
       },
-      elegirPolitica: function (miProgramaId, ambitoId, politicaId) {
-        var seleccion = {"politicas": {}};
-        seleccion["politicas"][ambitoId] = politicaId;
+      selectLinkedPolicy: function (myProgrammeId, fieldId, policyId) {
+        var data = {"policies": {}};
+        data["policies"][fieldId] = policyId;
 
-        return _misProgramas.one(miProgramaId).post('', seleccion);
+        return _myProgrammes.one(myProgrammeId).post('', data);
       },
-      completarPrograma: function (miProgramaId, publico) {
-        var seleccion = {
-          "terminado": 1,
-          "publico": (publico) ? 1 : 0
+      completeMyProgramme: function (myProgrammeId, isPublic) {
+        var data = {
+          "completed": 1,
+          "public": (isPublic) ? 1 : 0,
+          "policies": {}
         };
 
-        return _misProgramas.one(miProgramaId).post('', seleccion);
+        return _myProgrammes.one(myProgrammeId).post('', data);
       }
     }
   }])
-  .factory('Grafico', [function () {
-    function _configuracion(contenido) {
+  .factory('Graphic', [function () {
+    function _configuration(content) {
       this.size = {
         "canvasHeight": 400,
         "canvasWidth": 590,
         "pieInnerRadius": "50%",
         "pieOuterRadius": "100%"
       };
-      this.data = {"sortOrder": "value-asc", "content": contenido};
+      this.data = {"sortOrder": "value-asc", "content": content};
       this.labels = {
         "outer": { "pieDistance": 32},
         "mainLabel": { "font": "verdana"},
@@ -88,7 +89,7 @@ angular.module('services', [])
       };
     }
 
-    var _contenido = {
+    var _content = {
       'partido-popular': {"label": "PP", "color": "#279FD4"},
       'partido-socialista': {"label": "PSOE", "color": "#E0001A"},
       'ciudadanos': {"label": "Ciudadanos", "color": "#EE8738"},
@@ -96,19 +97,19 @@ angular.module('services', [])
     };
 
     return {
-      mostrar: function (afinidad) {
-        var contenido = [];
-        for (var partido in afinidad) {
-          if (afinidad.hasOwnProperty(partido)) {
-            var dato = _contenido[partido];
-            if (afinidad[partido] > 0) {
-              dato.value = afinidad[partido];
-              contenido.push(dato);
+      show: function (affinity) {
+        var content = [];
+        for (var party in affinity) {
+          if (affinity.hasOwnProperty(party)) {
+            var data = _content[party];
+            if (affinity[party] > 0) {
+              data.value = affinity[party];
+              content.push(data);
             }
           }
         }
 
-        new d3pie("grafico", new _configuracion(contenido));
+        new d3pie("graphic", new _configuration(content));
       }
     }
   }])
