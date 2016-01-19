@@ -42,7 +42,7 @@ angular.module('TPEApp')
         });
         $scope.fields = newFields;
         $('#panel-fields').removeClass('hidden');
-        if (typeof myProgramme != 'undefined') {
+        if (typeof myProgramme !== 'undefined') {
           $scope.setMyProgramme(myProgramme);
         } else {
           $('#collapse-fields').collapse('show');
@@ -61,13 +61,13 @@ angular.module('TPEApp')
     $scope.loadMyProgramme = function (myProgrammeId) {
         MyProgramme.findOneById(myProgrammeId).then(function (myNewProgramme) {
         if (myNewProgramme.completed) {
-          if ($location.path() == '/') {
+          if ($location.path() === '/') {
             $location.path('/' + myProgrammeId);
           }
           $('#panel-fields').addClass('hidden');
           $scope.setMyProgramme(myNewProgramme);
-          if (!$('#graphic').html()) {
-            Graphic.show(myNewProgramme.party_affinity);
+          if ($('#graphic').html() === "") {
+            $scope.graphic = Graphic.show(myNewProgramme.party_affinity);
           }
           $('#panel-results').removeClass('hidden');
         } else {
@@ -93,12 +93,12 @@ angular.module('TPEApp')
 
     $scope.loadMyLinkedPolicies = function () {
       var policies = $scope.myProgramme.policies;
-      if (typeof policies != 'undefined') {
+      if (typeof policies !== 'undefined') {
         for (var field in policies) {
           var exists = $.grep($scope.myLinkedPolicies, function(e){
-              return e.id == policies[field];
+              return e.id === policies[field];
             }).length > 0;
-          if (policies.hasOwnProperty(field) && !exists && typeof $scope.myProgrammeFields[field] == 'undefined') {
+          if (policies.hasOwnProperty(field) && !exists && typeof $scope.myProgrammeFields[field] === 'undefined') {
             Policy.findOneById(policies[field]).then(function (policy) {
               $scope.myLinkedPolicies.push(policy);
             });
@@ -139,6 +139,7 @@ angular.module('TPEApp')
       $scope.myLinkedPolicies = [];
       $scope.myProgramme = undefined;
       $scope.myProgrammeId = undefined;
+      $scope.graphic = undefined;
       $scope.myProgrammeUrl = $location.absUrl();
       $scope.sharingText = 'Esta es mi afinidad con las propuestas electorales';
       $('#panel-results').addClass('hidden');
@@ -147,7 +148,7 @@ angular.module('TPEApp')
 
     $scope.getMyProgrammeId = function () {
       var myProgrammeId = $routeParams.myProgrammeId;
-      if (typeof myProgrammeId == 'undefined') {
+      if (typeof myProgrammeId === 'undefined') {
         myProgrammeId = $cookies.get('myProgrammeId');
       }
 
@@ -155,7 +156,7 @@ angular.module('TPEApp')
     };
 
     $scope.cookies = function () {
-      if ($cookies.get('cookies') == 'accepted') {
+      if ($cookies.get('cookies') === 'accepted') {
         $('.cookies').hide();
       } else {
         $cookies.put('cookies', 'accepted');

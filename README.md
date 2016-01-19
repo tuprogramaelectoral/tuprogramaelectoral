@@ -2,19 +2,21 @@
 
 [![Build Status](https://travis-ci.org/tuprogramaelectoral/tuprogramaelectoral.svg)](https://travis-ci.org/tuprogramaelectoral/tuprogramaelectoral)
 
-Web que muestra los programas electorales de cada partido clasificados por ámbitos de actuación, los usuarios eligen las políticas de cada programa que consideran más afines a su ideología y al final del proceso muestra que porcentaje de afinidad tiene el usuario con cada partido y su selección de políticas.
+Web that presents policies from the electoral programme of the principal Spanish parties, for the 2015 general election, classified by scope.
+Users select the policy linked to each relevant scope that they feel more related with, without knowing the party they belong to.
+At the end of the process a graph with the user party affinity is shown and the list of selected policies, along the name of the party who wrote them.
 
-Esta es una versión española desde cero de la web https://voteforpolicies.org.uk/
+This is a Spanish web application based in the idea behind https://voteforpolicies.org.uk/
 
 **Si quieres colaborar con su desarrollo, diseño y dotación de contenido pásate por la [wiki](https://github.com/tuprogramaelectoral/tuprogramaelectoral/wiki)**
 
-## Aplicaciones necesarias
+## Required applications
 
  * docker (https://docs.docker.com/installation/)
 
-## Cargar aliases
+## Load of aliases
 
-Por conveniencia se han creado una serie de alias en el directorio `artifacts`, puedes hacer que se carguen automáticamente ejecutando lo siguiente
+For convenience a series of aliases have been created inside the folder `artifacts`, you can load them automatically running the next command:
 
 ```shell
 cat <<EOF >> ~/.bashrc
@@ -26,22 +28,31 @@ EOF
 source ~/.bashrc
 ```
 
-## Montar el entorno de desarrollo
+## Load of development hosts
+
+```shell
+sudo -s 'cat <<EOF >> /etc/hosts
+127.0.0.1   tuprogramaelectoral.dev
+127.0.0.1   api.tuprogramaelectoral.dev
+EOF'
+```
+
+## Start the development environment
 
 ```shell
 tpe-compose up -d
 ```
 
-## Para usuarios de OSX
+## For OSX users
 
-Si quieres evitar problemas con los permisos de escritura con los volúmenes de docker necesitarás instalar unison
+To avoid issues with writing permissions into docker volumes you may want to install unison, to do so:
 
 ```shell
 brew install unison
 brew install fswatch
 ```
 
-Y para montar el entorno de desarrollo
+And to create the development environment you may run:
 
 ```shell
 tpe-compose-osx up -d codebase
@@ -50,9 +61,18 @@ tpe-compose-osx up -d
 tpe-unison
 ```
 
-Después de ese proceso sólo es necesario ejecutar lo siguiente para levantar el sistema y sincronizar los cambios
+From now on, to start the development environment and synchronise the files you just need to run these commands:
 
 ```shell
 tpe-compose-osx up -d
 tpe-unison-fsmonitor
+```
+
+and finally loading of development hosts
+
+```shell
+sudo -s 'cat <<EOF >> /etc/hosts
+192.168.99.100   tuprogramaelectoral.dev
+192.168.99.100   api.tuprogramaelectoral.dev
+EOF'
 ```

@@ -61,8 +61,8 @@ angular.module('services', [])
       },
       completeMyProgramme: function (myProgrammeId, isPublic) {
         var data = {
-          "completed": 1,
-          "public": (isPublic) ? 1 : 0,
+          "completed": 'Yes',
+          "public": (isPublic) ? 'Yes' : 'No',
           "policies": {}
         };
 
@@ -96,12 +96,20 @@ angular.module('services', [])
       'podemos': {"label": "Podemos", "color": "#6C295C"}
     };
 
+    function _getContent(party) {
+      if (_content.hasOwnProperty(party)) {
+        return _content[party];
+      }
+
+      return {"label": party, "color": "#" + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6)}
+    }
+
     return {
       show: function (affinity) {
         var content = [];
         for (var party in affinity) {
           if (affinity.hasOwnProperty(party)) {
-            var data = _content[party];
+            var data = _getContent(party);
             if (affinity[party] > 0) {
               data.value = affinity[party];
               content.push(data);
@@ -109,7 +117,7 @@ angular.module('services', [])
           }
         }
 
-        new d3pie("graphic", new _configuration(content));
+        return new d3pie("graphic", new _configuration(content));
       }
     }
   }])

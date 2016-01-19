@@ -7,9 +7,10 @@ COPY artifacts/prod/backend/config/run-app.sh /usr/local/sbin/run-app
 RUN chmod 755 /usr/local/sbin/run-app
 
 COPY apps/backend /var/www
-COPY packages/dominio /var/www/vendor/dominio
-COPY packages/infraestructura /var/www/vendor/infraestructura
+COPY packages/domain /var/www/vendor/domain
+COPY packages/infrastructure /var/www/vendor/infrastructure
 RUN rm /var/www/web/app_dev.php
+RUN rm /var/www/web/app_test.php
 RUN rm /var/www/web/config.php
 RUN chown -R www-data:www-data /var/www
 

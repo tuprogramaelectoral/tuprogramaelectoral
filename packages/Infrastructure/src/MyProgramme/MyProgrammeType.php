@@ -18,12 +18,12 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
                 'constraints' => [new InterestsExist()]
             ])
             ->add('completed', 'choice', [
-                'choices' => ['No' => false, 'Yes' => true],
+                'choices' => ['No', 'Yes'],
                 'choices_as_values' => true,
                 'expanded' => true
             ])
             ->add('public', 'choice', array(
-                'choices' => ['No' => false, 'Yes' => true],
+                'choices' => ['No', 'Yes'],
                 'choices_as_values' => true,
                 'expanded' => true
             ))
@@ -35,8 +35,8 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
         /** @var MyProgramme $data */
         $forms = iterator_to_array($forms);
         $forms['policies']->setData($data ? $data->getpolicies() : []);
-        $forms['completed']->setData($data ? $data->isCompleted() : false);
-        $forms['public']->setData($data ? $data->isPublic() : false);
+        $forms['completed']->setData($data ? (($data->isCompleted()) ? 'Yes' : 'No') : 'No');
+        $forms['public']->setData($data ? (($data->isPublic()) ? 'Yes' : 'No') : 'No');
     }
 
     public function mapFormsToData($forms, &$data)
@@ -53,8 +53,8 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
             }
         }
 
-        $data->setPublic(is_bool($d['public']) ? $d['public'] : false);
-        $data->setCompleted(is_bool($d['completed']) ? $d['completed'] : false);
+        $data->setPublic(('Yes' === $d['public']) ? true : false);
+        $data->setCompleted(('Yes' === $d['completed']) ? true : false);
     }
 
     public function configureOptions(OptionsResolver $resolver)

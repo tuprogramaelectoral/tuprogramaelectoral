@@ -49,8 +49,12 @@ class DB_TestCase extends \PHPUnit_Framework_TestCase
 
         $dbParams = array(
             'driver' => 'pdo_sqlite',
-            'memory' => true
+            'path' => '/tmp/sqlite.db'
         );
+
+        if (file_exists('/tmp/sqlite.db')) {
+            unlink('/tmp/sqlite.db');
+        }
 
         $config = Setup::createConfiguration(true);
         $config->setMetadataDriverImpl(new SimplifiedYamlDriver($namespaces));

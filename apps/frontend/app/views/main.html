@@ -24,8 +24,12 @@
 			</div>
 			<div id="collapse-results" class="panel-collapse" role="tabpanel" aria-labelledby="heading-results">
 				<div class="panel-body">
-					<div id="graphic"></div>
-					<div class="row" data-ng-if="myProgramme.public">
+					<div id="graphic" data-party-affinity="{{ myProgramme.party_affinity }}"></div>
+					<div
+						class="row"
+						data-ng-if="myProgramme.public"
+						id="programme-privacy-public-options"
+					>
 						<div class="col-md-12">
 							Comparte tu selección de propuestas en las redes sociales
 							<div class="btn-group" role="group">
@@ -69,11 +73,15 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" data-ng-if="!myProgramme.public">
+					<div
+						class="row"
+						data-ng-if="!myProgramme.public"
+						id="programme-privacy-private-options"
+					>
 						<div class="col-md-12">
 							Borra tu selección de propuestas
 							<div>
-								<button class="btn btn-default" data-ng-click="deleteMyProgramme()">Borrar</button>
+								<button id="delete-my-programme" class="btn btn-default" data-ng-click="deleteMyProgramme()">Borrar</button>
 							</div>
 						</div>
 					</div>
@@ -114,7 +122,7 @@
 									</label>
 								</div>
 							</div>
-							<button class="btn btn-default" type="submit" value="select">Confeccionar mi programa</button>
+							<button class="btn btn-default" type="submit" value="select" id="select-interests">Confeccionar mi programa</button>
 						</form>
 					</div>
 				</div>
@@ -138,7 +146,13 @@
 				</div>
 			</div>
 		</div>
-		<div data-ng-if="myProgramme.completed" data-ng-repeat="policy in myLinkedPolicies | orderBy:'field.id'" class="panel panel-default">
+		<div
+			data-ng-if="myProgramme.completed"
+			data-ng-repeat="policy in myLinkedPolicies | orderBy:'field.id'"
+			class="panel panel-default panel-completed-programme-policy"
+			data-policy="{{ policy.id }}"
+			data-field="{{ policy.field.id }}"
+		>
 			<div class="panel-heading" role="tab" id="heading-completed-{{ policy.id }}">
 				<h3 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-completed-{{ policy.id }}"
@@ -162,7 +176,7 @@
 				</div>
 			</div>
 		</div>
-		<div data-ng-repeat="field in myProgrammeFields" class="panel panel-default">
+		<div id="panel-interest-{{ field.id }}" data-ng-repeat="field in myProgrammeFields" class="panel-interest panel panel-default">
 			<div class="panel-heading" role="tab" id="heading-{{ field.id }}">
 				<h3 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-{{ field.id }}"
@@ -178,16 +192,16 @@
 				<div class="panel-body">
 					<ul class="nav nav-tabs nav-justified" role="tablist">
 						<li role="presentation" data-ng-repeat="policy in field.policies" data-ng-class="{active: $index == 0}">
-							<a data-target="#policy-{{ policy.id }}" aria-controls="home" role="tab" data-toggle="tab">
+							<a id="show-policy-{{ policy.id }}" data-target="#policy-{{ policy.id }}" aria-controls="home" role="tab" data-toggle="tab">
 								Opción {{ $index + 1 }}
 							</a>
 						</li>
 					</ul>
 					<div class="tab-content">
 						<div data-ng-repeat="policy in field.policies" role="tabpanel" data-ng-class="{active: $index == 0}"
-								 class="tab-pane" id="policy-{{ policy.id }}">
-							<div data-ng-bind-html="policy.content"></div>
-							<button class="btn btn-default" data-ng-click="selectLinkedPolicy(myProgramme.id, field.id, policy.id)">
+								 class="tab-pane" id="policy-{{ policy.id }}" data-policy="{{ policy.id }}" data-field="{{ field.id }}">
+							<div class="policy-content" data-ng-bind-html="policy.content"></div>
+							<button id="select-policy-{{ policy.id }}" class="btn btn-default" data-ng-click="selectLinkedPolicy(myProgramme.id, field.id, policy.id)">
 								Elegir
 							</button>
 						</div>
@@ -203,8 +217,8 @@
 			<p>Si acepta podrá acceder siempre que quiera a su selección de políticas e incluso compartirla en redes sociales.</p>
 			<p>En caso de no aceptar podrá forzar su borrado o esperar a que sea borrado automáticamente al cabo de 48 horas.</p>
 			<div class="center-block">
-				<button type="button" class="btn btn-default" data-ng-click="completeMyProgramme(myProgramme.id, true)">Si acepto</button>
-				<button type="button" class="btn btn-default" data-ng-click="completeMyProgramme(myProgramme.id, false)">No acepto</button>
+				<button id="select-public-privacy" type="button" class="btn btn-default" data-ng-click="completeMyProgramme(myProgramme.id, true)">Si acepto</button>
+				<button id="select-private-privacy" type="button" class="btn btn-default" data-ng-click="completeMyProgramme(myProgramme.id, false)">No acepto</button>
 			</div>
 		</div>
 	</div>

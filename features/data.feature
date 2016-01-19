@@ -5,15 +5,15 @@ Feature: Load of repository data
 
   Background:
     Given the repository files and content is:
-      | type           | path                                              | content                                                                                                                         |
-      | fields         | field/administracion-publica/field.json           | {"name": "Administración Pública"}                                                                                              |
-      | fields         | field/sanidad/field.json                          | {"name": "Sanidad"}                                                                                                             |
-      | parties        | party/partido-ficticio/party.json                 | {"name": "Partido Ficticio", "acronym": "PF", "programmeUrl": "http://partido-ficticio.es"}                                     |
-      | parties        | party/otro-partido/party.json                     | {"name": "Otro Partido", "acronym": "OP", "programmeUrl": "http://otro-partido.es"}                                             |
-      | policy content | field/sanidad/policy/partido-ficticio/content.md  | ## sanidad universal y gratuita                                                                                                 |
-      | policies       | field/sanidad/policy/partido-ficticio/policy.json | {"party": "partido-ficticio", "field": "sanidad", "sources": ["http://partido-ficticio.es/programa/sanidad (páginas 20 a 25)"]} |
-      | policy content | field/sanidad/policy/otro-partido/content.md      | ## sanidad para todos                                                                                                           |
-      | policies       | field/sanidad/policy/otro-partido/policy.json     | {"party": "otro-partido", "field": "sanidad", "sources": ["http://otro-partido.es/programa/sanidad (páginas 12 a 15)"]}         |
+      | path                                              | content                                                                                                                         |
+      | field/administracion-publica/field.json           | {"name": "Administración Pública"}                                                                                              |
+      | field/sanidad/field.json                          | {"name": "Sanidad"}                                                                                                             |
+      | party/partido-ficticio/party.json                 | {"name": "Partido Ficticio", "acronym": "PF", "programmeUrl": "http://partido-ficticio.es"}                                     |
+      | party/otro-partido/party.json                     | {"name": "Otro Partido", "acronym": "OP", "programmeUrl": "http://otro-partido.es"}                                             |
+      | field/sanidad/policy/partido-ficticio/content.md  | ## sanidad universal y gratuita                                                                                                 |
+      | field/sanidad/policy/partido-ficticio/policy.json | {"party": "partido-ficticio", "field": "sanidad", "sources": ["http://partido-ficticio.es/programa/sanidad (páginas 20 a 25)"]} |
+      | field/sanidad/policy/otro-partido/content.md      | ## sanidad para todos                                                                                                           |
+      | field/sanidad/policy/otro-partido/policy.json     | {"party": "otro-partido", "field": "sanidad", "sources": ["http://otro-partido.es/programa/sanidad (páginas 12 a 15)"]}         |
     And the content of the files are loaded into the system
 
   @backend
@@ -34,7 +34,10 @@ Feature: Load of repository data
 
   @backend
   Scenario: Policies linked to a field have been properly loaded
-    When I see the list of policies linked to the field "sanidad"
+    When I see these policies linked to the field "sanidad"
+      | id                       | content                         |
+      | partido-ficticio_sanidad | ## sanidad universal y gratuita |
+      | otro-partido_sanidad     | ## sanidad para todos           |
     Then the list of "policies" contains:
       | id                       | partyId          | sources                                                           | content                               |
       | partido-ficticio_sanidad | partido-ficticio | ["http://partido-ficticio.es/programa/sanidad (páginas 20 a 25)"] | <h2>sanidad universal y gratuita</h2> |

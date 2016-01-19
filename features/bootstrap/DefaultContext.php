@@ -2,10 +2,14 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Testwork\Hook\Scope\AfterSuiteScope;
+use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
+use Behat\Testwork\Hook\Scope\SuiteScope;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
@@ -21,7 +25,7 @@ use TPE\Infrastructure\Data\ReaderOfFiles;
 /**
  * Defines application features from the specific context.
  */
-class BackendContext extends MinkContext implements SnippetAcceptingContext
+class DefaultContext extends MinkContext implements SnippetAcceptingContext
 {
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
@@ -46,6 +50,16 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     private $myProgramme;
 
+    /**
+     * @var BackendPageObject
+     */
+    private $pageObject;
+
+    /**
+     * @var string
+     */
+    private $environment;
+
 
     /**
      * Initializes context.
@@ -53,9 +67,55 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      * Every scenario gets its own context instance.
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
+     * @param $environment
      */
-    public function __construct()
+    public function __construct($environment)
     {
+        $this->environment = $environment;
+    }
+
+    /** @BeforeSuite */
+    public static function setFrontendToUseTestConfiguration(BeforeSuiteScope $scope)
+    {
+        if ('frontend' == self::getEnvironment($scope)) {
+            (new Filesystem())->copy(
+                'apps/frontend/app/scripts/config.test.js',
+                'apps/frontend/app/scripts/config.js',
+                true
+            );
+        }
+    }
+
+    /** @AfterSuite */
+    public static function setFrontendToUseDevConfiguration(AfterSuiteScope $scope)
+    {
+        if ('frontend' == self::getEnvironment($scope)) {
+            (new Filesystem())->copy(
+                'apps/frontend/app/scripts/config.dev.js',
+                'apps/frontend/app/scripts/config.js',
+                true
+            );
+        }
+    }
+
+    private static function getEnvironment(SuiteScope $scope)
+    {
+        return $scope->getSuite()->getSetting('contexts')[0]['DefaultContext'][0];
+    }
+
+    /** @BeforeScenario */
+    public function loadPageObject()
+    {
+        switch ($this->environment) {
+            case 'backend':
+                $this->pageObject = new BackendPageObject($this->getMink(), $this->getMinkParameters());
+                break;
+            case 'frontend':
+                $this->pageObject = new FrontendPageObject($this->getMink(), $this->getMinkParameters());
+                break;
+            default:
+                throw new \Exception('Undefined environment');
+        }
     }
 
     /**
@@ -63,12 +123,7 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function theRepositoryFilesAndContentIs(TableNode $table)
     {
-        $files = [];
-        foreach ($table as $file) {
-            $files[$file['path']] = $file['content'];
-        }
-
-        $this->filesPath = ReaderOfFiles::writeTestFiles($files);
+        $this->filesPath = ReaderOfFiles::writeTestFiles(array_column($table->getHash(), 'content', 'path'));
     }
 
     /**
@@ -85,26 +140,32 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function iSeeTheListOfAvailableDataType($dataType)
     {
-        $this->getSession()->setRequestHeader('Accept', 'application/json');
-        $this->visit($dataType);
+        $response = $this->pageObject->visit($dataType);
 
         $this->current[$dataType] = [];
-        foreach ($this->getResponse() as $data) {
+        foreach ($response as $data) {
             $this->current[$dataType][$data['id']] = $data;
         }
     }
 
     /**
-     * @When I see the list of policies linked to the field :field
+     * @When I see these policies linked to the field :field
      */
-    public function iSeeTheListOfPoliciesLinkedToTheField($field)
+    public function iSeeTheListOfPoliciesLinkedToTheField($field, TableNode $table)
     {
-        $this->getSession()->setRequestHeader('Accept', 'application/json');
-        $this->visit("fields/{$field}");
+        $response = $this->pageObject->visitField($field);
 
         $this->current[self::POLICIES] = [];
-        foreach ($this->getResponse()['policies'] as $data) {
+        foreach ($response['policies'] as $data) {
             $this->current[self::POLICIES][$data['id']] = $data;
+        }
+
+        foreach ($table as $policy) {
+            PHPUnit_Framework_Assert::assertTrue(isset($this->current[self::POLICIES][$policy['id']]));
+            PHPUnit_Framework_Assert::assertEquals(
+                $this->current[self::POLICIES][$policy['id']]['content'],
+                (new Parsedown())->text($policy['content'])
+            );
         }
     }
 
@@ -113,10 +174,7 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function theListOfDataTypeContains($dataType, TableNode $table)
     {
-        $expected = [];
-        foreach ($table as $data) {
-            $expected[$data['id']] = $data;
-        }
+        $expected = $this->transformTableIntoArrayIndexedBy('id', $table);
 
         PHPUnit_Framework_Assert::assertCount(count($expected), $this->current[$dataType]);
         foreach ($this->current[$dataType] as $current) {
@@ -153,13 +211,7 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function iSelectTheseInterests(TableNode $table)
     {
-        $policies = [];
-        foreach ($table->getColumn(0) as $interest) {
-            $policies['policies'][$interest] = null;
-        }
-
-        $this->request('POST', 'myprogrammes', $policies);
-        $this->myProgramme = $this->getResponse();
+        $this->myProgramme = $this->pageObject->selectInterests($table->getColumn(0));
     }
 
     /**
@@ -202,23 +254,11 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function iSelectTheLinkedPolicy($policy)
     {
-        $this->updateMyProgramme(
+        $this->myProgramme = $this->pageObject->selectLinkedPolicy(
             $this->myProgramme['id'],
-            ["policies" => [$this->myProgramme['next_interest'] => $policy]]
+            $this->myProgramme['next_interest'],
+            $policy
         );
-    }
-
-    private function updateMyProgramme($myProgrammeId, $changes)
-    {
-        $this->request("POST", "/myprogrammes/{$myProgrammeId}", $changes);
-
-        $response = $this->getResponse();
-        if (null == $response) {
-            $this->visit("myprogrammes/{$myProgrammeId}");
-            $response = $this->getResponse();
-        }
-
-        $this->myProgramme = $response;
     }
 
     /**
@@ -226,9 +266,9 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function iSetMyProgrammeAsCompletedAndPrivacy($privacy)
     {
-        $this->updateMyProgramme(
+        $this->myProgramme = $this->pageObject->completeMyProgramme(
             $this->myProgramme['id'],
-            ["policies" => [], "completed" => true, 'public' => ($privacy == 'public') ? true : false]
+            ($privacy == 'public') ? true : false
         );
     }
 
@@ -275,14 +315,11 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function myProgrammePartyAffinityIs(TableNode $table)
     {
-        $expected = [];
-        foreach ($table as $data) {
-            $expected[$data['party']] = $data['affinity'];
-        }
+        $expected = $this->transformTableIntoArrayIndexedBy('party', $table);
 
         foreach ($this->myProgramme['party_affinity'] as $party => $affinity) {
             PHPUnit_Framework_Assert::assertTrue(isset($expected[$party]));
-            PHPUnit_Framework_Assert::assertEquals($expected[$party], $affinity);
+            PHPUnit_Framework_Assert::assertEquals($expected[$party]['affinity'], $affinity);
         }
     }
 
@@ -310,8 +347,7 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function myProgrammeIsStillAccessible()
     {
-        $this->visit("myprogrammes/{$this->myProgramme['id']}");
-        $actual = $this->getResponse();
+        $actual = $this->pageObject->visit("myprogrammes/{$this->myProgramme['id']}");
 
         PHPUnit_Framework_Assert::assertEquals($this->myProgramme['id'], $actual['id']);
     }
@@ -321,10 +357,18 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
      */
     public function myProgrammeIsNotAccessible()
     {
-        $this->visit("myprogrammes/{$this->myProgramme['id']}");
-        $actual = $this->getResponse();
+        $actual = $this->pageObject->visitMyProgramme($this->myProgramme['id']);
 
-        PHPUnit_Framework_Assert::assertEquals(404, $actual['error']['code']);
+        PHPUnit_Framework_Assert::assertNull($actual);
+    }
+
+
+    /**
+     * @When I delete my programme
+     */
+    public function iDeleteMyProgramme()
+    {
+        $this->pageObject->deleteMyProgramme($this->myProgramme['id']);
     }
 
     /**
@@ -335,26 +379,13 @@ class BackendContext extends MinkContext implements SnippetAcceptingContext
         return $this->getContainer()->get('data_loader');
     }
 
-    private function request($verb, $url, $valores)
+    private function transformTableIntoArrayIndexedBy($index, TableNode $table)
     {
-        $this
-            ->getSession()
-            ->getDriver()
-            ->getClient()
-            ->request(
-                $verb,
-                $url,
-                $valores,
-                [],
-                ['HTTP_ACCEPT' => 'application/json']
-            );
-    }
+        $array = [];
+        foreach ($table as $data) {
+            $array[$data[$index]] = $data;
+        }
 
-    /**
-     * @return array
-     */
-    private function getResponse()
-    {
-        return json_decode($this->getSession()->getPage()->getContent(), true);
+        return $array;
     }
 }
