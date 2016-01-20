@@ -6,20 +6,20 @@ Feature: Load of repository data
   Background:
     Given the repository files and content is:
       | path                                              | content                                                                                                                         |
-      | field/administracion-publica/field.json           | {"name": "Administración Pública"}                                                                                              |
-      | field/sanidad/field.json                          | {"name": "Sanidad"}                                                                                                             |
+      | scope/administracion-publica/scope.json           | {"name": "Administración Pública"}                                                                                              |
+      | scope/sanidad/scope.json                          | {"name": "Sanidad"}                                                                                                             |
       | party/partido-ficticio/party.json                 | {"name": "Partido Ficticio", "acronym": "PF", "programmeUrl": "http://partido-ficticio.es"}                                     |
       | party/otro-partido/party.json                     | {"name": "Otro Partido", "acronym": "OP", "programmeUrl": "http://otro-partido.es"}                                             |
-      | field/sanidad/policy/partido-ficticio/content.md  | ## sanidad universal y gratuita                                                                                                 |
-      | field/sanidad/policy/partido-ficticio/policy.json | {"party": "partido-ficticio", "field": "sanidad", "sources": ["http://partido-ficticio.es/programa/sanidad (páginas 20 a 25)"]} |
-      | field/sanidad/policy/otro-partido/content.md      | ## sanidad para todos                                                                                                           |
-      | field/sanidad/policy/otro-partido/policy.json     | {"party": "otro-partido", "field": "sanidad", "sources": ["http://otro-partido.es/programa/sanidad (páginas 12 a 15)"]}         |
+      | scope/sanidad/policy/partido-ficticio/content.md  | ## sanidad universal y gratuita                                                                                                 |
+      | scope/sanidad/policy/partido-ficticio/policy.json | {"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/sanidad (páginas 20 a 25)"]} |
+      | scope/sanidad/policy/otro-partido/content.md      | ## sanidad para todos                                                                                                           |
+      | scope/sanidad/policy/otro-partido/policy.json     | {"party": "otro-partido", "scope": "sanidad", "sources": ["http://otro-partido.es/programa/sanidad (páginas 12 a 15)"]}         |
     And the content of the files are loaded into the system
 
   @backend
-  Scenario: Fields have been properly loaded
-    When I see the list of available "fields"
-    Then the list of "fields" contains:
+  Scenario: Scopes have been properly loaded
+    When I see the list of available "scopes"
+    Then the list of "scopes" contains:
       | id                     | name                   |
       | administracion-publica | Administración Pública |
       | sanidad                | Sanidad                |
@@ -33,8 +33,8 @@ Feature: Load of repository data
       | otro-partido     | Otro Partido     | OP      | http://otro-partido.es     |
 
   @backend
-  Scenario: Policies linked to a field have been properly loaded
-    When I see these policies linked to the field "sanidad"
+  Scenario: Policies linked to a scope have been properly loaded
+    When I see these policies linked to the scope "sanidad"
       | id                       | content                         |
       | partido-ficticio_sanidad | ## sanidad universal y gratuita |
       | otro-partido_sanidad     | ## sanidad para todos           |

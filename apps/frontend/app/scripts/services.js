@@ -1,18 +1,18 @@
 angular.module('services', [])
-  .factory('Field', ['Restangular', 'config', function (Restangular, config) {
+  .factory('Scope', ['Restangular', 'config', function (Restangular, config) {
     var restAngular =
       Restangular.withConfig(function (Configurer) {
         Configurer.setBaseUrl(config.restAPI);
       });
 
-    var _fields = restAngular.all('fields');
+    var _scopes = restAngular.all('scopes');
 
     return {
       findAll: function () {
-        return _fields.getList();
+        return _scopes.getList();
       },
       findOneById: function (id) {
-        return _fields.one(id).get();
+        return _scopes.one(id).get();
       }
     }
   }])
@@ -44,8 +44,8 @@ angular.module('services', [])
       },
       create: function (interests) {
         var data = {"policies": {}};
-        interests.forEach(function (field) {
-          data["policies"][field] = null;
+        interests.forEach(function (scope) {
+          data["policies"][scope] = null;
         });
 
         return _myProgrammes.post(data);
@@ -53,9 +53,9 @@ angular.module('services', [])
       delete: function (myProgrammeId) {
         return _myProgrammes.one(myProgrammeId).remove();
       },
-      selectLinkedPolicy: function (myProgrammeId, fieldId, policyId) {
+      selectLinkedPolicy: function (myProgrammeId, scopeId, policyId) {
         var data = {"policies": {}};
-        data["policies"][fieldId] = policyId;
+        data["policies"][scopeId] = policyId;
 
         return _myProgrammes.one(myProgrammeId).post('', data);
       },

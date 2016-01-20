@@ -75,11 +75,11 @@ doctrine:
             default:
                 auto_mapping: false
                 mappings:
-                    field:
+                    scope:
                         mapping:    true
                         type:       yml
-                        dir:        "%kernel.root_dir%/../vendor/infrastructure/src/Field"
-                        prefix:     TPE\Domain\Field
+                        dir:        "%kernel.root_dir%/../vendor/infrastructure/src/Scope"
+                        prefix:     TPE\Domain\Scope
                         is_bundle:  false
                     party:
                         mapping:    true
@@ -123,8 +123,8 @@ jms_serializer:
         auto_detection: false
         directories:
             ambito:
-                namespace_prefix: "TPE\\Domain\\Field"
-                path: "%kernel.root_dir%/../vendor/infrastructure/src/Field"
+                namespace_prefix: "TPE\\Domain\\Scope"
+                path: "%kernel.root_dir%/../vendor/infrastructure/src/Scope"
             partido:
                 namespace_prefix: "TPE\\Domain\\Party"
                 path: "%kernel.root_dir%/../vendor/infrastructure/src/Party"

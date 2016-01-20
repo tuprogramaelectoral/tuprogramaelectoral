@@ -32,9 +32,9 @@ class BackendPageObject
         return $this->getResponse();
     }
 
-    public function visitField($field)
+    public function visitScope($scope)
     {
-        return $this->visit("fields/{$field}");
+        return $this->visit("scopes/{$scope}");
     }
 
     private function getResponse()
@@ -52,22 +52,22 @@ class BackendPageObject
         return $this->request('POST', 'myprogrammes', $policies);
     }
 
-    public function selectLinkedPolicy($myProgrammeId, $field, $policy)
+    public function selectLinkedPolicy($myProgrammeId, $scope, $policy)
     {
         return $this->updateMyProgramme(
             $myProgrammeId,
-            ["policies" => [$field => $policy]]
+            ["policies" => [$scope => $policy]]
         );
     }
 
-    public function visitMyProgramme($myProgrammeId)
+    public function myProgrammeExists($myProgrammeId)
     {
         $response = $this->visit("myprogrammes/{$myProgrammeId}");
         if (isset($response['error']['code']) && $response['error']['code'] == '404') {
-            return null;
+            return false;
         }
 
-        return $response;
+        return true;
     }
 
     public function completeMyProgramme($myProgrammeId, $public)

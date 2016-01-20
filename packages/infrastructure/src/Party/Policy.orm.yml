@@ -1,0 +1,28 @@
+TPE\Domain\Party\Policy:
+  type: entity
+  table: tpe_policy
+  indexes:
+    policy_id_idx:
+      columns: [ id ]
+  id:
+    id:
+      type: string
+      length: 255
+  fields:
+    sources:
+      type: json_array
+    content:
+       type: text
+  manyToOne:
+    scope:
+      targetEntity: TPE\Domain\Scope\Scope
+      inversedBy: policies
+      joinColumns:
+          scope:
+            referencedColumnName: id
+    party:
+      targetEntity: TPE\Domain\Party\Party
+      inversedBy: policies
+      joinColumns:
+          party:
+            referencedColumnName: id

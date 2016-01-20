@@ -96,29 +96,29 @@
 				</div>
 			</div>
 		</div>
-		<div id="panel-fields" class="panel panel-default hidden">
-			<div class="panel-heading" role="tab" id="heading-fields">
+		<div id="panel-scopes" class="panel panel-default hidden">
+			<div class="panel-heading" role="tab" id="heading-scopes">
 				<h3 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-fields"
+					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-scopes"
 						 aria-expanded="false"
-						 aria-controls="collapse-fields">
+						 aria-controls="collapse-scopes">
 						¿Cúales son los ámbitos en los que estás interesado?
 					</a>
 				</h3>
 			</div>
-			<div id="collapse-fields" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-fields">
+			<div id="collapse-scopes" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-scopes">
 				<div class="panel-body">
-					<div data-ng-model="fields">
+					<div data-ng-model="scopes">
 						<form data-ng-submit="selectInterests()">
-							<a class="btn btn-default" data-ng-click="checkAllFields(true)">Marcar todos</a>
-							<a class="btn btn-default" data-ng-click="checkAllFields(false)">Desmarcar todos</a>
+							<a class="btn btn-default" data-ng-click="checkAllScopes(true)">Marcar todos</a>
+							<a class="btn btn-default" data-ng-click="checkAllScopes(false)">Desmarcar todos</a>
 							<div class="interests-list">
-								<div data-ng-repeat="field in fields">
+								<div data-ng-repeat="scope in scopes">
 									<label>
-										<input type="checkbox" name="policies[{{ field.id }}]" data-interest-id="{{ field.id }}"
-													 data-ng-model="field.marked"
+										<input type="checkbox" name="policies[{{ scope.id }}]" data-interest-id="{{ scope.id }}"
+													 data-ng-model="scope.marked"
 													 class="interest"/>
-										{{ field.name }}
+										{{ scope.name }}
 									</label>
 								</div>
 							</div>
@@ -128,13 +128,13 @@
 				</div>
 			</div>
 		</div>
-		<div data-ng-if="!myProgramme.completed" data-ng-repeat="policy in myLinkedPolicies | orderBy:'field.id'" class="panel panel-default">
+		<div data-ng-if="!myProgramme.completed" data-ng-repeat="policy in myLinkedPolicies | orderBy:'scope.id'" class="panel panel-default">
 			<div class="panel-heading" role="tab" id="heading-{{ policy.id }}">
 				<h3 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-{{ policy.id }}"
 						 aria-expanded="false"
 						 aria-controls="collapse-{{ policy.id }}">
-						{{ policy.field.name }}
+						{{ policy.scope.name }}
 					</a>
 				</h3>
 			</div>
@@ -148,17 +148,17 @@
 		</div>
 		<div
 			data-ng-if="myProgramme.completed"
-			data-ng-repeat="policy in myLinkedPolicies | orderBy:'field.id'"
+			data-ng-repeat="policy in myLinkedPolicies | orderBy:'scope.id'"
 			class="panel panel-default panel-completed-programme-policy"
 			data-policy="{{ policy.id }}"
-			data-field="{{ policy.field.id }}"
+			data-scope="{{ policy.scope.id }}"
 		>
 			<div class="panel-heading" role="tab" id="heading-completed-{{ policy.id }}">
 				<h3 class="panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-completed-{{ policy.id }}"
 						 aria-expanded="false"
 						 aria-controls="collapse-completed-{{ policy.id }}">
-						{{ policy.field.name }}
+						{{ policy.scope.name }}
 					</a>
 					<small>{{ policy.party.name }}</small>
 				</h3>
@@ -176,32 +176,32 @@
 				</div>
 			</div>
 		</div>
-		<div id="panel-interest-{{ field.id }}" data-ng-repeat="field in myProgrammeFields" class="panel-interest panel panel-default">
-			<div class="panel-heading" role="tab" id="heading-{{ field.id }}">
+		<div id="panel-interest-{{ scope.id }}" data-ng-repeat="scope in myProgrammeScopes" class="panel-interest panel panel-default">
+			<div class="panel-heading" role="tab" id="heading-{{ scope.id }}">
 				<h3 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-{{ field.id }}"
+					<a role="button" data-toggle="collapse" data-parent="#sections" data-target="#collapse-{{ scope.id }}"
 						 aria-expanded="false"
-						 aria-controls="collapse-{{ field.id }}">
-						{{ field.name }}
+						 aria-controls="collapse-{{ scope.id }}">
+						{{ scope.name }}
 					</a>
 				</h3>
 			</div>
-			<div id="collapse-{{ field.id }}" data-ng-class="{in: myProgramme.next_interest == field.id}"
+			<div id="collapse-{{ scope.id }}" data-ng-class="{in: myProgramme.next_interest == scope.id}"
 					 class="panel-collapse collapse" role="tabpanel"
-					 aria-labelledby="heading-{{ field.id }}">
+					 aria-labelledby="heading-{{ scope.id }}">
 				<div class="panel-body">
 					<ul class="nav nav-tabs nav-justified" role="tablist">
-						<li role="presentation" data-ng-repeat="policy in field.policies" data-ng-class="{active: $index == 0}">
+						<li role="presentation" data-ng-repeat="policy in scope.policies" data-ng-class="{active: $index == 0}">
 							<a id="show-policy-{{ policy.id }}" data-target="#policy-{{ policy.id }}" aria-controls="home" role="tab" data-toggle="tab">
 								Opción {{ $index + 1 }}
 							</a>
 						</li>
 					</ul>
 					<div class="tab-content">
-						<div data-ng-repeat="policy in field.policies" role="tabpanel" data-ng-class="{active: $index == 0}"
-								 class="tab-pane" id="policy-{{ policy.id }}" data-policy="{{ policy.id }}" data-field="{{ field.id }}">
+						<div data-ng-repeat="policy in scope.policies" role="tabpanel" data-ng-class="{active: $index == 0}"
+								 class="tab-pane" id="policy-{{ policy.id }}" data-policy="{{ policy.id }}" data-scope="{{ scope.id }}">
 							<div class="policy-content" data-ng-bind-html="policy.content"></div>
-							<button id="select-policy-{{ policy.id }}" class="btn btn-default" data-ng-click="selectLinkedPolicy(myProgramme.id, field.id, policy.id)">
+							<button id="select-policy-{{ policy.id }}" class="btn btn-default" data-ng-click="selectLinkedPolicy(myProgramme.id, scope.id, policy.id)">
 								Elegir
 							</button>
 						</div>

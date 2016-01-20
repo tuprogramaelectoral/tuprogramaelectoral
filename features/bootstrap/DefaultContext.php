@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use TPE\Domain\Data\InitialData;
-use TPE\Domain\Field\Field;
+use TPE\Domain\Scope\Scope;
 use TPE\Domain\Party\Party;
 use TPE\Domain\Party\Policy;
 use TPE\Infrastructure\Data\Loader;
@@ -29,7 +29,7 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
 {
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
-    const FIELDS = "fields";
+    const FIELDS = "scopes";
     const PARTIES = "parties";
     const POLICIES = "policies";
     const POLICY_CONTENT = "policy content";
@@ -149,11 +149,11 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
-     * @When I see these policies linked to the field :field
+     * @When I see these policies linked to the scope :scope
      */
-    public function iSeeTheListOfPoliciesLinkedToTheField($field, TableNode $table)
+    public function iSeeTheListOfPoliciesLinkedToTheScope($scope, TableNode $table)
     {
-        $response = $this->pageObject->visitField($field);
+        $response = $this->pageObject->visitScope($scope);
 
         $this->current[self::POLICIES] = [];
         foreach ($response['policies'] as $data) {
@@ -186,7 +186,7 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
     {
         switch ($dataType) {
             case self::FIELDS:
-                /** @var Field $current */
+                /** @var Scope $current */
                 PHPUnit_Framework_Assert::assertEquals($expected['name'], $current["name"]);
                 break;
             case self::PARTIES:
@@ -280,13 +280,13 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
         $expected = [];
         foreach ($table as $data) {
             if (!empty($data['policy'])) {
-                $expected[$data['field']] = $data['policy'];
+                $expected[$data['scope']] = $data['policy'];
             }
         }
 
-        foreach ($this->myProgramme['policies'] as $field => $policy) {
-            PHPUnit_Framework_Assert::assertTrue(isset($expected[$field]));
-            PHPUnit_Framework_Assert::assertEquals($expected[$field], $policy);
+        foreach ($this->myProgramme['policies'] as $scope => $policy) {
+            PHPUnit_Framework_Assert::assertTrue(isset($expected[$scope]));
+            PHPUnit_Framework_Assert::assertEquals($expected[$scope], $policy);
         }
     }
 
@@ -357,9 +357,9 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
      */
     public function myProgrammeIsNotAccessible()
     {
-        $actual = $this->pageObject->visitMyProgramme($this->myProgramme['id']);
-
-        PHPUnit_Framework_Assert::assertNull($actual);
+        PHPUnit_Framework_Assert::assertFalse(
+            $this->pageObject->myProgrammeExists($this->myProgramme['id'])
+        );
     }
 
 

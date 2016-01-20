@@ -35,9 +35,9 @@ class FrontendPageObject
         $response = null;
 
         switch ($path) {
-            case 'fields':
+            case 'scopes':
                 $this->session->visit($this->parameters['base_url']);
-                $this->session->wait(5000, "$('#collapse-fields').length");
+                $this->session->wait(20000, "$('.interest:visible').length");
 
                 /** @var NodeElement[] $elements */
                 $elements = $this->session->getPage()->findAll('css', '.interest');
@@ -54,13 +54,13 @@ class FrontendPageObject
         return $response;
     }
 
-    public function visitField($field)
+    public function visitScope($scope)
     {
-        $this->session->wait(5000, "$('#panel-interest-{$field}:visible').length");
-        $fieldNode = $this->session->getPage()->find('css', "#panel-interest-{$field}");
+        $this->session->wait(20000, "$('#panel-interest-{$scope} .policy-content:visible').length");
+        $scopeNode = $this->session->getPage()->find('css', "#panel-interest-{$scope}");
 
         $response = [];
-        foreach ($fieldNode->findAll('xpath', "//div[@data-field='{$field}']") as $policyNode) {
+        foreach ($scopeNode->findAll('xpath', "//div[@data-scope='{$scope}']") as $policyNode) {
             /** @var NodeElement $policyNode */
             $response[] = [
                 'id' => $policyNode->getAttribute('data-policy'),
@@ -83,7 +83,7 @@ class FrontendPageObject
             ->find('css', '#select-interests')
             ->click();
 
-        $this->session->wait(5000, "$('.panel-interest').length");
+        $this->session->wait(20000, "$('.panel-interest:visible').length");
 
         $myProgramme = [
             'id' => $this->session->getCookie('myProgrammeId'),
@@ -100,11 +100,11 @@ class FrontendPageObject
         return $myProgramme;
     }
 
-    public function selectLinkedPolicy($myProgrammeId, $field, $policy)
+    public function selectLinkedPolicy($myProgrammeId, $scope, $policy)
     {
-        $this->session->wait(5000, "$('#show-policy-{$policy}:visible').length");
+        $this->session->wait(20000, "$('#show-policy-{$policy}:visible').length");
         $this->session->getPage()->find('css', "#show-policy-{$policy}")->click();
-        $this->session->wait(5000, "$('#select-policy-{$policy}:visible').length");
+        $this->session->wait(20000, "$('#select-policy-{$policy}:visible').length");
         $this->session->getPage()->find('css', "#select-policy-{$policy}")->click();
 
         return [
@@ -114,31 +114,27 @@ class FrontendPageObject
         ];
     }
 
-    public function visitMyProgramme($myProgrammeId)
+    public function myProgrammeExists($myProgrammeId)
     {
         $path = $this->parameters['base_url'] . '/#/' . $myProgrammeId;
+
+        $this->session->restart();
         $this->session->visit($path);
 
-        $this->session->wait(5000, "$('#sections').length");
-
-        if ($path !== $this->session->getCurrentUrl()) {
-            return null;
-        }
-
-        return $this->getMyProgrammeFromPage();
+        return $path === $this->session->getCurrentUrl();
     }
 
     public function completeMyProgramme($myProgrammeId, $public)
     {
         $page = $this->session->getPage();
-        $this->session->wait(5000, "$('#panel-summary:visible').length");
+        $this->session->wait(20000, "$('#select-public-privacy:visible').length");
         if ($public) {
             $page->find('css', '#select-public-privacy')->click();
         } else {
             $page->find('css', '#select-private-privacy')->click();
         }
 
-        $this->session->wait(5000, "$('#panel-results:visible').length");
+        $this->session->wait(20000, "$('#panel-results:visible').length");
 
         return $this->getMyProgrammeFromPage();
     }
@@ -150,7 +146,7 @@ class FrontendPageObject
         $policies = [];
         foreach ($page->findAll('css', '.panel-completed-programme-policy') as $policyNode) {
             /** @var NodeElement $policyNode */
-            $policies[$policyNode->getAttribute('data-field')] = $policyNode->getAttribute('data-policy');
+            $policies[$policyNode->getAttribute('data-scope')] = $policyNode->getAttribute('data-policy');
         }
 
         $isPublic = null;
@@ -160,7 +156,7 @@ class FrontendPageObject
             $isPublic = true;
         }
 
-        $this->session->wait(5000, "$('#graphic:visible').length");
+        $this->session->wait(20000, "$('#graphic:visible').length");
         $graphicData = $this->session->evaluateScript("$('#graphic').scope()['graphic']['options']['data']['content'];");
 
         return [

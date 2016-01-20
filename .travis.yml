@@ -3,11 +3,20 @@ dist: trusty
 services:
  - docker
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install docker-engine
+
 install:
-  - docker build -f artifacts/test/backend/Dockerfile -t backend .
-  - docker run -d --name db -e POSTGRES_USER=root -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=vspdb postgres:9.4
-  - docker run -d --name backend --link db backend
+  - docker build -f artifacts/test/backend/Dockerfile -t backend-test .
+  - docker build -f artifacts/test/frontend/Dockerfile -t frontend-test .
+  - docker network create -d bridge isolated_nw
+  - docker run -d --net isolated_nw --name db.tuprogramaelectoral -e POSTGRES_USER=root -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=vspdb postgres:9.4
+  - docker run -d --net isolated_nw --name dev_webtesting_1 cmfatih/phantomjs phantomjs --webdriver=4444
+  - docker run -d --net isolated_nw --name api.tuprogramaelectoral backend-test
+  - docker run -d --net isolated_nw --name tuprogramaelectoral frontend-test
+
 script:
-  - docker exec -t backend bin/behat
-  - docker exec -t backend /bin/bash -c 'cd packages/domain/ && bin/phpspec run --format pretty'
-  - docker exec -t backend /bin/bash -c 'cd packages/infrastructure/ && bin/phpunit --testdox'
+  - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/domain/ && bin/phpspec run --format pretty'
+  - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/infrastructure/ && bin/phpunit --testdox'
+  - docker exec -t -u www-data api.tuprogramaelectoral bin/behat

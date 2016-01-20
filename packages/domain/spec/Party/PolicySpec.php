@@ -4,19 +4,19 @@ namespace spec\TPE\Domain\Party;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use TPE\Domain\Field\Field;
+use TPE\Domain\Scope\Scope;
 use TPE\Domain\Party\Party;
 
 class PolicySpec extends ObjectBehavior
 {
-    function let(Party $party, Field $field)
+    function let(Party $party, Scope $scope)
     {
         $party->getId()->willReturn('partido-ficticio');
-        $field->getId()->willReturn('sanidad');
+        $scope->getId()->willReturn('sanidad');
 
         $this->beConstructedWith(
             $party,
-            $field,
+            $scope,
             ['http://partido-ficticio.es/programa/'],
             '## sanidad universal y gratuita'
         );
@@ -37,17 +37,17 @@ class PolicySpec extends ObjectBehavior
         $this->getPartyId()->shouldReturn('partido-ficticio');
     }
 
-    function it_should_be_linked_to_a_field(Field $field)
+    function it_should_be_linked_to_a_scope(Scope $scope)
     {
-        $this->getField()->shouldReturn($field);
+        $this->getScope()->shouldReturn($scope);
     }
 
-    function it_should_return_the_field_id()
+    function it_should_return_the_scope_id()
     {
-        $this->getFieldId()->shouldReturn('sanidad');
+        $this->getScopeId()->shouldReturn('sanidad');
     }
 
-    function it_should_have_an_id_generated_from_the_party_name_and_field_name()
+    function it_should_have_an_id_generated_from_the_party_name_and_scope_name()
     {
         $this->getId()->shouldReturn('partido-ficticio_sanidad');
     }
@@ -67,11 +67,11 @@ class PolicySpec extends ObjectBehavior
         $this->getContentInHtml()->shouldReturn('<h2>sanidad universal y gratuita</h2>');
     }
 
-    function it_should_throw_an_exception_if_there_are_no_sources(Party $party, Field $field)
+    function it_should_throw_an_exception_if_there_are_no_sources(Party $party, Scope $scope)
     {
         $this->beConstructedWith(
             $party,
-            $field,
+            $scope,
             [],
             '## sanidad universal y gratuita'
         );
@@ -79,11 +79,11 @@ class PolicySpec extends ObjectBehavior
         $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
     }
 
-    function it_should_throw_an_exception_if_there_is_no_content(Party $party, Field $field)
+    function it_should_throw_an_exception_if_there_is_no_content(Party $party, Scope $scope)
     {
         $this->beConstructedWith(
             $party,
-            $field,
+            $scope,
             ['http://partido-ficticio.es/programa/'],
             ''
         );

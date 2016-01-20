@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\TPE\Domain\Field;
+namespace spec\TPE\Domain\Scope;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use TPE\Domain\Party\Policy;
 
-class FieldSpec extends ObjectBehavior
+class ScopeSpec extends ObjectBehavior
 {
     function let()
     {
@@ -42,7 +42,7 @@ class FieldSpec extends ObjectBehavior
 
     function it_should_be_possible_to_create_from_JSON()
     {
-        $this::createFromJson('{"name": "Administración Pública"}')->shouldReturnAnInstanceOf('TPE\Domain\Field\Field');
+        $this::createFromJson('{"name": "Administración Pública"}')->shouldReturnAnInstanceOf('TPE\Domain\Scope\Scope');
     }
 
     function it_should_throw_an_exception_if_name_is_empty()
@@ -53,13 +53,13 @@ class FieldSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_if_required_attributes_are_missing_from_json()
     {
-        $this->shouldThrow(new \BadMethodCallException('Missing required attributes while creating Field from {}'))
+        $this->shouldThrow(new \BadMethodCallException('Missing required attributes while creating Scope from {}'))
             ->duringCreateFromJson("{}");
     }
 
     function it_should_throw_an_exception_if_created_from_malformed_json()
     {
-        $this->shouldThrow(new \BadMethodCallException('Detected malformed JSON while creating Field from {name}'))
+        $this->shouldThrow(new \BadMethodCallException('Detected malformed JSON while creating Scope from {name}'))
             ->duringCreateFromJson('{name}');
     }
 }

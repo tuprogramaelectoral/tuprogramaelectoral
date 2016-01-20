@@ -14,7 +14,7 @@ angular.module('TPEApp')
     $location,
     $cookies,
     $filter,
-    Field,
+    Scope,
     Policy,
     MyProgramme,
     Graphic
@@ -24,7 +24,7 @@ angular.module('TPEApp')
       $cookies.remove('myProgrammeId');
       $location.path('/');
       $scope.reset();
-      $scope.loadFields();
+      $scope.loadScopes();
     };
 
     $scope.deleteMyProgramme = function () {
@@ -34,26 +34,26 @@ angular.module('TPEApp')
       });
     };
 
-    $scope.loadFields = function (myProgramme) {
-      Field.findAll().then(function (fields) {
-        var newFields = {};
-        fields.forEach(function (field) {
-          newFields[field.id] = field;
+    $scope.loadScopes = function (myProgramme) {
+      Scope.findAll().then(function (scopes) {
+        var newScopes = {};
+        scopes.forEach(function (scope) {
+          newScopes[scope.id] = scope;
         });
-        $scope.fields = newFields;
-        $('#panel-fields').removeClass('hidden');
+        $scope.scopes = newScopes;
+        $('#panel-scopes').removeClass('hidden');
         if (typeof myProgramme !== 'undefined') {
           $scope.setMyProgramme(myProgramme);
         } else {
-          $('#collapse-fields').collapse('show');
+          $('#collapse-scopes').collapse('show');
         }
       });
     };
 
-    $scope.checkAllFields = function (action) {
-      for (var field in $scope.fields) {
-        if ($scope.fields.hasOwnProperty(field)) {
-          $scope.fields[field].marked = action;
+    $scope.checkAllScopes = function (action) {
+      for (var scope in $scope.scopes) {
+        if ($scope.scopes.hasOwnProperty(scope)) {
+          $scope.scopes[scope].marked = action;
         }
       }
     };
@@ -64,14 +64,14 @@ angular.module('TPEApp')
           if ($location.path() === '/') {
             $location.path('/' + myProgrammeId);
           }
-          $('#panel-fields').addClass('hidden');
+          $('#panel-scopes').addClass('hidden');
           $scope.setMyProgramme(myNewProgramme);
           if ($('#graphic').html() === "") {
             $scope.graphic = Graphic.show(myNewProgramme.party_affinity);
           }
           $('#panel-results').removeClass('hidden');
         } else {
-          $scope.loadFields(myNewProgramme);
+          $scope.loadScopes(myNewProgramme);
         }
       }, function() {
           $scope.createMyProgramme();
@@ -79,13 +79,13 @@ angular.module('TPEApp')
     };
 
     $scope.setMyProgramme = function (myProgramme) {
-      $('#collapse-fields').collapse('hide');
+      $('#collapse-scopes').collapse('hide');
       $scope.myProgramme = myProgramme;
       $scope.myProgrammeId = myProgramme.id;
       if (!myProgramme.completed) {
         $cookies.put('myProgrammeId', myProgramme.id, {'expires': new Date(Date.now() + 1.728e+8)});
         myProgramme.interests.forEach(function (interest) {
-          $scope.fields[interest].marked = true;
+          $scope.scopes[interest].marked = true;
         });
       }
       $scope.loadMyLinkedPolicies();
@@ -94,12 +94,12 @@ angular.module('TPEApp')
     $scope.loadMyLinkedPolicies = function () {
       var policies = $scope.myProgramme.policies;
       if (typeof policies !== 'undefined') {
-        for (var field in policies) {
+        for (var scope in policies) {
           var exists = $.grep($scope.myLinkedPolicies, function(e){
-              return e.id === policies[field];
+              return e.id === policies[scope];
             }).length > 0;
-          if (policies.hasOwnProperty(field) && !exists && typeof $scope.myProgrammeFields[field] === 'undefined') {
-            Policy.findOneById(policies[field]).then(function (policy) {
+          if (policies.hasOwnProperty(scope) && !exists && typeof $scope.myProgrammeScopes[scope] === 'undefined') {
+            Policy.findOneById(policies[scope]).then(function (policy) {
               $scope.myLinkedPolicies.push(policy);
             });
           }
@@ -118,12 +118,12 @@ angular.module('TPEApp')
         $scope.myProgramme = myProgramme;
         $scope.myProgrammeId = myProgramme.id;
         $cookies.put('myProgrammeId', myProgramme.id, {'expires': new Date(Date.now() + 1.728e+8)});
-        $('#collapse-fields').collapse('hide');
+        $('#collapse-scopes').collapse('hide');
       });
     };
 
-    $scope.selectLinkedPolicy = function (myProgrammeId, fieldId, policyId) {
-      MyProgramme.selectLinkedPolicy(myProgrammeId, fieldId, policyId).then(function () {
+    $scope.selectLinkedPolicy = function (myProgrammeId, scopeId, policyId) {
+      MyProgramme.selectLinkedPolicy(myProgrammeId, scopeId, policyId).then(function () {
         $scope.loadMyProgramme(myProgrammeId);
       });
     };
@@ -135,7 +135,7 @@ angular.module('TPEApp')
     };
 
     $scope.reset = function () {
-      $scope.myProgrammeFields = {};
+      $scope.myProgrammeScopes = {};
       $scope.myLinkedPolicies = [];
       $scope.myProgramme = undefined;
       $scope.myProgrammeId = undefined;
@@ -168,7 +168,7 @@ angular.module('TPEApp')
       if (typeof myProgrammeId != 'undefined') {
         $scope.loadMyProgramme(myProgrammeId)
       } else {
-        $scope.loadFields();
+        $scope.loadScopes();
       }
     };
 
@@ -176,9 +176,9 @@ angular.module('TPEApp')
       if (typeof newValue != 'undefined') {
         $('#panel-summary').addClass('hidden');
         if (typeof newValue.next_interest != 'undefined') {
-          Field.findOneById(newValue.next_interest).then(function (field) {
-            window.knuthShuffle(field.policies);
-            $scope.myProgrammeFields[field.id] = field;
+          Scope.findOneById(newValue.next_interest).then(function (scope) {
+            window.knuthShuffle(scope.policies);
+            $scope.myProgrammeScopes[scope.id] = scope;
           });
         } else {
           if (!newValue.completed) {

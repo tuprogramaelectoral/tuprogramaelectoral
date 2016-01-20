@@ -2,25 +2,25 @@ app_health_check:
     path:      /
     defaults:  { _controller: AppBundle:Default:healthCheck }
 
-app_field_index:
-    path: /fields
+app_scope_index:
+    path: /scopes
     methods: [GET]
     defaults:
-        _controller: app.controller.field:indexAction
+        _controller: app.controller.scope:indexAction
         _sylius:
             paginate: false
             serialization_groups: [List]
 
-app_field_show:
-    path: /fields/{id}
+app_scope_show:
+    path: /scopes/{id}
     methods: [GET]
     defaults:
-        _controller: app.controller.field:showAction
+        _controller: app.controller.scope:showAction
         _sylius:
             paginate: false
             serialization_groups: [Show]
             repository:
-                method: findFieldWithPoliciesById
+                method: findScopeWithPoliciesById
                 arguments: [$id]
 
 app_policy_show:

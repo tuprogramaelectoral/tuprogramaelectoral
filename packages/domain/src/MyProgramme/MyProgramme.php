@@ -134,9 +134,9 @@ class MyProgramme implements InitialData
     public function nextInterest()
     {
         $this->sortPolicies();
-        foreach ($this->policies as $field => $policy) {
+        foreach ($this->policies as $scope => $policy) {
             if (empty($policy)) {
-                return $field;
+                return $scope;
             }
         }
 

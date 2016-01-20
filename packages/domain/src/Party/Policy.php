@@ -3,7 +3,7 @@
 namespace TPE\Domain\Party;
 
 use Parsedown;
-use TPE\Domain\Field\Field;
+use TPE\Domain\Scope\Scope;
 use TPE\Domain\Data\InitialData;
 
 
@@ -20,9 +20,9 @@ class Policy implements InitialData
     private $party;
 
     /**
-     * @var Field
+     * @var Scope
      */
-    private $field;
+    private $scope;
 
     /**
      * @var array
@@ -35,16 +35,16 @@ class Policy implements InitialData
     private $content;
 
 
-    public function __construct(Party $party, Field $field, array $sources, $content)
+    public function __construct(Party $party, Scope $scope, array $sources, $content)
     {
         \Assert\lazy()
             ->that($sources, 'sources')->isArray()->notEmpty()
             ->that($content, 'content')->string()->notEmpty()
             ->verifyNow();
 
-        $this->id = $party->getId() . '_' . $field->getId();
+        $this->id = $party->getId() . '_' . $scope->getId();
         $this->party = $party;
-        $this->field = $field;
+        $this->scope = $scope;
         $this->sources = $sources;
         $this->content = $content;
     }
@@ -67,14 +67,14 @@ class Policy implements InitialData
         return $this->party->getId();
     }
 
-    public function getField()
+    public function getScope()
     {
-        return $this->field;
+        return $this->scope;
     }
 
-    public function getFieldId()
+    public function getScopeId()
     {
-        return $this->field->getId();
+        return $this->scope->getId();
     }
 
     public function getSources()

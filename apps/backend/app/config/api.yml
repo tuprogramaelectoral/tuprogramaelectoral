@@ -1,10 +1,10 @@
 sylius_resource:
     resources:
-        app.field:
+        app.scope:
             driver: doctrine/orm
             classes:
-                model: TPE\Domain\Field\Field
-                repository: TPE\Infrastructure\Field\FieldDBRepository
+                model: TPE\Domain\Scope\Scope
+                repository: TPE\Infrastructure\Scope\ScopeDBRepository
         app.party:
             driver: doctrine/orm
             classes:
