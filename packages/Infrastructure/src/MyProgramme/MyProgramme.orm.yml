@@ -1,0 +1,18 @@
+TPE\Domain\MyProgramme\MyProgramme:
+  type: entity
+  table: tpe_my_programme
+  indexes:
+    my_programme_id_idx:
+      columns: [ id ]
+  id:
+    id:
+      type: guid
+  fields:
+    policies:
+      type: json_array
+    completed:
+      type: boolean
+    public:
+      type: boolean
+    lastModification:
+      type: datetime

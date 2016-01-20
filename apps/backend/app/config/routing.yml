@@ -2,79 +2,80 @@ app_health_check:
     path:      /
     defaults:  { _controller: AppBundle:Default:healthCheck }
 
-app_ambito_index:
-    path: /ambitos
+app_field_index:
+    path: /fields
     methods: [GET]
     defaults:
-        _controller: app.controller.ambito:indexAction
+        _controller: app.controller.field:indexAction
         _sylius:
             paginate: false
             serialization_groups: [List]
 
-app_ambito_show:
-    path: /ambitos/{id}
+app_field_show:
+    path: /fields/{id}
     methods: [GET]
     defaults:
-        _controller: app.controller.ambito:showAction
+        _controller: app.controller.field:showAction
         _sylius:
             paginate: false
             serialization_groups: [Show]
             repository:
-                method: findAmbitoYPoliticasById
+                method: findFieldWithPoliciesById
                 arguments: [$id]
 
-app_politica_show:
-    path: /politicas/{id}
+app_policy_show:
+    path: /policies/{id}
     methods: [GET]
     defaults:
-        _controller: app.controller.politica:showAction
+        _controller: app.controller.policy:showAction
+        _sylius:
+            paginate: false
+            serialization_groups: [List]
+
+app_party_index:
+    path: /parties
+    methods: [GET]
+    defaults:
+        _controller: app.controller.party:indexAction
         _sylius:
             paginate: false
 
-app_partido_index:
-    path: /partidos
-    methods: [GET]
-    defaults:
-        _controller: app.controller.partido:indexAction
-        _sylius:
-            paginate: false
-
-app_miprograma_create:
-    path: /misprogramas
+app_myprogramme_create:
+    path: /myprogrammes
     methods: [POST]
     defaults:
-        _controller: app.controller.miprograma:createAction
+        _controller: app.controller.myprogramme:createAction
 
-app_miprograma_show:
-    path: /misprogramas/{id}
+app_myprogramme_show:
+    path: /myprogrammes/{id}
     methods: [GET]
     defaults:
-        _controller: app.controller.miprograma:showAction
+        _controller: app.controller.myprogramme:showAction
         _sylius:
             paginate: false
             repository:
-                method: findNoExpiradoById
+                method: findNotExpiredById
                 arguments: [$id]
 
-app_miprograma_update:
-    path: /misprogramas/{id}
+app_myprogramme_update:
+    path: /myprogrammes/{id}
     methods: [POST]
     defaults:
-        _controller: app.controller.miprograma:updateAction
+        _controller: app.controller.myprogramme:updateAction
         _sylius:
             paginate: false
             criteria:
                 id: $id
-                terminado:  false
+                completed:  false
 
-app_miprograma_delete:
-    path: /misprogramas/{id}
+app_myprogramme_delete:
+    path: /myprogrammes/{id}
     methods: [DELETE]
     defaults:
-        _controller: app.controller.miprograma:deleteAction
+        _controller: app.controller.myprogramme:deleteAction
         _sylius:
             paginate: false
             criteria:
                 id: $id
-                terminado:  true
-                publico:  false
+                completed:  true
+                public:  false

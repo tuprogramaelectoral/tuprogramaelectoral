@@ -1,0 +1,29 @@
+{
+  "name": "infrastructure",
+  "type": "package",
+  "require": {
+    "doctrine/orm": "^2.4.8",
+    "sylius/resource-bundle": "^0.15.0",
+    "symfony/filesystem": "^2.7",
+    "symfony/finder": "^2.7",
+    "symfony/yaml": "^2.7",
+    "symfony/validator": "^2.7",
+    "domain": "*@dev"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.3",
+    "phpunit/phpunit": "^5.0"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-4": { "TPE\\Infrastructure\\": "src/" }
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../domain"
+    }
+  ]
+}

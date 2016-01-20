@@ -1,22 +1,25 @@
 default:
-  translation:
-    locale: es
   suites:
     backend:
       type: symfony_bundle
       bundle: AppBundle
       paths:    [ %paths.base%/features ]
-      contexts: [ BackendContext ]
+      contexts:
+        - DefaultContext:
+          - backend
       filters:
         tags: @backend
       mink_session: backend_session
-    aceptacion:
+    frontend:
+      type: symfony_bundle
+      bundle: AppBundle
+      paths:    [ %paths.base%/features ]
       contexts:
-        - AceptacionContext:
-          - %paths.base%/data
+        - DefaultContext:
+          - frontend
       filters:
-        tags: @aceptacion
-      mink_session: aceptacion_session
+        tags: @frontend
+      mink_session: frontend_session
 
   extensions:
     Behat\Symfony2Extension:
@@ -24,10 +27,10 @@ default:
         bootstrap: apps/backend/vendor/autoload.php
         path: apps/backend/app/AppKernel.php
     Behat\MinkExtension:
-      base_url: "http://192.168.99.100:9000"
+      base_url: "http://tuprogramaelectoral:9000"
       sessions:
-        aceptacion_session:
-          selenium2:
-            wd_host: "http://192.168.99.100:8910/wd/hub"
         backend_session:
           symfony2: ~
+        frontend_session:
+          selenium2:
+            wd_host: "http://dev_webtesting_1:4444/wd/hub"

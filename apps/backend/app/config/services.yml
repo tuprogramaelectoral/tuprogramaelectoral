@@ -1,22 +1,22 @@
 services:
-    cargador_de_datos:
-        class: TPE\Infraestructura\Datos\Cargador
+    data_loader:
+        class: TPE\Infrastructure\Data\Loader
         arguments:
          - @doctrine.orm.default_entity_manager
 
-    miprograma_form:
-        class: TPE\Infraestructura\MiPrograma\MiProgramaType
+    myprogramme_form:
+        class: TPE\Infrastructure\MyProgramme\MyProgrammeType
         tags:
-         - { name: form.type, alias: app_miprograma }
+         - { name: form.type, alias: app_myprogramme }
 
-    intereses_existen_validador:
-        class: TPE\Infraestructura\MiPrograma\InteresesExistenValidator
+    interests_exist_validator:
+        class: TPE\Infrastructure\MyProgramme\InterestsExistValidator
         arguments:
-         - @app.repository.miprograma
+         - @app.repository.myprogramme
         tags:
-         - { name: validator.constraint_validator, alias: intereses_existen_validador }
+         - { name: validator.constraint_validator, alias: interests_exist_validator }
 
-    mi_programa_esta_terminado_validador:
-        class: TPE\Infraestructura\MiPrograma\MiProgramaEstaTerminadoValidator
+    my_programme_is_completed_validator:
+        class: TPE\Infrastructure\MyProgramme\MyProgrammeIsCompletedValidator
         tags:
-         - { name: validator.constraint_validator, alias: mi_programa_esta_terminado_validador }
+         - { name: validator.constraint_validator, alias: my_programme_is_completed_validator }

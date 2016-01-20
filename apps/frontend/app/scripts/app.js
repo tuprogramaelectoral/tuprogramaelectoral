@@ -25,7 +25,7 @@ angular
       .when('/politica-de-cookies', {
         templateUrl: 'views/cookies.html'
       })
-      .when('/:miProgramaId?', {
+      .when('/:myProgrammeId?', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
@@ -34,4 +34,3 @@ angular
         redirectTo: '/'
       });
   }]);
-
