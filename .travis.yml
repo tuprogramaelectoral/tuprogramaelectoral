@@ -18,5 +18,6 @@ install:
 
 script:
   - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/domain/ && bin/phpspec run --format pretty'
+  - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/infrastructure/ && bin/phpspec run --format pretty'
   - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/infrastructure/ && bin/phpunit --testdox'
   - docker exec -t -u www-data api.tuprogramaelectoral bin/behat
