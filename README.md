@@ -37,42 +37,20 @@ sudo -s 'cat <<EOF >> /etc/hosts
 EOF'
 ```
 
+## Install dependencies
+
+Those commands just need to be executed once, they will download the PHP, Node and Bower dependencies
+and every time a new dependency is added/changed
+
+```shell
+tpe-compose build
+tpe-compose run backend install-app
+tpe-compose run frontend install-app
+```
+
 ## Start the development environment
 
 ```shell
+tpe-compose build
 tpe-compose up -d
-```
-
-## For OSX users
-
-To avoid issues with writing permissions into docker volumes you may want to install unison, to do so:
-
-```shell
-brew install unison
-brew install fswatch
-```
-
-And to create the development environment you may run:
-
-```shell
-tpe-compose-osx up -d codebase
-tpe-unison
-tpe-compose-osx up -d
-tpe-unison
-```
-
-From now on, to start the development environment and synchronise the files you just need to run these commands:
-
-```shell
-tpe-compose-osx up -d
-tpe-unison-fsmonitor
-```
-
-and finally loading of development hosts
-
-```shell
-sudo -s 'cat <<EOF >> /etc/hosts
-192.168.99.100   tuprogramaelectoral.dev
-192.168.99.100   api.tuprogramaelectoral.dev
-EOF'
 ```
