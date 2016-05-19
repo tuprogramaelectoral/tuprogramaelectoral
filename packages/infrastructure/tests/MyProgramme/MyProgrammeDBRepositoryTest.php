@@ -74,8 +74,6 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
 
     public function testShouldNotFindNotExpiredByIdWhenMyProgrammeIsNotPublicAndExpired()
     {
-        $this->markTestIncomplete('It fails because of querying sqlite with a boolean = false.');
-
         $this->loadFiles([]);
 
         $uuid = $this->saveNewMyProgramme(

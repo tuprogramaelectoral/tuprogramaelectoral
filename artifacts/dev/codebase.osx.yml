@@ -1,6 +1,0 @@
-codebase:
-  build: unison
-  environment:
-   - UNISON_VERSION=2.48.3
-  ports:
-   - 5000:5000

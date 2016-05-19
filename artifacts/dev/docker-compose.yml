@@ -1,55 +1,48 @@
-db:
-  image: postgres:9.4
-  container_name: db.tuprogramaelectoral
-  ports:
-   - 5432:5432
-  environment:
-   POSTGRES_USER: root
-   POSTGRES_PASSWORD: admin
-   POSTGRES_DB: vspdb
+version: '2'
 
-backend:
-  image: aleherse/tuprogramaelectoral:backend-dev
-  container_name: api.tuprogramaelectoral
-  ports:
-   - 80:80
-   - 9900:9900
-  volumes_from:
-   - codebase
-  environment:
-   DATABASE_HOST: db.tuprogramaelectoral
-   DATABASE_NAME: vspdb
-   DATABASE_USER: root
-   DATABASE_PASSWORD: admin
-   SYMFONY_SECRET: ThisTokenIsNotSoSecretChangeIt
-  extra_hosts:
-   - "hostmachine:192.168.99.1"
+services:
+  codebase:
+    image: ubuntu:15.10
+    volumes:
+      - ../../:/var/www
 
-frontend:
-  image: aleherse/tuprogramaelectoral:frontend-dev
-  container_name: tuprogramaelectoral
-  volumes_from:
-   - codebase
-  ports:
-   - 9000:9000
-   - 35729:35729
+  db:
+    image: postgres:9.4
+    container_name: db.tuprogramaelectoral
+    ports:
+     - 5432:5432
+    environment:
+     POSTGRES_USER: root
+     POSTGRES_PASSWORD: admin
+     POSTGRES_DB: vspdb
 
-webtesting:
-  image: selenium/standalone-firefox-debug
-  ports:
-   - 4444:4444
-   - 5900:5900
+  backend:
+    build: backend
+    container_name: api.tuprogramaelectoral
+    ports:
+     - 80:80
+     - 9001:9000
+    volumes_from:
+     - codebase
+    environment:
+     DATABASE_HOST: db.tuprogramaelectoral
+     DATABASE_NAME: vspdb
+     DATABASE_USER: root
+     DATABASE_PASSWORD: admin
+     SYMFONY_SECRET: ThisTokenIsNotSoSecretChangeIt
 
-#phantomjs:
-#  image: cmfatih/phantomjs
-#  ports:
-#   - 4444
-#  entrypoint: phantomjs
-#  command: "--webdriver=4444"
+  frontend:
+    build: frontend
+    container_name: tuprogramaelectoral
+    volumes_from:
+     - codebase
+    ports:
+     - 8080:9000
+     - 35729:35729
 
-#ci:
-#  image: jenkins
-#  ports:
-#   - 8080:8080
-#  volumes_from:
-#   - codebase
+  webtesting:
+    image: selenium/standalone-firefox-debug
+    container_name: webtesting.tuprogramaelectoral
+    ports:
+     - 4444:4444
+     - 5900:5900

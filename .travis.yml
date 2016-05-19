@@ -3,21 +3,23 @@ dist: trusty
 services:
  - docker
 
+env:
+  DOCKER_COMPOSE_VERSION: 1.7.1
+
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install docker-engine
+  - sudo apt-get -yqq update
+  - sudo apt-get -yqq -o Dpkg::Options::="--force-confold" install docker-engine
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 install:
-  - docker build -f artifacts/test/backend/Dockerfile -t backend-test .
-  - docker build -f artifacts/test/frontend/Dockerfile -t frontend-test .
-  - docker network create -d bridge isolated_nw
-  - docker run -d --net isolated_nw --name db.tuprogramaelectoral -e POSTGRES_USER=root -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=vspdb postgres:9.4
-  - docker run -d --net isolated_nw --name dev_webtesting_1 cmfatih/phantomjs phantomjs --webdriver=4444
-  - docker run -d --net isolated_nw --name api.tuprogramaelectoral backend-test
-  - docker run -d --net isolated_nw --name tuprogramaelectoral frontend-test
+  - docker-compose --file=artifacts/test/docker-compose.yml build
 
 script:
-  - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/domain/ && bin/phpspec run --format pretty'
-  - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/infrastructure/ && bin/phpspec run --format pretty'
-  - docker exec -t -u www-data api.tuprogramaelectoral /bin/bash -c 'cd packages/infrastructure/ && bin/phpunit --testdox'
-  - docker exec -t -u www-data api.tuprogramaelectoral bin/behat
+  - docker-compose --file=artifacts/test/docker-compose.yml up -d
+  - docker-compose --file=artifacts/test/docker-compose.yml run --user www-data backend /bin/bash -c 'cd packages/domain/ && bin/phpspec run --format pretty'
+  - docker-compose --file=artifacts/test/docker-compose.yml run --user www-data backend /bin/bash -c 'cd packages/infrastructure/ && bin/phpspec run --format pretty'
+  - docker-compose --file=artifacts/test/docker-compose.yml run --user www-data backend /bin/bash -c 'cd packages/infrastructure/ && bin/phpunit --testdox'
+  - docker-compose --file=artifacts/test/docker-compose.yml run --user www-data backend /bin/bash -c 'bin/behat'

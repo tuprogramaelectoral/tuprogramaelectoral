@@ -1,6 +1,6 @@
 FROM aleherse/tuprogramaelectoral:frontend-base
 
-COPY config/run-app.sh /usr/local/sbin/run-app
-RUN chmod 755 /usr/local/sbin/run-app
+COPY config/install-app.sh /usr/local/sbin/install-app
+RUN chmod 755 /usr/local/sbin/install-app
 
-CMD ["run-app"]
+CMD ["grunt", "--gruntfile=/var/www/apps/frontend/Gruntfile.js", "serve"]

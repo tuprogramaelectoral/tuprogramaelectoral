@@ -26,11 +26,12 @@ default:
       kernel:
         bootstrap: apps/backend/vendor/autoload.php
         path: apps/backend/app/AppKernel.php
+        env: test
     Behat\MinkExtension:
-      base_url: "http://tuprogramaelectoral:9000"
+      base_url: "http://tuprogramaelectoral.test:9000"
       sessions:
         backend_session:
           symfony2: ~
         frontend_session:
           selenium2:
-            wd_host: "http://dev_webtesting_1:4444/wd/hub"
+            wd_host: "http://webtesting.tuprogramaelectoral.test:4444/wd/hub"
