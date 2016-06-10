@@ -1,0 +1,9 @@
+TPE\Domain\Election\Election:
+  type: entity
+  table: tpe_election
+  id:
+    id:
+      type: integer
+  fields:
+    date:
+      type: date

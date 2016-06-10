@@ -2,8 +2,8 @@ TPE\Domain\Scope\Scope:
   type: entity
   table: tpe_scope
   indexes:
-    scope_id_idx:
-      columns: [ id ]
+    scope_election_id_idx:
+      columns: [ election, id ]
   id:
     id:
       type: string
@@ -12,7 +12,17 @@ TPE\Domain\Scope\Scope:
     name:
       type: string
       length: 255
+    scope:
+      type: string
+      length: 255
   oneToMany:
     policies:
       targetEntity: TPE\Domain\Party\Policy
       mappedBy: scope
+  manyToOne:
+    election:
+      targetEntity: TPE\Domain\Election\Election
+      cascade: [persist]
+      joinColumn:
+        name: election
+        referencedColumnName: id

@@ -1,9 +1,6 @@
 TPE\Domain\Party\Policy:
   type: entity
   table: tpe_policy
-  indexes:
-    policy_id_idx:
-      columns: [ id ]
   id:
     id:
       type: string

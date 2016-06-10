@@ -3,9 +3,14 @@
 namespace TPE\Infrastructure\MyProgramme;
 
 use Doctrine\DBAL\Types\Type;
+use Doctrine\ORM\Query\Expr;
 use Ramsey\Uuid\Uuid;
+use TPE\Domain\Election\Election;
 use TPE\Domain\MyProgramme\MyProgramme;
 use TPE\Domain\MyProgramme\MyProgrammeRepository;
+use TPE\Domain\Party\Party;
+use TPE\Domain\Party\Policy;
+use TPE\Domain\Scope\Scope;
 use TPE\Infrastructure\Data\DBRepository;
 
 
@@ -16,7 +21,7 @@ class MyProgrammeDBRepository extends DBRepository implements MyProgrammeReposit
 
     public function createNew()
     {
-        return new MyProgramme([]);
+        return new MyProgramme([], 1);
     }
 
     public function findOneBy(array $criteria)
@@ -45,27 +50,48 @@ class MyProgrammeDBRepository extends DBRepository implements MyProgrammeReposit
         return null;
     }
 
-    public function interestsExist(array $interests)
+    public function interestsExist($edition, array $interests)
     {
-        return $this->_em
+        $query = $this->_em
             ->createQueryBuilder()
-            ->select('count(a.id)')
-            ->from('TPE\Domain\Scope\Scope', 'a')
-            ->where('a.id IN (:interests)')
+            ->select('count(s.id)')
+            ->from(Scope::class, 's')
+            ->leftJoin('s.election', 'e')
+            ->where('e.id = :edition')
+            ->andWhere('s.scope IN (:interests)')
             ->setParameter('interests', $interests)
-            ->getQuery()
-            ->getSingleScalarResult() == count($interests);
+            ->setParameter('edition', $edition)
+            ->getQuery();
+
+        return $query->getSingleScalarResult() == count($interests);
     }
 
-    public function policiesExist(array $policies)
+    public function policiesExist($edition, array $policies)
     {
-        return $this->_em
+        $builder = $this->_em
             ->createQueryBuilder()
-            ->select('count(p.id)')
-            ->from('TPE\Domain\Party\Policy', 'p')
-            ->where('p.id IN (:policies)')
-            ->setParameter('policies', $policies)
-            ->getQuery()
-            ->getSingleScalarResult() == count($policies);
+            ->select('count(po.id)')
+            ->from(Policy::class, 'po')
+            ->leftJoin(Party::class, 'pa', Expr\Join::WITH, 'po.party = pa.id')
+            ->leftJoin(Scope::class, 's', Expr\Join::WITH, 'po.scope = s.id')
+            ->leftJoin(Election::class, 'e', Expr\Join::WITH, 'pa.election = e.id AND s.election = e.id');
+
+        $i = 0;
+        foreach ($policies as $scope => $party) {
+            if (!empty($party)) {
+                $builder
+                    ->Orwhere("e.id = :election{$i} AND pa.party = :party{$i} AND s.scope = :scope{$i}")
+                    ->setParameter("election{$i}", $edition)
+                    ->setParameter("party{$i}", $party)
+                    ->setParameter("scope{$i}", $scope);
+                $i++;
+            }
+        }
+
+        if ($i === 0) {
+            return true;
+        }
+
+        return $builder->getQuery()->getSingleScalarResult() == $i;
     }
 }

@@ -1,0 +1,11 @@
+TPE\Domain\Election\Election:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: integer
+            groups: [List, Show]
+        date:
+            expose: true
+            type: DateTime
+            groups: [List, Show]

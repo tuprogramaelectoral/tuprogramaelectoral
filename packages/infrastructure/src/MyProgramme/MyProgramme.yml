@@ -7,6 +7,9 @@ TPE\Domain\MyProgramme\MyProgramme:
         policies:
             expose: true
             type: array
+        edition:
+            expose: true
+            type: integer
         completed:
             expose: true
             type: boolean

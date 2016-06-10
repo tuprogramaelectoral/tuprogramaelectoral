@@ -1,7 +1,7 @@
 TPE\Domain\Party\Party:
     exclusion_policy: ALL
     properties:
-        id:
+        party:
             expose: true
             type: string
             groups: [List, Show]

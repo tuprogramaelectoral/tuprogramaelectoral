@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping\Driver\YamlDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Ramsey\Uuid\Uuid;
+use TPE\Domain\MyProgramme\MyProgramme;
 use TPE\Domain\Scope\Scope;
 use TPE\Infrastructure\Data\Loader;
 use TPE\Infrastructure\MyProgramme\MyProgrammeDBRepository;
@@ -32,7 +33,7 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
         );
 
         $this->assertInstanceOf(
-            'TPE\Domain\MyProgramme\MyProgramme',
+            MyProgramme::class,
             $this->getRepository()->findNotExpiredById($uuid)
         );
     }
@@ -49,7 +50,7 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
         );
 
         $this->assertInstanceOf(
-            'TPE\Domain\MyProgramme\MyProgramme',
+            MyProgramme::class,
             $this->getRepository()->findNotExpiredById($uuid)
         );
     }
@@ -67,7 +68,7 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
         $myProgramme = $this->getRepository()->findNotExpiredById($uuid);
 
         $this->assertInstanceOf(
-            'TPE\Domain\MyProgramme\MyProgramme',
+            MyProgramme::class,
             $myProgramme
         );
     }
@@ -89,51 +90,55 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
     public function testShouldReturnTrueIfTheListOfInterestsExistDuringInterestsExist()
     {
         $this->loadFiles([
-            'scope/sanidad/scope.json' => '{"name": "Sanidad"}',
-            'scope/educacion/scope.json' => '{"name": "Educacion"}',
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/sanidad/scope.json' => '{"name": "Sanidad"}',
+            '1/scope/educacion/scope.json' => '{"name": "Educacion"}',
         ], true);
 
-        $this->assertTrue($this->getRepository()->interestsExist(['sanidad', 'educacion']));
+        $this->assertTrue($this->getRepository()->interestsExist(1, ['sanidad', 'educacion']));
     }
 
     public function testShouldReturnFalseIfOneOfTheListOfInterestsDoNotExistDuringInterestsExist()
     {
         $this->loadFiles([
-            'scope/sanidad/scope.json' => '{"name": "Sanidad"}',
-            'scope/educacion/scope.json' => '{"name": "Educacion"}',
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/sanidad/scope.json' => '{"name": "Sanidad"}',
+            '1/scope/educacion/scope.json' => '{"name": "Educacion"}',
         ], true);
 
-        $this->assertFalse($this->getRepository()->interestsExist(['sanidad', 'educacion', 'notExistentInterest']));
+        $this->assertFalse($this->getRepository()->interestsExist(1, ['sanidad', 'educacion', 'notExistentInterest']));
     }
 
     public function testShouldReturnTrueIfTheListOfPoliciesExistDuringPoliciesExist()
     {
         $this->loadFiles([
-            'scope/sanidad/scope.json' => '{"name": "Sanidad"}',
-            'scope/educacion/scope.json' => '{"name": "Educacion"}',
-            'party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
-            'scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
-            'scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita',
-            'scope/educacion/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "educacion", "sources": ["http://partido-ficticio.es/programa/"]}',
-            'scope/educacion/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/sanidad/scope.json' => '{"name": "Sanidad"}',
+            '1/scope/educacion/scope.json' => '{"name": "Educacion"}',
+            '1/party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
+            '1/scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
+            '1/scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita',
+            '1/scope/educacion/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "educacion", "sources": ["http://partido-ficticio.es/programa/"]}',
+            '1/scope/educacion/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
         ], true);
 
-        $this->assertTrue($this->getRepository()->policiesExist(['partido-ficticio_sanidad', 'partido-ficticio_educacion']));
+        $this->assertTrue($this->getRepository()->policiesExist(1, ['sanidad' => 'partido-ficticio', 'educacion' => 'partido-ficticio']));
     }
 
     public function testShouldReturnFalseIfOneOfTheListOfPoliciesDoNotExistDuringPoliciesExist()
     {
         $this->loadFiles([
-            'scope/sanidad/scope.json' => '{"name": "Sanidad"}',
-            'scope/educacion/scope.json' => '{"name": "Educacion"}',
-            'party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
-            'scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
-            'scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita',
-            'scope/educacion/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "educacion", "sources": ["http://partido-ficticio.es/programa/"]}',
-            'scope/educacion/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/sanidad/scope.json' => '{"name": "Sanidad"}',
+            '1/scope/educacion/scope.json' => '{"name": "Educacion"}',
+            '1/party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
+            '1/scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
+            '1/scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita',
+            '1/scope/educacion/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "educacion", "sources": ["http://partido-ficticio.es/programa/"]}',
+            '1/scope/educacion/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
         ], true);
 
-        $this->assertFalse($this->getRepository()->policiesExist(['sanidad', 'educacion', 'notExistentInterest']));
+        $this->assertFalse($this->getRepository()->policiesExist(1, ['sanidad' => 'partido-ficticio', 'educacion' => 'notExistentPolicy']));
     }
 
     /**
@@ -144,7 +149,7 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
         return $this->repos[Loader::CLASS_MY_PROGRAMME];
     }
 
-    private function saveNewMyProgramme(array $policies, $public = false, $completed = false, \DateTime $lastModification = null)
+    private function saveNewMyProgramme¢(array $policies, $public = false, $completed = false, \DateTime $lastModification = null)
     {
         $uuid = Uuid::uuid4()->toString();
         $lastModification = ($lastModification) ? $lastModification : new \DateTime();
@@ -153,6 +158,7 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
         $query = $this->em->getConnection()->createQueryBuilder()
             ->insert($metadata->getTableName())
             ->setValue($metadata->getColumnName('id'), ':id')
+            ->setValue($metadata->getColumnName('edition'), 1)
             ->setValue($metadata->getColumnName('policies'), ':policies')
             ->setValue($metadata->getColumnName('public'), ':public')
             ->setValue($metadata->getColumnName('completed'), ':completed')
