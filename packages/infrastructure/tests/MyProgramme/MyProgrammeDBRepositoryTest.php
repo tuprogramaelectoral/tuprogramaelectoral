@@ -149,7 +149,7 @@ class MyProgrammeDBRepositoryTest extends DB_TestCase
         return $this->repos[Loader::CLASS_MY_PROGRAMME];
     }
 
-    private function saveNewMyProgramme¢(array $policies, $public = false, $completed = false, \DateTime $lastModification = null)
+    private function saveNewMyProgramme(array $policies, $public = false, $completed = false, \DateTime $lastModification = null)
     {
         $uuid = Uuid::uuid4()->toString();
         $lastModification = ($lastModification) ? $lastModification : new \DateTime();

@@ -14,12 +14,6 @@ services:
       context: ../../
       dockerfile: artifacts/test/backend/Dockerfile
     container_name: api.tuprogramaelectoral
-    environment:
-     DATABASE_HOST: db.tuprogramaelectoral
-     DATABASE_NAME: vspdb
-     DATABASE_USER: root
-     DATABASE_PASSWORD: admin
-     SYMFONY_SECRET: ThisTokenIsNotSoSecretChangeIt
 
   frontend:
     build:
@@ -28,7 +22,5 @@ services:
     container_name: tuprogramaelectoral
 
   webtesting:
-    image: selenium/standalone-firefox
+    image: selenium/standalone-firefox:2.45.0
     container_name: webtesting.tuprogramaelectoral
-    ports:
-     - 5900:5900
