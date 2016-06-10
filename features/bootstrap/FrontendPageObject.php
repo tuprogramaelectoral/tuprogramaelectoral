@@ -30,7 +30,7 @@ class FrontendPageObject
         $this->session = $mink->getSession();
     }
 
-    public function visit($path)
+    public function visit($path, $edition)
     {
         $response = null;
 
@@ -44,7 +44,7 @@ class FrontendPageObject
 
                 foreach ($elements as $element) {
                     $response[] = [
-                        'id' => $element->getAttribute('data-interest-id'),
+                        'scope' => $element->getAttribute('data-interest-id'),
                         'name' => $element->getText()
                     ];
                 }
@@ -54,7 +54,7 @@ class FrontendPageObject
         return $response;
     }
 
-    public function visitScope($scope)
+    public function visitScope($scope, $edition)
     {
         $this->session->wait(20000, "$('#panel-interest-{$scope} .policy-content:visible').length");
         $scopeNode = $this->session->getPage()->find('css', "#panel-interest-{$scope}");
@@ -63,7 +63,8 @@ class FrontendPageObject
         foreach ($scopeNode->findAll('xpath', "//div[@data-scope='{$scope}']") as $policyNode) {
             /** @var NodeElement $policyNode */
             $response[] = [
-                'id' => $policyNode->getAttribute('data-policy'),
+                'scope_id' => $policyNode->getAttribute('data-scope'),
+                'party_id' => $policyNode->getAttribute('data-party'),
                 'content' => $policyNode->find('css', '.policy-content')->getHtml()
             ];
         }
@@ -71,15 +72,16 @@ class FrontendPageObject
         return ['policies' => $response];
     }
 
-    public function selectInterests($interests)
+    public function selectInterests($edition, $interests)
     {
+        $page = $this->session->getPage();
         foreach ($interests as $interest) {
-            $this->session->getPage()
+            $page
                 ->find('xpath', "//input[@data-interest-id='{$interest}']")
                 ->check();
         }
 
-        $this->session->getPage()
+        $page
             ->find('css', '#select-interests')
             ->click();
 
@@ -87,8 +89,9 @@ class FrontendPageObject
 
         $myProgramme = [
             'id' => $this->session->getCookie('myProgrammeId'),
-            'interests' => [],
-            'next_interest' => null
+            'edition' => $page->find('css', "#sections")->getAttribute('data-my-programme-edition'),
+            'next_interest' => $page->find('css', "#sections")->getAttribute('data-my-programme-next-interest'),
+            'interests' => []
         ];
 
         foreach ($this->findAll('css', '.interest') as $interest) {
@@ -100,17 +103,22 @@ class FrontendPageObject
         return $myProgramme;
     }
 
-    public function selectLinkedPolicy($myProgrammeId, $scope, $policy)
+    public function selectLinkedPolicy($myProgrammeId, $edition, $scope, $party)
     {
-        $this->session->wait(20000, "$('#show-policy-{$policy}:visible').length");
-        $this->session->getPage()->find('css', "#show-policy-{$policy}")->click();
-        $this->session->wait(20000, "$('#select-policy-{$policy}:visible').length");
-        $this->session->getPage()->find('css', "#select-policy-{$policy}")->click();
+        $page = $this->session->getPage();
+        $this->session->wait(20000, "$('#show-policy-{$scope}-{$party}:visible').length");
+        $page->find('css', "#show-policy-{$scope}-{$party}")->click();
+        $this->session->wait(20000, "$('#select-policy-{$scope}-{$party}:visible').length");
+        $page->find('css', "#select-policy-{$scope}-{$party}")->click();
+        $this->session->wait(10000);
+
+        $nextInterest = $page->find('css', "#sections")->getAttribute('data-my-programme-next-interest');
 
         return [
             'id' => $this->session->getCookie('myProgrammeId'),
-            'interests' => [],
-            'next_interest' => null
+            'edition' => $page->find('css', "#sections")->getAttribute('data-my-programme-edition'),
+            'next_interest' => (empty($nextInterest)) ? null : $nextInterest,
+            'interests' => []
         ];
     }
 
@@ -120,6 +128,7 @@ class FrontendPageObject
 
         $this->session->restart();
         $this->session->visit($path);
+        $this->session->wait(10000);
 
         return $path === $this->session->getCurrentUrl();
     }
@@ -146,7 +155,7 @@ class FrontendPageObject
         $policies = [];
         foreach ($page->findAll('css', '.panel-completed-programme-policy') as $policyNode) {
             /** @var NodeElement $policyNode */
-            $policies[$policyNode->getAttribute('data-scope')] = $policyNode->getAttribute('data-policy');
+            $policies[$policyNode->getAttribute('data-scope')] = $policyNode->getAttribute('data-party');
         }
 
         $isPublic = null;
@@ -162,7 +171,8 @@ class FrontendPageObject
         return [
             'id' => $this->session->getCookie('myProgrammeId'),
             'interests' => [],
-            'next_interest' => null,
+            'edition' => $page->find('css', "#sections")->getAttribute('data-my-programme-edition'),
+            'next_interest' => $page->find('css', "#sections")->getAttribute('data-my-programme-next-interest'),
             'policies' => $policies,
             'party_affinity' => array_column($graphicData, 'value', 'label'),
             'completed' => $page->find('css', '#panel-results')->isVisible(),

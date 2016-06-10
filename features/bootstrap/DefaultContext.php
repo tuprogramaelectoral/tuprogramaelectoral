@@ -29,7 +29,7 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
 {
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
-    const FIELDS = "scopes";
+    const SCOPES = "scopes";
     const PARTIES = "parties";
     const POLICIES = "policies";
     const POLICY_CONTENT = "policy content";
@@ -59,6 +59,15 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
      * @var string
      */
     private $environment;
+
+    /**
+     * @var string[]
+     */
+    private $dataTypeId = [
+        self::SCOPES => 'scope',
+        self::PARTIES => 'party',
+        self::POLICIES => 'party'
+    ];
 
 
     /**
@@ -136,34 +145,34 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
-     * @When I see the list of available :dataType
+     * @When I see the list of available :dataType for the :edition election edition
      */
-    public function iSeeTheListOfAvailableDataType($dataType)
+    public function iSeeTheListOfAvailableDataType($dataType, $edition)
     {
-        $response = $this->pageObject->visit($dataType);
+        $response = $this->pageObject->visit($dataType, $edition);
 
         $this->current[$dataType] = [];
         foreach ($response as $data) {
-            $this->current[$dataType][$data['id']] = $data;
+            $this->current[$dataType][$data[$this->dataTypeId[$dataType]]] = $data;
         }
     }
 
     /**
-     * @When I see these policies linked to the scope :scope
+     * @When I see these policies linked to the scope :scope for the :edition election edition
      */
-    public function iSeeTheListOfPoliciesLinkedToTheScope($scope, TableNode $table)
+    public function iSeeTheListOfPoliciesLinkedToTheScope($edition, $scope, TableNode $table)
     {
-        $response = $this->pageObject->visitScope($scope);
+        $response = $this->pageObject->visitScope($scope, $edition);
 
         $this->current[self::POLICIES] = [];
         foreach ($response['policies'] as $data) {
-            $this->current[self::POLICIES][$data['id']] = $data;
+            $this->current[self::POLICIES][$data['scope_id']][$data['party_id']] = $data;
         }
 
         foreach ($table as $policy) {
-            PHPUnit_Framework_Assert::assertTrue(isset($this->current[self::POLICIES][$policy['id']]));
+            PHPUnit_Framework_Assert::assertTrue(isset($this->current[self::POLICIES][$scope][$policy['party']]));
             PHPUnit_Framework_Assert::assertEquals(
-                $this->current[self::POLICIES][$policy['id']]['content'],
+                $this->current[self::POLICIES][$scope][$policy['party']]['content'],
                 (new Parsedown())->text($policy['content'])
             );
         }
@@ -174,18 +183,33 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
      */
     public function theListOfDataTypeContains($dataType, TableNode $table)
     {
-        $expected = $this->transformTableIntoArrayIndexedBy('id', $table);
+        if ($dataType == self::POLICIES) {
+            $this->theListOfPoliciesContains($table);
+        } else {
+            $expected = $this->transformTableIntoArrayIndexedBy($this->dataTypeId[$dataType], $table);
 
-        PHPUnit_Framework_Assert::assertCount(count($expected), $this->current[$dataType]);
-        foreach ($this->current[$dataType] as $current) {
-            $this->compareCurrentWithExpected($dataType, $current, $expected[$current['id']]);
+            PHPUnit_Framework_Assert::assertCount(count($expected), $this->current[$dataType]);
+            foreach ($this->current[$dataType] as $current) {
+                $this->compareCurrentWithExpected($dataType, $current, $expected[$current[$this->dataTypeId[$dataType]]]);
+            }
+        }
+    }
+
+    private function theListOfPoliciesContains(TableNode $table)
+    {
+        $expected = $this->transformTableIntoArrayIndexedBy($this->dataTypeId["policies"], $table);
+        $scope = current($expected)["scope"];
+
+        PHPUnit_Framework_Assert::assertCount(count($expected), $this->current["policies"][$scope]);
+        foreach ($this->current["policies"][$scope] as $current) {
+            $this->compareCurrentWithExpected("policies", $current, $expected[$current["party_id"]]);
         }
     }
 
     private function compareCurrentWithExpected($dataType, array $current, array $expected)
     {
         switch ($dataType) {
-            case self::FIELDS:
+            case self::SCOPES:
                 /** @var Scope $current */
                 PHPUnit_Framework_Assert::assertEquals($expected['name'], $current["name"]);
                 break;
@@ -199,7 +223,8 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
                 /** @var Policy $current */
                 PHPUnit_Framework_Assert::assertEquals(json_decode($expected['sources']), $current["sources"]);
                 PHPUnit_Framework_Assert::assertEquals($expected['content'], $current["content"]);
-                PHPUnit_Framework_Assert::assertEquals($expected['partyId'], $current["party"]["id"]);
+                PHPUnit_Framework_Assert::assertEquals($expected['party'], $current["party_id"]);
+                PHPUnit_Framework_Assert::assertEquals($expected['scope'], $current["scope_id"]);
                 break;
             default:
                 throw new \Exception("It doesn't exist a way to compare " . $dataType);
@@ -207,11 +232,11 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
-     * @When (that) I select these interests:
+     * @When (that) I select these interests for the :edition election edition:
      */
-    public function iSelectTheseInterests(TableNode $table)
+    public function iSelectTheseInterests($edition, TableNode $table)
     {
-        $this->myProgramme = $this->pageObject->selectInterests($table->getColumn(0));
+        $this->myProgramme = $this->pageObject->selectInterests($edition, $table->getColumn(0));
     }
 
     /**
@@ -250,14 +275,15 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
-     * @When I select the linked policy :policy
+     * @When I select the linked policy of party :party
      */
-    public function iSelectTheLinkedPolicy($policy)
+    public function iSelectTheLinkedPolicyOfParty($party)
     {
         $this->myProgramme = $this->pageObject->selectLinkedPolicy(
             $this->myProgramme['id'],
+            $this->myProgramme['edition'],
             $this->myProgramme['next_interest'],
-            $policy
+            $party
         );
     }
 
@@ -279,14 +305,14 @@ class DefaultContext extends MinkContext implements SnippetAcceptingContext
     {
         $expected = [];
         foreach ($table as $data) {
-            if (!empty($data['policy'])) {
-                $expected[$data['scope']] = $data['policy'];
+            if (!empty($data['party'])) {
+                $expected[$data['scope']] = $data['party'];
             }
         }
 
-        foreach ($this->myProgramme['policies'] as $scope => $policy) {
+        foreach ($this->myProgramme['policies'] as $scope => $party) {
             PHPUnit_Framework_Assert::assertTrue(isset($expected[$scope]));
-            PHPUnit_Framework_Assert::assertEquals($expected[$scope], $policy);
+            PHPUnit_Framework_Assert::assertEquals($expected[$scope], $party);
         }
     }
 
