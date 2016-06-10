@@ -2,9 +2,7 @@ imports:
     - { resource: config_dev.yml }
 
 parameters:
-    cors_allow_origin: 'http://tuprogramaelectoral.test:9000'
-    database_host: db.tuprogramaelectoral.test
-    database_name: vspdb
+    cors_allow_origin: 'http://tuprogramaelectoral:9000'
 
 framework:
     test: ~
@@ -20,3 +18,11 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 
+doctrine:
+  dbal:
+      default_connection: default
+      connections:
+          default:
+              driver: pdo_sqlite
+              path: "/tmp/test/sqlite.db"
+              charset: UTF8

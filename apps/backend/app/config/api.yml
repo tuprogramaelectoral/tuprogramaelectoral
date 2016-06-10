@@ -1,5 +1,10 @@
 sylius_resource:
     resources:
+        app.election:
+            driver: doctrine/orm
+            classes:
+                model: TPE\Domain\Election\Election
+                repository: TPE\Infrastructure\Election\ElectionDBRepository
         app.scope:
             driver: doctrine/orm
             classes:
