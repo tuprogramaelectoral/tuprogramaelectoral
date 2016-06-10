@@ -5,7 +5,7 @@ angular.module('services', [])
         Configurer.setBaseUrl(config.restAPI);
       });
 
-    var _scopes = restAngular.all('scopes');
+    var _scopes = restAngular.all('/elections/' + config.edition + '/scopes');
 
     return {
       findAll: function () {
@@ -25,8 +25,8 @@ angular.module('services', [])
     var _policies = restAngular.all('policies');
 
     return {
-      findOneById: function (id) {
-        return _policies.one(id).get();
+      findOneBy: function (scope, party) {
+        return _policies.one('election/' + config.edition + '/scope/' + scope + '/party/' + party).get();
       }
     }
   }])
@@ -43,7 +43,7 @@ angular.module('services', [])
         return _myProgrammes.one(myProgrammeId).get();
       },
       create: function (interests) {
-        var data = {"policies": {}};
+        var data = {"edition": config.edition, "policies": {}};
         interests.forEach(function (scope) {
           data["policies"][scope] = null;
         });

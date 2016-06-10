@@ -38,7 +38,7 @@ angular.module('TPEApp')
       Scope.findAll().then(function (scopes) {
         var newScopes = {};
         scopes.forEach(function (scope) {
-          newScopes[scope.id] = scope;
+          newScopes[scope.scope] = scope;
         });
         $scope.scopes = newScopes;
         $('#panel-scopes').removeClass('hidden');
@@ -96,10 +96,10 @@ angular.module('TPEApp')
       if (typeof policies !== 'undefined') {
         for (var scope in policies) {
           var exists = $.grep($scope.myLinkedPolicies, function(e){
-              return e.id === policies[scope];
+              return e.party_id === policies[scope];
             }).length > 0;
           if (policies.hasOwnProperty(scope) && !exists && typeof $scope.myProgrammeScopes[scope] === 'undefined') {
-            Policy.findOneById(policies[scope]).then(function (policy) {
+            Policy.findOneBy(scope, policies[scope]).then(function (policy) {
               $scope.myLinkedPolicies.push(policy);
             });
           }
@@ -124,6 +124,7 @@ angular.module('TPEApp')
 
     $scope.selectLinkedPolicy = function (myProgrammeId, scopeId, policyId) {
       MyProgramme.selectLinkedPolicy(myProgrammeId, scopeId, policyId).then(function () {
+        $('.panel-collapse').collapse('hide');
         $scope.loadMyProgramme(myProgrammeId);
       });
     };
@@ -178,7 +179,8 @@ angular.module('TPEApp')
         if (typeof newValue.next_interest != 'undefined') {
           Scope.findOneById(newValue.next_interest).then(function (scope) {
             window.knuthShuffle(scope.policies);
-            $scope.myProgrammeScopes[scope.id] = scope;
+            $scope.myProgrammeScopes[scope.scope] = scope;
+            $('#collapse-' + scope.scope).collapse('show');
           });
         } else {
           if (!newValue.completed) {

@@ -1,5 +1,6 @@
 angular
   .module("TPEApp")
   .constant('config', {
-    'restAPI': 'http://api.tuprogramaelectoral.test/app_test.php/'
+    'restAPI': 'http://api.tuprogramaelectoral/app_test.php/',
+    'edition': 1
   });
