@@ -4,15 +4,20 @@ namespace spec\TPE\Domain\Party;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use TPE\Domain\Election\Election;
 use TPE\Domain\Scope\Scope;
 use TPE\Domain\Party\Party;
 
 class PolicySpec extends ObjectBehavior
 {
-    function let(Party $party, Scope $scope)
+    function let(Party $party, Scope $scope, Election $election)
     {
-        $party->getId()->willReturn('partido-ficticio');
-        $scope->getId()->willReturn('sanidad');
+        $election->getId()->willReturn(1);
+        $party->getParty()->willReturn('partido-ficticio');
+        $party->getName()->willReturn('Partido Ficticio');
+        $party->getElection()->willReturn($election->getWrappedObject());
+        $scope->getScope()->willReturn('sanidad');
+        $scope->getName()->willReturn('Sanidad');
 
         $this->beConstructedWith(
             $party,
@@ -37,6 +42,11 @@ class PolicySpec extends ObjectBehavior
         $this->getPartyId()->shouldReturn('partido-ficticio');
     }
 
+    function it_should_return_the_party_name()
+    {
+        $this->getPartyName()->shouldReturn('Partido Ficticio');
+    }
+
     function it_should_be_linked_to_a_scope(Scope $scope)
     {
         $this->getScope()->shouldReturn($scope);
@@ -47,9 +57,14 @@ class PolicySpec extends ObjectBehavior
         $this->getScopeId()->shouldReturn('sanidad');
     }
 
+    function it_should_return_the_scope_name()
+    {
+        $this->getScopeName()->shouldReturn('Sanidad');
+    }
+
     function it_should_have_an_id_generated_from_the_party_name_and_scope_name()
     {
-        $this->getId()->shouldReturn('partido-ficticio_sanidad');
+        $this->getId()->shouldReturn('1_partido-ficticio_sanidad');
     }
 
     function it_should_have_a_list_of_sources()
@@ -65,18 +80,6 @@ class PolicySpec extends ObjectBehavior
     function it_should_have_the_content_of_the_policy_in_html()
     {
         $this->getContentInHtml()->shouldReturn('<h2>sanidad universal y gratuita</h2>');
-    }
-
-    function it_should_throw_an_exception_if_there_are_no_sources(Party $party, Scope $scope)
-    {
-        $this->beConstructedWith(
-            $party,
-            $scope,
-            [],
-            '## sanidad universal y gratuita'
-        );
-
-        $this->shouldThrow('\InvalidArgumentException')->duringInstantiation();
     }
 
     function it_should_throw_an_exception_if_there_is_no_content(Party $party, Scope $scope)

@@ -13,7 +13,7 @@ class MyProgrammeSpec extends ObjectBehavior
         $this->beConstructedWith([
             'administracion-publica' => 'partido-ficticio_administracion-publica',
             'agricultura' => null
-        ]);
+        ], 1);
     }
 
     function it_should_extend_initial_data()
@@ -63,7 +63,7 @@ class MyProgrammeSpec extends ObjectBehavior
             'educacion' => 'ciudadanos_educacion',
             'empleo' => 'podemos_empleo',
             'economia' => 'ciudadanos_economia',
-        ]);
+        ], 1);
 
         $this->getPartyAffinity()->shouldReturn(['partido-popular' => 1, 'partido-socialista' => 1, 'ciudadanos' => 2, 'podemos' => 2]);
     }
@@ -71,6 +71,18 @@ class MyProgrammeSpec extends ObjectBehavior
     function it_should_have_an_id_generated_automatically()
     {
         $this->getId()->shouldBeAValidUUID();
+    }
+
+    function it_should_have_an_election_edition()
+    {
+        return $this->getEdition()->shouldReturn(1);
+    }
+
+    function it_should_set_the_election_edition()
+    {
+        $this->setEdition(2);
+
+        return $this->getEdition()->shouldReturn(2);
     }
 
     function it_should_be_private_by_default()
@@ -83,7 +95,7 @@ class MyProgrammeSpec extends ObjectBehavior
         $this->beConstructedWith([
             'administracion-publica' => 'partido-ficticio_administracion-publica',
             'agricultura' => null
-        ], true);
+        ], 1, true);
 
         return $this->isPublic()->shouldReturn(true);
     }
@@ -105,7 +117,7 @@ class MyProgrammeSpec extends ObjectBehavior
         $this->beConstructedWith([
             'administracion-publica' => 'partido-ficticio_administracion-publica',
             'agricultura' => null
-        ], true, true);
+        ], 1, true, true);
 
         return $this->isCompleted()->shouldReturn(true);
     }
@@ -122,7 +134,7 @@ class MyProgrammeSpec extends ObjectBehavior
         $this->beConstructedWith([
             'administracion-publica' => null,
             'agricultura' => null
-        ]);
+        ], 1);
 
         $this->nextInterest()->shouldReturn('administracion-publica');
     }
@@ -132,7 +144,7 @@ class MyProgrammeSpec extends ObjectBehavior
         $this->beConstructedWith([
             'administracion-publica' => null,
             'agricultura' => null
-        ]);
+        ], 1);
 
         $this->selectPolicy('administracion-publica', 'partido-ficticio_administracion-publica');
 
@@ -143,7 +155,7 @@ class MyProgrammeSpec extends ObjectBehavior
     {
         $this->beConstructedWith([
             'administracion-publica' => 'partido-ficticio_administracion-publica'
-        ]);
+        ], 1);
 
         $this->nextInterest()->shouldReturn(null);
     }

@@ -38,13 +38,20 @@ class MyProgramme implements InitialData
      */
     private $lastModification;
 
+    /**
+     * @var integer
+     */
+    private $edition;
 
-    public function __construct(array $policies, $public = false, $completed = false)
+
+    public function __construct(array $policies, $edition, $public = false, $completed = false)
     {
         \Assert\that($policies)->isArray();
         \Assert\that($public)->boolean();
+        \Assert\that($edition)->integer();
 
         $this->id = Uuid::uuid4()->toString();
+        $this->edition = $edition;
         $this->public = $public;
         $this->completed = $completed;
         foreach ($policies as $interest => $policy) {
@@ -87,7 +94,7 @@ class MyProgramme implements InitialData
     /**
      * @return string[]
      */
-    public function getpolicies()
+    public function getPolicies()
     {
         $this->sortPolicies();
         return $this->policies;
@@ -175,5 +182,24 @@ class MyProgramme implements InitialData
     {
         $this->updateLastModification();
         $this->completed = $completed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEdition()
+    {
+        return $this->edition;
+    }
+
+    /**
+     * @param integer $edition
+     * @return $this
+     */
+    public function setEdition($edition)
+    {
+        $this->edition = $edition;
+        
+        return $this;
     }
 }

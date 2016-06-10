@@ -38,11 +38,11 @@ class Policy implements InitialData
     public function __construct(Party $party, Scope $scope, array $sources, $content)
     {
         \Assert\lazy()
-            ->that($sources, 'sources')->isArray()->notEmpty()
+            ->that($sources, 'sources')->isArray()
             ->that($content, 'content')->string()->notEmpty()
             ->verifyNow();
 
-        $this->id = $party->getId() . '_' . $scope->getId();
+        $this->id = $party->getElection()->getId() . '_' . $party->getParty() . '_' . $scope->getScope();
         $this->party = $party;
         $this->scope = $scope;
         $this->sources = $sources;
@@ -64,7 +64,12 @@ class Policy implements InitialData
 
     public function getPartyId()
     {
-        return $this->party->getId();
+        return $this->party->getParty();
+    }
+
+    public function getPartyName()
+    {
+        return $this->party->getName();
     }
 
     public function getScope()
@@ -74,7 +79,12 @@ class Policy implements InitialData
 
     public function getScopeId()
     {
-        return $this->scope->getId();
+        return $this->scope->getScope();
+    }
+
+    public function getScopeName()
+    {
+        return $this->scope->getName();
     }
 
     public function getSources()
