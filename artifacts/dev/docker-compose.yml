@@ -21,9 +21,10 @@ services:
     container_name: api.tuprogramaelectoral
     ports:
      - 80:80
-     - 9001:9000
     volumes_from:
      - codebase
+    extra_hosts:
+     - dockerhost:192.168.1.117
     environment:
      DATABASE_HOST: db.tuprogramaelectoral
      DATABASE_NAME: vspdb

@@ -3,7 +3,7 @@ version: '2'
 services:
   db:
     image: postgres:9.4
-    container_name: db.tuprogramaelectoral.test
+    container_name: db.tuprogramaelectoral
     environment:
      POSTGRES_USER: root
      POSTGRES_PASSWORD: admin
@@ -13,9 +13,9 @@ services:
     build:
       context: ../../
       dockerfile: artifacts/test/backend/Dockerfile
-    container_name: api.tuprogramaelectoral.test
+    container_name: api.tuprogramaelectoral
     environment:
-     DATABASE_HOST: db.tuprogramaelectoral.test
+     DATABASE_HOST: db.tuprogramaelectoral
      DATABASE_NAME: vspdb
      DATABASE_USER: root
      DATABASE_PASSWORD: admin
@@ -25,10 +25,10 @@ services:
     build:
       context: ../../
       dockerfile: artifacts/test/frontend/Dockerfile
-    container_name: tuprogramaelectoral.test
+    container_name: tuprogramaelectoral
 
   webtesting:
-    image: selenium/standalone-firefox-debug
-    container_name: webtesting.tuprogramaelectoral.test
+    image: selenium/standalone-firefox
+    container_name: webtesting.tuprogramaelectoral
     ports:
      - 5900:5900
