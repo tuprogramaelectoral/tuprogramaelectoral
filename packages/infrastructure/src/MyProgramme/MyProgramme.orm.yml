@@ -10,6 +10,8 @@ TPE\Domain\MyProgramme\MyProgramme:
   fields:
     policies:
       type: json_array
+    edition:
+      type: integer
     completed:
       type: boolean
     public:

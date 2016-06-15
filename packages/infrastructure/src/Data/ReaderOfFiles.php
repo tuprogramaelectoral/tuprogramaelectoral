@@ -15,7 +15,8 @@ use TPE\Domain\Party\Policy;
 
 class ReaderOfFiles implements Reader
 {
-    const CLASS_FIELD = 'TPE\Domain\Scope\Scope';
+    const CLASS_ELECTION = 'TPE\Domain\Election\Election';
+    const CLASS_SCOPE = 'TPE\Domain\Scope\Scope';
     const CLASS_PARTY = 'TPE\Domain\Party\Party';
     const CLASS_POLICY = 'TPE\Domain\Party\Policy';
     const CLASS_POLICY_CONTENT = 'PolicyContent';
@@ -32,7 +33,7 @@ class ReaderOfFiles implements Reader
     }
 
     /**
-     * @return InitialData[]
+     * @return []
      */
     public function read($class)
     {
@@ -54,14 +55,16 @@ class ReaderOfFiles implements Reader
     {
         try {
             switch ($class) {
-                case self::CLASS_FIELD:
-                    return (new Finder())->files()->in($this->path . '/scope/*/')->name('scope.json')->depth(0);
+                case self::CLASS_ELECTION:
+                    return (new Finder())->files()->in($this->path . '/*/')->name('election.json')->depth(0);
+                case self::CLASS_SCOPE:
+                    return (new Finder())->files()->in($this->path . '/*/scope/*/')->name('scope.json')->depth(0);
                 case self::CLASS_PARTY:
-                    return (new Finder())->files()->in($this->path . '/party/*/')->name('party.json')->depth(0);
+                    return (new Finder())->files()->in($this->path . '/*/party/*/')->name('party.json')->depth(0);
                 case self::CLASS_POLICY:
-                    return (new Finder())->files()->in($this->path . '/scope/*/policy/*/')->name('policy.json')->depth(0);
+                    return (new Finder())->files()->in($this->path . '/*/scope/*/policy/*/')->name('policy.json')->depth(0);
                 case self::CLASS_POLICY_CONTENT:
-                    return (new Finder())->files()->in($this->path . '/scope/*/policy/*/')->name('content.md')->depth(0);
+                    return (new Finder())->files()->in($this->path . '/*/scope/*/policy/*/')->name('content.md')->depth(0);
             };
         } catch (\InvalidArgumentException $exception) {
             return [];
@@ -73,12 +76,17 @@ class ReaderOfFiles implements Reader
     private function load($class, SplFileInfo $file)
     {
         switch ($class) {
-            case self::CLASS_FIELD:
+            case self::CLASS_ELECTION:
                 return $file->getContents();
             case self::CLASS_PARTY:
-                return $file->getContents();
+            case self::CLASS_SCOPE:
+                return [
+                    'edition' => $this->extractElectionEditionFromFilePath($file),
+                    'json' => $file->getContents()
+                ];
             case self::CLASS_POLICY:
                 return [
+                    'edition' => $this->extractElectionEditionFromFilePath($file),
                     'json' => $file->getContents(),
                     'content' => (new SplFileInfo(
                         $file->getPath() . 'content.md',
@@ -89,6 +97,14 @@ class ReaderOfFiles implements Reader
         };
 
         throw new \BadMethodCallException("Class {$class} it's not registered in the reader of files during instantiation");
+    }
+
+    private function extractElectionEditionFromFilePath(SplFileInfo $file)
+    {
+        $output = [];
+        preg_match('/\/(\d+)\//', $file->getPath(), $output);
+
+        return $output[1];
     }
 
     public static function writeTestFiles(array $files)

@@ -75,6 +75,12 @@ doctrine:
             default:
                 auto_mapping: false
                 mappings:
+                    election:
+                        mapping:    true
+                        type:       yml
+                        dir:        "%kernel.root_dir%/../vendor/infrastructure/src/Election"
+                        prefix:     TPE\Domain\Election
+                        is_bundle:  false
                     scope:
                         mapping:    true
                         type:       yml
@@ -122,12 +128,15 @@ jms_serializer:
             dir: "%kernel.cache_dir%/serializer"
         auto_detection: false
         directories:
-            ambito:
+            election:
+                namespace_prefix: "TPE\\Domain\\Election"
+                path: "%kernel.root_dir%/../vendor/infrastructure/src/Election"
+            scope:
                 namespace_prefix: "TPE\\Domain\\Scope"
                 path: "%kernel.root_dir%/../vendor/infrastructure/src/Scope"
-            partido:
+            party:
                 namespace_prefix: "TPE\\Domain\\Party"
                 path: "%kernel.root_dir%/../vendor/infrastructure/src/Party"
-            miprograma:
+            myProgramme:
                 namespace_prefix: "TPE\\Domain\\MyProgramme"
                 path: "%kernel.root_dir%/../vendor/infrastructure/src/MyProgramme"

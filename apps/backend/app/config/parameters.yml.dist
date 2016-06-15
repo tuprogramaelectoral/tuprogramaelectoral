@@ -18,4 +18,4 @@ parameters:
     debug_redirects:        false
     use_assetic_controller: true
 
-    cors_allow_origin: 'http://192.168.99.100:9000'
+    cors_allow_origin: 'http://tuprogramaelectoral.dev:8080'

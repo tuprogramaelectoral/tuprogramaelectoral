@@ -14,9 +14,8 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('policies', 'text', [
-                'constraints' => [new InterestsExist()]
-            ])
+            ->add('policies', 'text')
+            ->add('edition', 'text')
             ->add('completed', 'choice', [
                 'choices' => ['No', 'Yes'],
                 'choices_as_values' => true,
@@ -35,6 +34,7 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
         /** @var MyProgramme $data */
         $forms = iterator_to_array($forms);
         $forms['policies']->setData($data ? $data->getpolicies() : []);
+        $forms['edition']->setData($data ? $data->getEdition() : 1);
         $forms['completed']->setData($data ? (($data->isCompleted()) ? 'Yes' : 'No') : 'No');
         $forms['public']->setData($data ? (($data->isPublic()) ? 'Yes' : 'No') : 'No');
     }
@@ -44,6 +44,7 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
         /** @var MyProgramme $data */
         $forms = iterator_to_array($forms);
         $d['policies'] = $forms['policies']->getData();
+        $d['edition'] = $forms['edition']->getData();
         $d['completed'] = $forms['completed']->getData();
         $d['public'] = $forms['public']->getData();
 
@@ -51,6 +52,10 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
             foreach ($d['policies'] as $interest => $policiy) {
                 $data->selectPolicy($interest, $policiy);
             }
+        }
+
+        if (!empty($d['edition'])) {
+            $data->setEdition($d['edition']);
         }
 
         $data->setPublic(('Yes' === $d['public']) ? true : false);
@@ -61,7 +66,7 @@ class MyProgrammeType extends AbstractType implements DataMapperInterface
     {
         $resolver->setDefaults(array(
             'empty_data' => null,
-            'constraints' => [new MyProgrammeIsCompleted()]
+            'constraints' => [new MyProgrammeIsCompleted(), new InterestsExist()]
         ));
     }
 

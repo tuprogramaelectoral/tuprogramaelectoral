@@ -4,6 +4,7 @@ namespace TPE\Domain\Scope;
 
 use Assert\Assertion;
 use TPE\Domain\Data\InitialData;
+use TPE\Domain\Election\Election;
 use TPE\Domain\Party\Policy;
 
 
@@ -23,6 +24,11 @@ class Scope implements InitialData
     /**
      * @var string
      */
+    private $scope;
+
+    /**
+     * @var string
+     */
     private $name;
 
     /**
@@ -30,26 +36,35 @@ class Scope implements InitialData
      */
     private $policies = [];
 
+    /**
+     * @var Election
+     */
+    private $election;
+
 
     /**
+     * @param Election $election
      * @param string $name
      * @param Policy[] $policies
      */
-    public function __construct($name, $policies = null)
+    public function __construct(Election $election, $name, $policies = null)
     {
         \Assert\that($name)->string()->notEmpty();
 
-        $this->id = \slugifier\slugify($name);
         $this->name = $name;
+        $this->scope = \slugifier\slugify($name);
+        $this->id = $election->getId() . '_' . $this->scope;
         $this->policies = is_array($policies) ? $policies : [];
+        $this->election = $election;
     }
 
     /**
+     * @param Election $election
      * @param string $json
      * @param array $policies
      * @return Scope
      */
-    public static function createFromJson($json, array $policies = null)
+    public static function createFromJson(Election $election, $json, array $policies = null)
     {
         $data = json_decode($json, true);
 
@@ -58,7 +73,7 @@ class Scope implements InitialData
         }
 
         if (isset($data['name'])) {
-            return new Scope($data['name'], $policies);
+            return new Scope($election, $data['name'], $policies);
         }
 
         throw new \BadMethodCallException('Missing required attributes while creating Scope from ' . $json);
@@ -86,5 +101,21 @@ class Scope implements InitialData
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScope()
+    {
+        return $this->scope;
+    }
+
+    /**
+     * @return Election
+     */
+    public function getElection()
+    {
+        return $this->election;
     }
 }

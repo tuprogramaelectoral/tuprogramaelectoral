@@ -9,7 +9,7 @@ interface MyProgrammeRepository extends InitialDataRepository
 {
     public function findNotExpiredById($id);
 
-    public function interestsExist(array $interests);
+    public function interestsExist($edition, array $interests);
 
-    public function policiesExist(array $policies);
+    public function policiesExist($edition, array $policies);
 }

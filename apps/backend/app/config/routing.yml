@@ -2,17 +2,38 @@ app_health_check:
     path:      /
     defaults:  { _controller: AppBundle:Default:healthCheck }
 
+app_election_index:
+    path: /elections
+    methods: [GET]
+    defaults:
+        _controller: app.controller.election:indexAction
+        _sylius:
+            paginate: false
+            serialization_groups: [List]
+
+app_election_show:
+    path: /elections/{id}
+    methods: [GET]
+    defaults:
+        _controller: app.controller.election:showAction
+        _sylius:
+            paginate: false
+            serialization_groups: [Show]
+
 app_scope_index:
-    path: /scopes
+    path: /elections/{edition}/scopes
     methods: [GET]
     defaults:
         _controller: app.controller.scope:indexAction
         _sylius:
             paginate: false
             serialization_groups: [List]
+            repository:
+                method: findScopesByEdition
+                arguments: [$edition]
 
 app_scope_show:
-    path: /scopes/{id}
+    path: /elections/{edition}/scopes/{scope}
     methods: [GET]
     defaults:
         _controller: app.controller.scope:showAction
@@ -20,25 +41,31 @@ app_scope_show:
             paginate: false
             serialization_groups: [Show]
             repository:
-                method: findScopeWithPoliciesById
-                arguments: [$id]
+                method: findScopeWithPolicies
+                arguments: [$edition, $scope]
 
 app_policy_show:
-    path: /policies/{id}
+    path: /policies/election/{edition}/scope/{scope}/party/{party}
     methods: [GET]
     defaults:
         _controller: app.controller.policy:showAction
         _sylius:
             paginate: false
             serialization_groups: [List]
+            repository:
+                method: findPolicyByEditionScopeAndParty
+                arguments: [$edition, $scope, $party]
 
 app_party_index:
-    path: /parties
+    path: /elections/{edition}/parties
     methods: [GET]
     defaults:
         _controller: app.controller.party:indexAction
         _sylius:
             paginate: false
+            repository:
+                method: findPartiesByEdition
+                arguments: [$edition]
 
 app_myprogramme_create:
     path: /myprogrammes

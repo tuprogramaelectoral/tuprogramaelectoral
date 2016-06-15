@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver;
 use Doctrine\ORM\Mapping\Driver\YamlDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
+use TPE\Domain\Election\Election;
 use TPE\Domain\Scope\Scope;
 use TPE\Infrastructure\Data\Loader;
 use TPE\Infrastructure\Scope\ScopeDBRepository;
@@ -18,7 +19,10 @@ class ScopeDBRepositoryTest extends DB_TestCase
     {
         $this->loadFiles([]);
 
-        $expected = New Scope('Test Scope');
+        $expected = New Scope(
+            new Election(1, "1977-06-15"),
+            'Test Scope'
+        );
 
         $this->getRepository()->save($expected);
 
@@ -29,17 +33,18 @@ class ScopeDBRepositoryTest extends DB_TestCase
     public function testShouldFindScopeWithPoliciesById()
     {
         $this->loadFiles([
-            'scope/sanidad/scope.json' => '{"name": "Sanidad"}',
-            'party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
-            'scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
-            'scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/sanidad/scope.json' => '{"name": "Sanidad"}',
+            '1/party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
+            '1/scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
+            '1/scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
         ]);
 
-        $scope = $this->getRepository()->findScopeWithPoliciesById('sanidad');
+        $scope = $this->getRepository()->findScopeWithPolicies(1, 'sanidad');
 
         $this->assertCount(1, $scope->getPolicies());
-        $this->assertEquals('partido-ficticio', $scope->getPolicies()[0]->getParty()->getId());
-        $this->assertEquals('sanidad', $scope->getPolicies()[0]->getScope()->getId());
+        $this->assertEquals('partido-ficticio', $scope->getPolicies()[0]->getParty()->getParty());
+        $this->assertEquals('sanidad', $scope->getPolicies()[0]->getScope()->getScope());
     }
 
     /**
@@ -47,6 +52,6 @@ class ScopeDBRepositoryTest extends DB_TestCase
      */
     private function getRepository()
     {
-        return $this->repos[Loader::CLASS_FIELD];
+        return $this->repos[Loader::CLASS_SCOPE];
     }
 }

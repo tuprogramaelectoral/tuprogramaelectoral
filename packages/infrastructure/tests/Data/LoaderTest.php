@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
+use TPE\Domain\Election\Election;
 use TPE\Domain\Scope\Scope;
 use TPE\Domain\Party\Party;
 use TPE\Domain\Party\Policy;
@@ -17,14 +18,16 @@ class LoaderTest extends DB_TestCase
     public function testShouldReadDataFilesAndInsertTheDatabaseWithThem()
     {
         $this->loadFiles([
-            'scope/sanidad/scope.json' => '{"name": "Sanidad"}',
-            'party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
-            'scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
-            'scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/sanidad/scope.json' => '{"name": "Sanidad"}',
+            '1/party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
+            '1/scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
+            '1/scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
         ]);
 
-        $scope = Scope::createFromJson('{"name": "Sanidad"}');
-        $party = Party::createFromJson('{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}');
+        $election = Election::createFromJson('{"edition": "1", "date": "1977-06-15"}');
+        $scope = Scope::createFromJson($election, '{"name": "Sanidad"}');
+        $party = Party::createFromJson($election, '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}');
         $policy = new Policy(
             $party,
             $scope,
@@ -32,9 +35,13 @@ class LoaderTest extends DB_TestCase
             '## sanidad universal y gratuita'
         );
 
-        $scopes = $this->repos[Loader::CLASS_FIELD]->findAll();
+        $elections = $this->repos[Loader::CLASS_ELECTION]->findAll();
+        $scopes = $this->repos[Loader::CLASS_SCOPE]->findAll();
         $parties = $this->repos[Loader::CLASS_PARTY]->findAll();
-        $policies = $this->repos[Loader::CLASS_FIELD]->findOneBy(['id' => 'sanidad'])->getPolicies();
+        $policies = $this->repos[Loader::CLASS_SCOPE]->findScopeWithPolicies(1, 'sanidad')->getPolicies();
+
+        $this->assertCount(1, $elections);
+        $this->assertEquals($election, $elections[0]);
 
         $this->assertCount(1, $scopes);
         $this->compareScopes($scope, $scopes[0]);
@@ -78,7 +85,8 @@ class LoaderTest extends DB_TestCase
     public function testShouldThrowAnExceptionWhenContentIsNonValidJson()
     {
         $this->loadFiles([
-            'scope/administracion-publica/scope.json' => 'NonValidJson',
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/administracion-publica/scope.json' => 'NonValidJson',
         ]);
     }
 
@@ -88,7 +96,8 @@ class LoaderTest extends DB_TestCase
     public function testShouldThrowAnExceptionWhenJsonIsIncomplete()
     {
         $this->loadFiles([
-            'scope/administracion-publica/scope.json' => '{}',
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/administracion-publica/scope.json' => '{}',
         ]);
     }
 
@@ -96,20 +105,22 @@ class LoaderTest extends DB_TestCase
     {
         // Initial Data
         $this->loadFiles([
-            'scope/sanidad/scope.json' => '{"name": "Sanidad"}',
-            'party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
-            'scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
-            'scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
+            '1/election.json' => '{"edition": "1", "date": "1977-06-15"}',
+            '1/scope/sanidad/scope.json' => '{"name": "Sanidad"}',
+            '1/party/partido-ficticio/party.json' => '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}',
+            '1/scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/"]}',
+            '1/scope/sanidad/policy/partido-ficticio/content.md' => '## sanidad universal y gratuita'
         ]);
 
         // Update
         $this->loadFiles([
-            'scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/sanidad nuevo apartado sobre sanidad en el programa electoral del partido"]}',
-            'scope/sanidad/policy/partido-ficticio/content.md' => '## Nueva política'
+            '1/scope/sanidad/policy/partido-ficticio/policy.json' => '{"party": "partido-ficticio", "scope": "sanidad", "sources": ["http://partido-ficticio.es/programa/sanidad nuevo apartado sobre sanidad en el programa electoral del partido"]}',
+            '1/scope/sanidad/policy/partido-ficticio/content.md' => '## Nueva política'
         ], false);
 
-        $scope = Scope::createFromJson('{"name": "Sanidad"}');
-        $party = Party::createFromJson('{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}');
+        $election = Election::createFromJson('{"edition": "1", "date": "1977-06-15"}');
+        $scope = Scope::createFromJson($election, '{"name": "Sanidad"}');
+        $party = Party::createFromJson($election, '{"name": "Partido Ficticio", "acronym": "PF", "programme": "http://partido-ficticio.es"}');
         $policy = new Policy(
             $party,
             $scope,
@@ -117,7 +128,7 @@ class LoaderTest extends DB_TestCase
             '## Nueva política'
         );
 
-        $policies = $this->repos[Loader::CLASS_FIELD]->findOneBy(['id' => 'sanidad'])->getPolicies();
+        $policies = $this->repos[Loader::CLASS_SCOPE]->findScopeWithPolicies(1, 'sanidad')->getPolicies();
 
         $this->assertCount(1, $policies);
         $this->comparePolicies($policy, $policies[0]);

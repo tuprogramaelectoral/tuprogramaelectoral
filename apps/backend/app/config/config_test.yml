@@ -2,9 +2,7 @@ imports:
     - { resource: config_dev.yml }
 
 parameters:
-    cors_allow_origin: 'http://tuprogramaelectoral.test:9000'
-    database_host: db.tuprogramaelectoral.test
-    database_name: vspdb
+    cors_allow_origin: 'http://tuprogramaelectoral:9000'
 
 framework:
     test: ~

@@ -22,8 +22,12 @@ class BackendPageObject
         $this->parameters = $parameters;
     }
 
-    public function visit($path)
+    public function visit($path, $edition = null)
     {
+        if ($edition !== null) {
+            $path = 'elections/' . $edition . '/' . $path;
+        }
+
         $session = $this->mink->getSession();
 
         $session->setRequestHeader('Accept', 'application/json');
@@ -32,9 +36,9 @@ class BackendPageObject
         return $this->getResponse();
     }
 
-    public function visitScope($scope)
+    public function visitScope($scope, $edition)
     {
-        return $this->visit("scopes/{$scope}");
+        return $this->visit("scopes/{$scope}", $edition);
     }
 
     private function getResponse()
@@ -42,27 +46,27 @@ class BackendPageObject
         return json_decode($this->mink->getSession()->getPage()->getContent(), true);
     }
 
-    public function selectInterests($interests)
+    public function selectInterests($edition, $interests)
     {
-        $policies = [];
+        $data = ['edition' => $edition];
         foreach ($interests as $interest) {
-            $policies['policies'][$interest] = null;
+            $data['policies'][$interest] = null;
         }
 
-        return $this->request('POST', 'myprogrammes', $policies);
+        return $this->request('POST', '/myprogrammes', $data);
     }
 
-    public function selectLinkedPolicy($myProgrammeId, $scope, $policy)
+    public function selectLinkedPolicy($myProgrammeId, $edition, $scope, $party)
     {
         return $this->updateMyProgramme(
             $myProgrammeId,
-            ["policies" => [$scope => $policy]]
+            ["policies" => [$scope => $party], "edition" => $edition]
         );
     }
 
     public function myProgrammeExists($myProgrammeId)
     {
-        $response = $this->visit("myprogrammes/{$myProgrammeId}");
+        $response = $this->visit("/myprogrammes/{$myProgrammeId}");
         if (isset($response['error']['code']) && $response['error']['code'] == '404') {
             return false;
         }

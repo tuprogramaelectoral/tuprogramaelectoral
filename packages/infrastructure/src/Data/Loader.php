@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Tools\SchemaTool;
+use TPE\Domain\Election\Election;
 use TPE\Domain\Scope\Scope;
 use TPE\Domain\Data\Reader;
 use TPE\Domain\Party\Party;
@@ -14,7 +15,8 @@ use TPE\Domain\Data\InitialData;
 
 class Loader
 {
-    const CLASS_FIELD = 'TPE\Domain\Scope\Scope';
+    const CLASS_ELECTION = 'TPE\Domain\Election\Election';
+    const CLASS_SCOPE = 'TPE\Domain\Scope\Scope';
     const CLASS_PARTY = 'TPE\Domain\Party\Party';
     const CLASS_POLICY = 'TPE\Domain\Party\Policy';
     const CLASS_MY_PROGRAMME = 'TPE\Domain\MyProgramme\MyProgramme';
@@ -50,7 +52,8 @@ class Loader
         $this->em = $em;
 
         $this->metadata = [
-            self::CLASS_FIELD => $this->em->getClassMetadata(self::CLASS_FIELD),
+            self::CLASS_ELECTION => $this->em->getClassMetadata(self::CLASS_ELECTION),
+            self::CLASS_SCOPE => $this->em->getClassMetadata(self::CLASS_SCOPE),
             self::CLASS_PARTY => $this->em->getClassMetadata(self::CLASS_PARTY),
             self::CLASS_POLICY => $this->em->getClassMetadata(self::CLASS_POLICY),
             self::CLASS_MY_PROGRAMME => $this->em->getClassMetadata(self::CLASS_MY_PROGRAMME),
@@ -66,7 +69,8 @@ class Loader
     {
         $this->reader = $reader;
 
-        $this->loadDataFor(self::CLASS_FIELD);
+        $this->loadDataFor(self::CLASS_ELECTION);
+        $this->loadDataFor(self::CLASS_SCOPE);
         $this->loadDataFor(self::CLASS_PARTY);
         $this->loadDataFor(self::CLASS_POLICY);
     }
@@ -164,19 +168,31 @@ class Loader
     private function createObject($class, $data)
     {
         switch ($class) {
-            case self::CLASS_FIELD:
-                $scope = Scope::createFromJson($data);
-                $this->objects[self::CLASS_FIELD][$scope->getId()] = $scope;
+            case self::CLASS_ELECTION:
+                $election = Election::createFromJson($data);
+                $this->objects[self::CLASS_ELECTION][$election->getEdition()] = $election;
+                return $election;
+            case self::CLASS_SCOPE:
+                $election = $this->getObject(self::CLASS_ELECTION, $data['edition']);
+                $scope = Scope::createFromJson(
+                    $election,
+                    $data['json']
+                );
+                $this->objects[self::CLASS_SCOPE][$scope->getScope()][$election->getId()] = $scope;
                 return $scope;
             case self::CLASS_PARTY:
-                $party = Party::createFromJson($data);
-                $this->objects[self::CLASS_PARTY][$party->getId()] = $party;
+                $election = $this->getObject(self::CLASS_ELECTION, $data['edition']);
+                $party = Party::createFromJson(
+                    $election,
+                    $data['json']
+                );
+                $this->objects[self::CLASS_PARTY][$party->getParty()][$election->getId()] = $party;
                 return $party;
             case self::CLASS_POLICY:
                 $json = json_decode($data['json'], true);
                 return new Policy(
-                    $this->getObject(self::CLASS_PARTY, $json['party']),
-                    $this->getObject(self::CLASS_FIELD, $json['scope']),
+                    $this->getObject(self::CLASS_PARTY, $json['party'], $data['edition']),
+                    $this->getObject(self::CLASS_SCOPE, $json['scope'], $data['edition']),
                     $json['sources'],
                     $data['content']
                 );
@@ -185,9 +201,18 @@ class Loader
         throw new \BadMethodCallException("the class {$class} is not registered in the Loader object creation");
     }
 
-    private function getObject($class, $id)
+    /**
+     * @param string $class
+     * @param string $id
+     * @param null $edition
+     * @return InitialData
+     * @throws \Exception
+     */
+    private function getObject($class, $id, $edition = null)
     {
-        if (isset($this->objects[$class][$id])) {
+        if ($edition !== null && isset($this->objects[$class][$id][$edition])) {
+            return $this->objects[$class][$id][$edition];
+        } elseif (isset($this->objects[$class][$id])) {
             return $this->objects[$class][$id];
         }
 

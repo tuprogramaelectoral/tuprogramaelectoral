@@ -1,7 +1,7 @@
 TPE\Domain\Scope\Scope:
     exclusion_policy: ALL
     properties:
-        id:
+        scope:
             expose: true
             type: string
             groups: [List, Show]

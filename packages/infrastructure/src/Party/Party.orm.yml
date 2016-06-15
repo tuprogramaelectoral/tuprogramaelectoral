@@ -2,14 +2,17 @@ TPE\Domain\Party\Party:
   type: entity
   table: tpe_party
   indexes:
-    party_id_idx:
-      columns: [ id ]
+    party_election_id_idx:
+      columns: [ election, id ]
   id:
     id:
       type: string
       length: 255
   fields:
     name:
+      type: string
+      length: 255
+    party:
       type: string
       length: 255
     acronym:
@@ -23,3 +26,9 @@ TPE\Domain\Party\Party:
     policies:
       targetEntity: TPE\Domain\Party\Policy
       mappedBy: party
+  manyToOne:
+    election:
+      targetEntity: TPE\Domain\Election\Election
+      joinColumn:
+        name: election
+        referencedColumnName: id

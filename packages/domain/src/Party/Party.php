@@ -4,6 +4,7 @@ namespace TPE\Domain\Party;
 
 use Assert\Assertion;
 use TPE\Domain\Data\InitialData;
+use TPE\Domain\Election\Election;
 
 
 class Party implements InitialData
@@ -12,6 +13,11 @@ class Party implements InitialData
      * @var string
      */
     private $id;
+
+    /**
+     * @var string
+     */
+    private $party;
 
     /**
      * @var string
@@ -33,8 +39,13 @@ class Party implements InitialData
      */
     private $policies;
 
+    /**
+     * @var Election
+     */
+    private $election;
 
-    public function __construct($name, $acronym, $programmeUrl = null)
+
+    public function __construct(Election $election, $name, $acronym, $programmeUrl = null)
     {
         \Assert\lazy()
             ->that($name, 'name')->string()->notEmpty()
@@ -42,10 +53,12 @@ class Party implements InitialData
             ->verifyNow();
         Assertion::nullOrUrl($programmeUrl, 'programmeUrl is not a valid URL');
 
-        $this->id = \slugifier\slugify($name);
         $this->name = $name;
+        $this->party = \slugifier\slugify($name);
+        $this->id = $election->getId() . '_' . $this->party;
         $this->acronym = $acronym;
         $this->programmeUrl = $programmeUrl;
+        $this->election = $election;
     }
 
     /**
@@ -62,6 +75,14 @@ class Party implements InitialData
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParty()
+    {
+        return $this->party;
     }
 
     /**
@@ -89,10 +110,19 @@ class Party implements InitialData
     }
 
     /**
+     * @return Election
+     */
+    public function getElection()
+    {
+        return $this->election;
+    }
+
+    /**
+     * @param Election $election
      * @param string $json
      * @return Party
      */
-    public static function createFromJson($json)
+    public static function createFromJson(Election $election, $json)
     {
         $data = json_decode($json, true);
 
@@ -102,6 +132,7 @@ class Party implements InitialData
 
         if (isset($data['name']) && isset($data['acronym'])) {
             return new Party(
+                $election,
                 $data['name'],
                 $data['acronym'],
                 isset($data['programmeUrl']) ? $data['programmeUrl'] : null

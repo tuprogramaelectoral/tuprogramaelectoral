@@ -1,21 +1,9 @@
 TPE\Domain\Party\Policy:
     exclusion_policy: ALL
     properties:
-        id:
-            expose: true
-            type: string
-            groups: [List, Show]
         sources:
             expose: true
             type: array
-            groups: [List, Show]
-        party:
-            expose: true
-            type: TPE\Domain\Party\Party
-            groups: [List, Show]
-        scope:
-            expose: true
-            type: TPE\Domain\Scope\Scope
             groups: [List, Show]
         content:
             expose: true
@@ -25,3 +13,20 @@ TPE\Domain\Party\Policy:
             read_only: true
             accessor:
                 getter: getContentInHtml
+    virtual_properties:
+        getPartyId:
+            expose: true
+            type: string
+            groups: [List, Show]
+        getPartyName:
+            expose: true
+            type: string
+            groups: [List, Show]
+        getScopeId:
+            expose: true
+            type: string
+            groups: [List, Show]
+        getScopeName:
+            expose: true
+            type: string
+            groups: [List, Show]

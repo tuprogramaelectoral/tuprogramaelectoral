@@ -4,7 +4,9 @@ namespace TPE\Infrastructure\MyProgramme;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use TPE\Domain\MyProgramme\MyProgramme;
 use TPE\Domain\MyProgramme\MyProgrammeRepository;
+use TPE\Infrastructure\Election\ElectionDBRepository;
 
 
 class InterestsExistValidator extends ConstraintValidator
@@ -12,43 +14,27 @@ class InterestsExistValidator extends ConstraintValidator
     /**
      * @var MyProgrammeRepository
      */
-    private $repository;
+    private $myProgrammeRepository;
 
 
-    public function __construct(MyProgrammeRepository $repository)
+    public function __construct(MyProgrammeRepository $myProgrammeRepository)
     {
-        $this->repository = $repository;
+        $this->myProgrammeRepository = $myProgrammeRepository;
     }
 
-    public function validate($values, Constraint $constraint)
+    public function validate($value, Constraint $constraint)
     {
-        /** @var InterestsExist $constraint */
-        if (is_array($values)) {
-            $interests = [];
-            $policies = [];
-            foreach ($values as $interest => $policy) {
-                if (!empty($interest)) {
-                    $interests[] = $interest;
-                }
-                if (!empty($policy)) {
-                    $policies[] = $policy;
-                }
-            }
+        /** @var MyProgramme $value */
 
-            if (is_array($interests) && !$this->repository->interestsExist($interests)) {
-                $this->context
-                    ->buildViolation($constraint->interestsMissing)
-                    ->addViolation();
-            }
-
-            if (is_array($policies) && !$this->repository->policiesExist($policies)) {
-                $this->context
-                    ->buildViolation($constraint->policiesMissing)
-                    ->addViolation();
-            }
-        } else {
+        if (!$this->myProgrammeRepository->interestsExist($value->getEdition(), $value->getInterests())) {
             $this->context
-                ->buildViolation($constraint->notArray)
+                ->buildViolation($constraint->interestsMissing)
+                ->addViolation();
+        }
+
+        if (!$this->myProgrammeRepository->policiesExist($value->getEdition(), $value->getPolicies())) {
+            $this->context
+                ->buildViolation($constraint->policiesMissing)
                 ->addViolation();
         }
     }
