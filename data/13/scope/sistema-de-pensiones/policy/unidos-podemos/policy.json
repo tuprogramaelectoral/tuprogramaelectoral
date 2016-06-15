@@ -2,5 +2,11 @@
   "party": "unidos-podemos",
   "scope": "sistema-de-pensiones",
   "sources": [
+    "http://lasonrisadeunpais.es/programa/?medida=108",
+    "http://lasonrisadeunpais.es/programa/?medida=109",
+    "http://lasonrisadeunpais.es/programa/?medida=110",
+    "http://lasonrisadeunpais.es/programa/?medida=111",
+    "http://lasonrisadeunpais.es/programa/?medida=112",
+    "http://lasonrisadeunpais.es/programa/?medida=113"
   ]
 }
