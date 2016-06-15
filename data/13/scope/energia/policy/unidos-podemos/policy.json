@@ -2,5 +2,17 @@
   "party": "unidos-podemos",
   "scope": "energia",
   "sources": [
+    "http://lasonrisadeunpais.es/programa/?medida=1",
+    "http://lasonrisadeunpais.es/programa/?medida=2",
+    "http://lasonrisadeunpais.es/programa/?medida=3",
+    "http://lasonrisadeunpais.es/programa/?medida=4",
+    "http://lasonrisadeunpais.es/programa/?medida=5",
+    "http://lasonrisadeunpais.es/programa/?medida=6",
+    "http://lasonrisadeunpais.es/programa/?medida=7",
+    "http://lasonrisadeunpais.es/programa/?medida=8",
+    "http://lasonrisadeunpais.es/programa/?medida=9",
+    "http://lasonrisadeunpais.es/programa/?medida=10",
+    "http://lasonrisadeunpais.es/programa/?medida=11",
+    "http://lasonrisadeunpais.es/programa/?medida=12"
   ]
 }

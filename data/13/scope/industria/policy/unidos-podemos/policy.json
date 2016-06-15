@@ -2,5 +2,14 @@
   "party": "unidos-podemos",
   "scope": "industria",
   "sources": [
+    "http://lasonrisadeunpais.es/programa/?medida=17",
+    "http://lasonrisadeunpais.es/programa/?medida=18",
+    "http://lasonrisadeunpais.es/programa/?medida=19",
+    "http://lasonrisadeunpais.es/programa/?medida=20",
+    "http://lasonrisadeunpais.es/programa/?medida=21",
+    "http://lasonrisadeunpais.es/programa/?medida=22",
+    "http://lasonrisadeunpais.es/programa/?medida=23",
+    "http://lasonrisadeunpais.es/programa/?medida=24",
+    "http://lasonrisadeunpais.es/programa/?medida=25"
   ]
 }
