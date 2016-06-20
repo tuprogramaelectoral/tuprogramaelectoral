@@ -17,9 +17,6 @@ Universalizaremos el derecho a que los servicios públicos de atención a la dep
 
 
 
-### Eliminación de todos los incentivos al empleo a tiempo parcial y avance hacia la progresiva implantación de una jornada laboral máxima de 35 horas semanales, con cómputo semanal
-
-Eliminaremos todos los incentivos al empleo a tiempo parcial y avanzaremos hacia la progresiva implantación de una jornada laboral máxima de 35 horas semanales, con cómputo semanal. Con estas medidas trataremos de evitar, por un lado, la dualidad entre jornadas interminables para algunas personas (sobre todo hombres), unas jornadas que además son incompatibles con una adecuada planificación de los cuidados y, por otro, el empleo precario a tiempo parcial, el subempleo, las interrupciones que impiden un reingreso laboral en buenas condiciones o la pérdida de derechos sociales para otras (sobre todo mujeres).
 
 
 

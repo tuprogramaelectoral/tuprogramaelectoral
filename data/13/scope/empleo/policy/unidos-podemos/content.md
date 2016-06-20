@@ -68,21 +68,6 @@ Del mismo modo, impulsaremos legalmente los mecanismos de flexibilidad interna (
 
 
 
-### Hacia la igualdad de género en el mercado de trabajo: reforma del sistema de permisos por nacimiento o adopción
-
-Caminaremos hacia la igualdad de género en el mercado de trabajo con la reforma del sistema de permisos por nacimiento o adopción, y con el establecimiento de un calendario que aumente el actual permiso de paternidad hasta igualarlo con el de maternidad. Para garantizar la igualdad efectiva de derechos, el permiso debe ser:
-
-- Igual para cada persona progenitora e intransferible, como todos los demás derechos laborales y sociales.
-- Pagado al 100 % del salario.
-- Con igual protección del puesto de trabajo durante el ejercicio de los derechos de maternidad y paternidad.
-
-
-Incrementaremos, además, las atribuciones de la inspección de trabajo y la Seguridad Social en materia de prohibición de las discriminaciones en la contratación, en la promoción y en la retribución. Estableceremos una comisión estatal de seguimiento y control de los planes de igualdad en las empresas, con capacidad de propuesta para eliminar las discriminaciones, así como una comisión estatal de seguimiento de la lucha contra el acoso laboral.
-
-Abordaremos, asimismo, el objetivo específico de la eliminación de la brecha salarial de género, que actualmente alcanza el 19 % en nuestro país.
-
-
-
 ### Incremento de la participación de los trabajadores en la gestión de empresas
 
 Impulsaremos una mayor participación de los trabajadores en la gestión de las empresas de más de cien empleados a través del fortalecimiento de los procedimientos de información y consulta establecidos en el Estatuto de los Trabajadores, y mediante la implantación de un sistema similar a los consejos de vigilancia establecidos en Alemania. Impulsaremos, además, una ley de participación financiera de los trabajadores en la empresa que, con carácter voluntario por parte de las empresas, permita incorporar algunas de las mejores experiencias de participación de los trabajadores que hay en varios países europeos.
