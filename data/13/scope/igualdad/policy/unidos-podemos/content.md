@@ -1,3 +1,17 @@
+### Hacia la igualdad de género en el mercado de trabajo: reforma del sistema de permisos por nacimiento o adopción
+
+Caminaremos hacia la igualdad de género en el mercado de trabajo con la reforma del sistema de permisos por nacimiento o adopción, y con el establecimiento de un calendario que aumente el actual permiso de paternidad hasta igualarlo con el de maternidad. Para garantizar la igualdad efectiva de derechos, el permiso debe ser:
+
+- Igual para cada persona progenitora e intransferible, como todos los demás derechos laborales y sociales.
+- Pagado al 100 % del salario.
+- Con igual protección del puesto de trabajo durante el ejercicio de los derechos de maternidad y paternidad.
+
+
+Incrementaremos, además, las atribuciones de la inspección de trabajo y la Seguridad Social en materia de prohibición de las discriminaciones en la contratación, en la promoción y en la retribución. Estableceremos una comisión estatal de seguimiento y control de los planes de igualdad en las empresas, con capacidad de propuesta para eliminar las discriminaciones, así como una comisión estatal de seguimiento de la lucha contra el acoso laboral.
+
+Abordaremos, asimismo, el objetivo específico de la eliminación de la brecha salarial de género, que actualmente alcanza el 19 % en nuestro país.
+
+
 
 ### Lucha contra la brecha salarial de género
 
@@ -190,6 +204,4 @@ Pondremos en marcha medidas que garanticen la protección de las familias de mad
 - Crearemos una prestación de maternidad no contributiva para las madres sin recursos que se encuentren en activo con demanda de empleo.
 - Garantizaremos la protección de los niños y las niñas frente a los desahucios y desalojos.
 - Consideraremos la unidad familiar monoparental a partir de un hijo como una circunstancia familiar de especial vulnerabilidad. Por ello, incrementaremos su protección frente a los desahucios; les facilitaremos la posibilidad de que puedan reestructurar su deuda hipotecaria prioritariamente, y ampliaremos la protección de los niños vulnerables en términos de realojo, para asegurarles una alternativa habitacional digna antes de proceder al desalojo.
-
-
 
