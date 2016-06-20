@@ -2,5 +2,13 @@
   "party": "unidos-podemos",
   "scope": "deporte",
   "sources": [
+    "http://lasonrisadeunpais.es/programa/?medida=161",
+    "http://lasonrisadeunpais.es/programa/?medida=162",
+    "http://lasonrisadeunpais.es/programa/?medida=163",
+    "http://lasonrisadeunpais.es/programa/?medida=164",
+    "http://lasonrisadeunpais.es/programa/?medida=165",
+    "http://lasonrisadeunpais.es/programa/?medida=166",
+    "http://lasonrisadeunpais.es/programa/?medida=167",
+    "http://lasonrisadeunpais.es/programa/?medida=168"
   ]
 }

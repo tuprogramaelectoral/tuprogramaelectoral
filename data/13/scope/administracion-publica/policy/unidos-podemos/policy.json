@@ -2,5 +2,12 @@
   "party": "unidos-podemos",
   "scope": "administracion-publica",
   "sources": [
+    "http://lasonrisadeunpais.es/programa/?medida=234",
+    "http://lasonrisadeunpais.es/programa/?medida=236",
+    "http://lasonrisadeunpais.es/programa/?medida=248",
+    "http://lasonrisadeunpais.es/programa/?medida=265",
+    "http://lasonrisadeunpais.es/programa/?medida=266",
+    "http://lasonrisadeunpais.es/programa/?medida=267",
+    "http://lasonrisadeunpais.es/programa/?medida=268"
   ]
 }
