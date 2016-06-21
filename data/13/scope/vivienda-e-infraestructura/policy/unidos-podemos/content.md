@@ -144,16 +144,6 @@ Impulsaremos el transporte de mercancías por ferrocarril como alternativa al tr
 Transformaremos la red viaria de AVE, tras los pertinentes análisis y estudios técnicos, y convertiremos algunos de sus tramos en líneas de menor velocidad que tengan una mayor frecuencia de paso y un mayor número de paradas intermedias entre los recorridos. Igualmente, garantizaremos un despliegue que no sea exclusivamente radial, con el fin de lograr un mayor acceso ciudadano al ferrocarril y vertebrar de una manera más justa y equilibrada la movilidad dentro de nuestro territorio.
 
 
-
-### Objetivo CERO en accidentes de tráfico
-
-Minimizaremos los riesgos de accidente en la red viaria adecuando la señalización e información, las condiciones y el estado de las vías. En todo caso, analizaremos en su conjunto los tres factores que influyen en los accidentes: la peligrosidad de la vía, las características del automóvil y el conductor o la conductora, a fin de diseñar actuaciones que reduzcan los riesgos de accidente.
-
-Asimismo, eliminaremos de forma progresiva los llamados «puntos negros» o «tramos negros», para lo cual en un primer momento los señalizaremos y, en un futuro, procederemos a su eliminación gradual.
-
-
-
-
 ### Inembargabilidad de la primera y única vivienda
 
 Promoveremos una declaración de inembargabilidad e inejecutabilidad de la primera y única vivienda, de ocupación permanente. Todo inmueble destinado a ser vivienda única y de ocupación permanente se declarará como un bien inembargable e inejecutable, salvo en caso de renuncia expresa del titular.

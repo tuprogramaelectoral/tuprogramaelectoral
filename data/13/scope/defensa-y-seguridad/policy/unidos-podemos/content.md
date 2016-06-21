@@ -46,6 +46,13 @@ Proponemos la unificación de las bases de datos de la Guardia Civil y de la Pol
 Modificaremos los actuales procesos de ascenso en las Fuerzas de Seguridad del Estado para que se basen exclusivamente en pruebas objetivas y mensurables.
 
 
+### Objetivo CERO en accidentes de tráfico
+
+Minimizaremos los riesgos de accidente en la red viaria adecuando la señalización e información, las condiciones y el estado de las vías. En todo caso, analizaremos en su conjunto los tres factores que influyen en los accidentes: la peligrosidad de la vía, las características del automóvil y el conductor o la conductora, a fin de diseñar actuaciones que reduzcan los riesgos de accidente.
+
+Asimismo, eliminaremos de forma progresiva los llamados «puntos negros» o «tramos negros», para lo cual en un primer momento los señalizaremos y, en un futuro, procederemos a su eliminación gradual.
+
+
 ### Justicia independiente para los militares
 
 Reformaremos la Ley Orgánica del Poder Judicial para crear órganos especializados en materias disciplinarias y penales militares, servidos por jueces y magistrados con la formación adecuada e integrados en los órdenes jurisdiccionales contencioso-administrativo y penal. Y suprimiremos la Sala V del Tribunal Supremo de lo Militar por razones de economía, independencia y transparencia. La actual configuración de la justicia militar no garantiza su plena independencia del mando militar.
