@@ -276,7 +276,7 @@ de servicios básicos en el medio rural y las políticas de creación de empleo 
 ayudas de Reindus por despoblación en las mejores condiciones que permita la
 normativa de fondos europeos.
 
-Seprocederáacatalogarenelterritorioespañolaquéllaszonasqueseconsideren
+Se procederá a catalogar en el territorio español aquéllas zonas que se consideren
 prioritarias a efectos de lucha contra la despoblación y éxodo juvenil. En esta
 línea impulsaremos la creación de una Zona de Inversión Territorial Integrada
 (ITI) que incluya las provincias de Soria, Cuenca y Teruel, dando continuidad
