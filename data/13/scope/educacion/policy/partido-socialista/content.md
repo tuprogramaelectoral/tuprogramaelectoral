@@ -159,7 +159,7 @@ personas con necesidades especiales de este tipo.
 Promover una evaluación sistemática y global de la educación. El sistema
 educativo, tanto en su totalidad como en sus subsistemas o componentes, será
 objeto de evaluación. En el sistema educativo no deben ser evaluado solo el
-alumnadosinotambiénelprofesorado,loscentros,elcurrículumylaplanificación
+alumnado sino también el profesorado, los centros, el currículum y la planificación
 y gestión de los recursos que son responsabilidad de las Administraciones
 educativas, tanto del Estado como de las Comunidades Autónomas.
 
