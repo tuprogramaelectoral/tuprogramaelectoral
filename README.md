@@ -54,3 +54,18 @@ tpe-compose run frontend install-app
 tpe-compose build
 tpe-compose up -d
 ```
+
+## Deploy to production
+
+Backend
+```shell
+docker build --file artifacts/prod/backend/Dockerfile --tag aleherse/tuprogramaelectoral:backend-prod .
+docker push aleherse/tuprogramaelectoral:backend-prod
+```
+
+Frontend
+```shell
+docker exec -t tuprogramaelectoral build-app
+cd apps/frontend/dist
+aws s3 cp . s3://tuprogramaelectoral.es --recursive
+```
