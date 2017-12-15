@@ -1,11 +1,11 @@
 FROM ubuntu:16.04
 
 RUN apt-get -yqq update && \
+    apt-get -yqq install vim curl apache2 git locales \
+    php php-cli php-pgsql php-sqlite3 php-intl php-mcrypt php-apcu php-curl && \
     echo "Europe/Madrid" > /etc/timezone && \
     ln -s -f /usr/share/zoneinfo/Europe/Madrid /etc/localtime && \
     locale-gen es_ES.UTF-8 && \
-    apt-get -yqq install vim curl apache2 git \
-    php5 php5-cli php5-pgsql php5-sqlite php5-intl php5-mcrypt php5-apcu php5-curl && \
     a2enmod rewrite vhost_alias headers expires filter && \
     rm -fr /var/www/html
 
