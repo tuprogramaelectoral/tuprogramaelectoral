@@ -1,4 +1,4 @@
-FROM ubuntu:15.10
+FROM ubuntu:16.04
 
 RUN apt-get -yqq update && \
     echo "Europe/Madrid" > /etc/timezone && \
